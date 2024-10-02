@@ -15,13 +15,29 @@ class VerifyEmailController extends Controller
     public function __invoke(EmailVerificationRequest $request): RedirectResponse
     {
         if ($request->user()->hasVerifiedEmail()) {
-            return redirect()->intended(route('dashboard', absolute: false).'?verified=1');
+            $user = $request->user();
+
+            if ($user->userType === 'IBUILD') {
+                return redirect()->intended(route('ibuild.dashboard') . '?verified=1');
+            } elseif ($user->userType === 'IREAP') {
+                return redirect()->intended(route('ireap.dashboard') . '?verified=1');
+            } elseif ($user->userType === 'ADMIN') {
+                return redirect()->intended(route('admin.dashboard') . '?verified=1');
+            }
         }
 
         if ($request->user()->markEmailAsVerified()) {
             event(new Verified($request->user()));
         }
 
-        return redirect()->intended(route('dashboard', absolute: false).'?verified=1');
+        $user = $request->user();
+
+        if ($user->userType === 'IBUILD') {
+            return redirect()->intended(route('ibuild.dashboard') . '?verified=1');
+        } elseif ($user->userType === 'IREAP') {
+            return redirect()->intended(route('ireap.dashboard') . '?verified=1');
+        } elseif ($user->userType === 'ADMIN') {
+            return redirect()->intended(route('admin.dashboard') . '?verified=1');
+        }
     }
 }
