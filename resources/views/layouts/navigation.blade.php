@@ -26,6 +26,9 @@
                         <x-nav-link :href="route('ibuild.dashboard')" :active="request()->routeIs('ibuild.dashboard')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('ibuild.subprojects')" :active="request()->routeIs('ibuild.subprojects')">
+                            {{ __('Subprojects') }}
+                        </x-nav-link>
                     @elseif(auth()->user()->userType === 'IREAP')
                         <x-nav-link :href="route('ireap.dashboard')" :active="request()->routeIs('ireap.dashboard')">
                             {{ __('Dashboard') }}
@@ -112,6 +115,9 @@
             @if (auth()->user()->userType === 'IBUILD')
                 <x-responsive-nav-link :href="route('ibuild.dashboard')" :active="request()->routeIs('ibuild.dashboard')">
                     {{ __('Dashboard') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('ibuild.subprojects')" :active="request()->routeIs('ibuild.subprojects')">
+                    {{ __('Subprojects') }}
                 </x-responsive-nav-link>
             @elseif(auth()->user()->userType === 'IREAP')
                 <x-responsive-nav-link :href="route('ireap.dashboard')" :active="request()->routeIs('ireap.dashboard')">

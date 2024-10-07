@@ -22,6 +22,7 @@ Route::middleware(['auth', 'userType:ADMIN'])->group(function(){
 
 Route::middleware(['auth', 'userType:IBUILD'])->group(function(){
     Route::get('/ibuild/dashboard', [IBuildController::class, 'index'])->name('ibuild.dashboard');
+    Route::get('/ibuild/subprojects', [IBuildController::class, 'create'])->name('ibuild.subprojects');
 });
 
 Route::middleware(['auth', 'userType:IREAP'])->group(function(){
