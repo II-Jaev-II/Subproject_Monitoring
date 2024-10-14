@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DynamicAddressController;
 use App\Http\Controllers\IBuildController;
 use App\Http\Controllers\IReapController;
 use App\Http\Controllers\ProfileController;
@@ -23,10 +24,16 @@ Route::middleware(['auth', 'userType:ADMIN'])->group(function(){
 Route::middleware(['auth', 'userType:IBUILD'])->group(function(){
     Route::get('/ibuild/dashboard', [IBuildController::class, 'index'])->name('ibuild.dashboard');
     Route::get('/ibuild/subprojects', [IBuildController::class, 'create'])->name('ibuild.subprojects');
+    Route::post('/ibuild/store-subproject', [IBuildController::class, 'store'])->name('ibuild.store-subproject');
+    Route::get('/ibuild/create-subproject', [IBuildController::class, 'createSubProject'])->name('ibuild.create-subproject');
 });
 
 Route::middleware(['auth', 'userType:IREAP'])->group(function(){
     Route::get('/ireap/dashboard', [IReapController::class, 'index'])->name('ireap.dashboard');
 });
+
+Route::get('/municipalities/{province}', [DynamicAddressController::class, 'getMunicipalities']);
+Route::get('/barangays/{municipality}', [DynamicAddressController::class, 'getBarangays']);
+
 
 require __DIR__.'/auth.php';
