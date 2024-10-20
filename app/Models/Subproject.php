@@ -24,8 +24,14 @@ class Subproject extends Model
         'letterOfInterest',
         'commodity',
         'report',
+        'inactiveDays',
         'userId',
     ];
+
+    public function scopeSearch($query, $value)
+    {
+        $query->where('projectName', 'like', "%{$value}%");
+    }
 
     use HasFactory;
 }

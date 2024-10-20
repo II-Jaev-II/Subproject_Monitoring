@@ -23,11 +23,6 @@ class IBuildController extends Controller
      */
     public function create()
     {
-        return view('ibuild.subprojects');
-    }
-
-    public function createSubProject()
-    {
         $provinces = Province::all();
 
         return view('ibuild.create-subproject', compact('provinces'));
@@ -82,9 +77,13 @@ class IBuildController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
-        //
+        $subprojects = Subproject::all();
+
+        return view('ibuild.subprojects', [
+            'subprojects' => $subprojects,
+        ]);
     }
 
     /**

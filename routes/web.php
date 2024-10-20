@@ -17,18 +17,18 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth', 'userType:ADMIN'])->group(function(){
+Route::middleware(['auth', 'userType:ADMIN'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 });
 
-Route::middleware(['auth', 'userType:IBUILD'])->group(function(){
+Route::middleware(['auth', 'userType:IBUILD'])->group(function () {
     Route::get('/ibuild/dashboard', [IBuildController::class, 'index'])->name('ibuild.dashboard');
-    Route::get('/ibuild/subprojects', [IBuildController::class, 'create'])->name('ibuild.subprojects');
+    Route::get('/ibuild/subprojects', [IBuildController::class, 'show'])->name('ibuild.subprojects');
+    Route::get('/ibuild/create-subproject', [IBuildController::class, 'create'])->name('ibuild.create-subproject');
     Route::post('/ibuild/store-subproject', [IBuildController::class, 'store'])->name('ibuild.store-subproject');
-    Route::get('/ibuild/create-subproject', [IBuildController::class, 'createSubProject'])->name('ibuild.create-subproject');
 });
 
-Route::middleware(['auth', 'userType:IREAP'])->group(function(){
+Route::middleware(['auth', 'userType:IREAP'])->group(function () {
     Route::get('/ireap/dashboard', [IReapController::class, 'index'])->name('ireap.dashboard');
 });
 
@@ -36,4 +36,4 @@ Route::get('/municipalities/{province}', [DynamicAddressController::class, 'getM
 Route::get('/barangays/{municipality}', [DynamicAddressController::class, 'getBarangays']);
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

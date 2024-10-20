@@ -20,6 +20,7 @@
                             Create a Subproject
                         </a>
                     </div>
+                    <livewire:subprojects-table />
                 </div>
             </div>
         </div>
