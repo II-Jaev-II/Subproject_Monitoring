@@ -35,7 +35,7 @@ class AdminSubprojectsTable extends Component
                     $query->where('projectCategory', $this->projectCategory);
                 })
                 ->when($this->inactiveDays !== 'All', function ($query) {
-                    $query->where('inactiveDays', '>=', $this->inactiveDays);
+                    $query->where('inactiveDays',  $this->inactiveDays);
                 })
                 ->orderBy('created_at', 'desc')
                 ->paginate($this->perPage)

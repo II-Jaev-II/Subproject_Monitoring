@@ -18,6 +18,19 @@ class IBuildController extends Controller
         return view('ibuild.dashboard');
     }
 
+    public function view($id)
+    {
+        $subprojects = Subproject::join('provinces', 'subprojects.province', '=', 'provinces.id')
+            ->join('municipalities', 'subprojects.municipality', '=', 'municipalities.id')
+            ->join('barangays', 'subprojects.barangay', '=', 'barangays.id')
+            ->where('subprojects.id', $id)
+            ->firstOrFail();
+
+        return view('ibuild.view-subprojects.view-subproject', [
+            'subprojects' => $subprojects
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      */

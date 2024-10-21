@@ -24,6 +24,7 @@ Route::middleware(['auth', 'userType:ADMIN'])->group(function () {
 Route::middleware(['auth', 'userType:IBUILD'])->group(function () {
     Route::get('/ibuild/dashboard', [IBuildController::class, 'index'])->name('ibuild.dashboard');
     Route::get('/ibuild/subprojects', [IBuildController::class, 'show'])->name('ibuild.subprojects');
+    Route::get('/ibuild/view-subproject/{id}', [IBuildController::class, 'view'])->name('ibuild.view-subproject');
     Route::get('/ibuild/create-subproject', [IBuildController::class, 'create'])->name('ibuild.create-subproject');
     Route::post('/ibuild/store-subproject', [IBuildController::class, 'store'])->name('ibuild.store-subproject');
 });

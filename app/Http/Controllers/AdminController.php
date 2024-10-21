@@ -18,15 +18,15 @@ class AdminController extends Controller
         $subprojectsCount = $subprojects->count();
 
         //Clearances Data
-        $records = Subproject::select('iPlan', 'iBuild', 'econ', 'ses', 'ggu', 'compliance', 'finance', 'procurement')->get();
+        $records = Subproject::select('iPLAN', 'iBUILD', 'econ', 'ses', 'ggu', 'compliance', 'finance', 'procurement')->get();
 
         $okCount = [];
 
         foreach ($records as $record) {
             $countOK = 0;
 
-            if ($record->iPlan === 'OK') $countOK++;
-            if ($record->iBuild === 'OK') $countOK++;
+            if ($record->iPLAN === 'OK') $countOK++;
+            if ($record->iBUILD === 'OK') $countOK++;
             if ($record->econ === 'OK') $countOK++;
             if ($record->ses === 'OK') $countOK++;
             if ($record->ggu === 'OK') $countOK++;

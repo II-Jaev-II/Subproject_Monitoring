@@ -17,6 +17,7 @@ class SubprojectsTable extends Component
     {
         return view('livewire.subprojects-table', [
             'subprojects' => Subproject::search($this->search)
+                ->orderBy('created_at', 'desc')
                 ->paginate($this->perPage)
         ]);
     }

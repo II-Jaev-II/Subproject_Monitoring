@@ -104,7 +104,7 @@
                                     <td class="px-4 py-3 dark:text-white">
                                         {{ $subproject->indicativeCost }}
                                     </td>
-                                    <td class="px-4 py-3 dark:text-white">{{ $subproject->total }}</td>
+                                    <td class="px-4 py-3 dark:text-white">{{ $subproject->clearancesData }}</td>
                                     <td class="px-4 py-3 dark:text-white">{{ $subproject->inactiveDays }}</td>
                                     <td class="px-4 py-3 flex items-center gap-3">
                                         <div class="relative group inline-block">
