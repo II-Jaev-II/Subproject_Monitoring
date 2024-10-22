@@ -6,9 +6,6 @@
             <th scope="col" class="px-4 py-3">ECON</th>
             <th scope="col" class="px-4 py-3">SES</th>
             <th scope="col" class="px-4 py-3">GGU</th>
-            <th scope="col" class="px-4 py-3">Compliance</th>
-            <th scope="col" class="px-4 py-3">Finance</th>
-            <th scope="col" class="px-4 py-3">Procurement</th>
         </tr>
     </thead>
     <tbody>
@@ -18,9 +15,6 @@
             <td class="px-4 py-3 dark:text-white">{{ $subprojects->econ }}</td>
             <td class="px-4 py-3 dark:text-white">{{ $subprojects->ses }}</td>
             <td class="px-4 py-3 dark:text-white">{{ $subprojects->ggu }}</td>
-            <td class="px-4 py-3 dark:text-white">{{ $subprojects->compliance }}</td>
-            <td class="px-4 py-3 dark:text-white">{{ $subprojects->finance }}</td>
-            <td class="px-4 py-3 dark:text-white">{{ $subprojects->procurement }}</td>
         </tr>
     </tbody>
 </table>

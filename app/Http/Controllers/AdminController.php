@@ -18,7 +18,7 @@ class AdminController extends Controller
         $subprojectsCount = $subprojects->count();
 
         //Clearances Data
-        $records = Subproject::select('iPLAN', 'iBUILD', 'econ', 'ses', 'ggu', 'compliance', 'finance', 'procurement')->get();
+        $records = Subproject::select('iPLAN', 'iBUILD', 'econ', 'ses', 'ggu')->get();
 
         $okCount = [];
 
@@ -30,9 +30,6 @@ class AdminController extends Controller
             if ($record->econ === 'OK') $countOK++;
             if ($record->ses === 'OK') $countOK++;
             if ($record->ggu === 'OK') $countOK++;
-            if ($record->compliance === 'OK') $countOK++;
-            if ($record->finance === 'OK') $countOK++;
-            if ($record->procurement === 'OK') $countOK++;
 
             $okCount[] = $countOK;
         }
@@ -68,12 +65,27 @@ class AdminController extends Controller
             $projectCategoryData[] = $projectCategoryCounts->get($projectCategoryLabel, 0);
         }
 
+        //Provinces Data
+        $provinceCounts = Subproject::select('provinces.province_name as province', DB::raw('count(*) as total'))
+            ->join('provinces', 'subprojects.province', '=', 'provinces.id')
+            ->whereIn('provinces.province_name', ['Ilocos Sur', 'Ilocos Norte', 'La Union', 'Pangasinan'])
+            ->groupBy('provinces.province_name')
+            ->pluck('total', 'province');
+
+        $provinceLabels = ['Ilocos Sur', 'Ilocos Norte', 'La Union', 'Pangasinan'];
+        $provinceData = [];
+        foreach ($provinceLabels as $provinceLabel) {
+            $provinceData[] = $provinceCounts->get($provinceLabel, 0);
+        }
+
         return view('admin.dashboard', [
             'subprojects' => $subprojects,
             'subprojectsCount' => $subprojectsCount,
             'clearancesData' => $clearancesData,
             'projectTypeData' => $projectTypeData,
-            'projectCategoryData' => $projectCategoryData
+            'projectCategoryData' => $projectCategoryData,
+            'provinceData' => $provinceData,
+            'provinceLabels' => $provinceLabels
         ]);
     }
 

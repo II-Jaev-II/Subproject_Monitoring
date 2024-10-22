@@ -99,6 +99,15 @@ class IBuildController extends Controller
         ]);
     }
 
+    public function showClearances()
+    {
+        $subprojects = Subproject::all();
+
+        return view('ibuild.clearances.clearances', [
+            'subprojects' => $subprojects,
+        ]);
+    }
+
     /**
      * Show the form for editing the specified resource.
      */

@@ -26,6 +26,9 @@
                         <x-nav-link :href="route('ibuild.dashboard')" :active="request()->routeIs('ibuild.dashboard')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('ibuild.clearances')" :active="request()->routeIs('ibuild.clearances')">
+                            {{ __('Clearances') }}
+                        </x-nav-link>
                         <x-nav-link :href="route('ibuild.subprojects')" :active="request()->routeIs('ibuild.subprojects')">
                             {{ __('Subprojects') }}
                         </x-nav-link>

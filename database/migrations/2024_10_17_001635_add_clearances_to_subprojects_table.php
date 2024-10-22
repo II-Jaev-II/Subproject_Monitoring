@@ -22,13 +22,7 @@ return new class extends Migration
             $table->string('sesRemarks')->after('ses');
             $table->string('ggu')->after('sesRemarks');
             $table->string('gguRemarks')->after('ggu');
-            $table->string('compliance')->after('gguRemarks');
-            $table->string('complianceRemarks')->after('compliance');
-            $table->string('finance')->after('complianceRemarks');
-            $table->string('financeRemarks')->after('finance');
-            $table->string('procurement')->after('financeRemarks');
-            $table->string('procurementRemarks')->after('procurement');
-            $table->integer('total')->after('procurementRemarks');
+            $table->integer('total')->after('gguRemarks');
         });
     }
 

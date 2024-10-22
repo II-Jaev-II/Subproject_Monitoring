@@ -16,8 +16,6 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    
-    <script src="//unpkg.com/alpinejs" defer></script>
 
     <script src="{{ asset('js/darkMode.js') }}"></script>
 </head>

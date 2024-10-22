@@ -7,10 +7,8 @@ var options = {
             size: 200
         }
     },
-    series: clearancesData,
-    labels: ['0 clearance', '1 clearance', '2 clearance', '3 clearance', '4 clearance', '5 clearance',
-        '6 clearance', '7 clearance', '8 clearance', '9 clearance'
-    ],
+    series: provinceData,
+    labels: provinceLabels,
     legend: {
         labels: {
             colors: '#ffffff',
@@ -19,98 +17,46 @@ var options = {
     }
 };
 
-var chart = new ApexCharts(document.querySelector("#clearancesChart"), options);
+var chart = new ApexCharts(document.querySelector("#provinceChart"), options);
 
 chart.render();
 
-//Project Type Chart
+//Project Types Chart
 var options = {
-    series: [{
-        data: projectTypeData
-    }],
+    series: projectTypeData,
     chart: {
-        type: 'bar',
-        height: 380,
-        toolbar: {
-            show: false
+        type: 'polarArea',
+        height: 300,
+        pie: {
+            size: 200
         }
     },
-    plotOptions: {
-        bar: {
-            barHeight: '100%',
-            distributed: true,
-            horizontal: true,
-            dataLabels: {
-                position: 'bottom',
-                style: {
-                    colors: ['#ffffff']
-                }
-            }
-        }
+    fill: {
+        opacity: 0.6
     },
-    colors: ['#FF4560', '#008FFB', '#00E396', '#775DD0', '#FEB019', '#FF7F50'],
-    dataLabels: {
-        enabled: true,
-        textAnchor: 'start',
-        style: {
-            colors: ['#ffffff']
-        },
-        formatter: function (val, opt) {
-            return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val;
-        },
-        offsetX: 0,
-        dropShadow: {
-            enabled: true
-        }
-    },
-    stroke: {
-        width: 1,
-        colors: ['#fff']
-    },
-    xaxis: {
-        categories: ['FMR', 'FMB', 'Bridge', 'CIS', 'PWS', 'VCI'],
+    labels: ['FMR', 'FMB', 'Bridge', 'CIS', 'PWS', 'VCI'],
+    legend: {
         labels: {
-            style: {
-                colors: '#ffffff'
-            }
-        }
-    },
-    yaxis: {
-        labels: {
-            show: false
+            colors: '#ffffff',
+            useSeriesColors: false
         }
     },
     title: {
         text: 'Project Type Distribution',
         align: 'center',
-        floating: true,
         style: {
+            fontSize: '16px',
             color: '#ffffff'
         }
     },
-    subtitle: {
-        text: 'Distribution of Project Types',
-        align: 'center',
-        style: {
-            color: '#ffffff'
-        }
+    stroke: {
+        colors: ['#ffffff']
     },
-    tooltip: {
-        theme: 'dark',
-        x: {
-            show: false
-        },
-        y: {
-            title: {
-                formatter: function () {
-                    return ''
-                }
-            }
-        }
-    },
-    legend: {
+    yaxis: {
         labels: {
-            colors: '#ffffff'
+            style: {
+                colors: '#ffffff'
+            }
         }
     }
 };
@@ -120,68 +66,19 @@ chart.render();
 
 //Project Category Chart
 var options = {
-    series: [{
-        data: projectCategoryData
-    }],
+    series: projectCategoryData,
     chart: {
-        height: 380,
-        type: 'bar',
-        events: {
-            click: function (chart, w, e) {
-            }
-        },
-        toolbar: {
-            show: false
+        type: 'donut',
+        height: 300,
+        pie: {
+            size: 200
         }
     },
-    colors: ['#FF4560', '#008FFB', '#00E396', '#775DD0', '#FEB019', '#FF7F50'],
-    plotOptions: {
-        bar: {
-            columnWidth: '45%',
-            distributed: true,
-        }
-    },
-    dataLabels: {
-        enabled: false
-    },
+    labels: ['Construction', 'Rehabilitation', 'Upgrading', 'Additional Work'],
     legend: {
-        show: false
-    },
-    xaxis: {
-        categories: ['Construction', 'Rehabilitation', 'Upgrading', 'Additional Work'],
         labels: {
-            style: {
-                colors: '#ffffff',
-                fontSize: '12px'
-            }
-        }
-    },
-    title: {
-        text: 'Project Category Distribution',
-        align: 'center',
-        floating: true,
-        style: {
-            color: '#ffffff'
-        }
-    },
-    subtitle: {
-        text: 'Distribution of Project Categories',
-        align: 'center',
-        style: {
-            color: '#ffffff'
-        }
-    },
-    tooltip: {
-        theme: 'dark',
-        x: {
-            show: false
-        },
-        y: {
-            title: {
-                formatter: function () {
-                    return '';
-                }
-            }
+            colors: '#ffffff',
+            useSeriesColors: false
         }
     }
 };

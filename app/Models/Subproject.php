@@ -29,9 +29,6 @@ class Subproject extends Model
         'econ',
         'ses',
         'ggu',
-        'compliance',
-        'finance',
-        'procurement',
         'inactiveDays',
         'userId',
     ];
