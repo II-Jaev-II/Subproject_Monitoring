@@ -36,6 +36,7 @@ Route::middleware(['auth', 'userType:IREAP'])->group(function () {
 
 Route::get('/municipalities/{province}', [DynamicAddressController::class, 'getMunicipalities']);
 Route::get('/barangays/{municipality}', [DynamicAddressController::class, 'getBarangays']);
+Route::get('/get-subproject-data', [AdminController::class, 'getSubprojectData']);
 
 
 require __DIR__ . '/auth.php';

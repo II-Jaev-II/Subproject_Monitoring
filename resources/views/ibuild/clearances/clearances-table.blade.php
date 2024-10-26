@@ -24,7 +24,11 @@
                 <td class="px-4 py-3">
                     <div class="relative group inline-block">
                         <a href="#" @click.prevent="selectedComponent = 'IPLAN'"
-                            class="flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-700 dark:text-white bg-gray-400 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-2 py-1">
+                            :class="{
+                                'dark:bg-lime-500': selectedComponent === 'IPLAN',
+                                'bg-gray-400 dark:bg-gray-500 dark:hover:bg-gray-400 ease-in-out duration-300': selectedComponent !== 'IPLAN'
+                            }"
+                            class="flex items-center border border-transparent rounded-md px-2 py-1">
                             <img src="/images/eye.svg" alt="View" width="20" height="20">
                         </a>
                         <span
@@ -36,7 +40,11 @@
                 <td class="px-4 py-3">
                     <div class="relative group inline-block">
                         <a href="" @click.prevent="selectedComponent = 'IBUILD'"
-                            class="flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-700 dark:text-white bg-gray-400 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-2 py-1">
+                            :class="{
+                                'dark:bg-lime-500': selectedComponent === 'IBUILD',
+                                'bg-gray-400 dark:bg-gray-500 dark:hover:bg-gray-400 ease-in-out duration-300': selectedComponent !== 'IBUILD'
+                            }"
+                            class="flex items-center border border-transparent rounded-md px-2 py-1">
                             <img src="/images/eye.svg" alt="View" width="20" height="20">
                         </a>
                         <span
@@ -48,7 +56,11 @@
                 <td class="px-4 py-3">
                     <div class="relative group inline-block">
                         <a href="" @click.prevent="selectedComponent = 'ECON'"
-                            class="flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-700 dark:text-white bg-gray-400 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-2 py-1">
+                            :class="{
+                                'dark:bg-lime-500': selectedComponent === 'ECON',
+                                'bg-gray-400 dark:bg-gray-500 dark:hover:bg-gray-400 ease-in-out duration-300': selectedComponent !== 'ECON'
+                            }"
+                            class="flex items-center border border-transparent rounded-md px-2 py-1">
                             <img src="/images/eye.svg" alt="View" width="20" height="20">
                         </a>
                         <span
@@ -60,7 +72,11 @@
                 <td class="px-4 py-3">
                     <div class="relative group inline-block">
                         <a href="" @click.prevent="selectedComponent = 'SES'"
-                            class="flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-700 dark:text-white bg-gray-400 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-2 py-1">
+                            :class="{
+                                'dark:bg-lime-500': selectedComponent === 'SES',
+                                'bg-gray-400 dark:bg-gray-500 dark:hover:bg-gray-400 ease-in-out duration-300': selectedComponent !== 'SES'
+                            }"
+                            class="flex items-center border border-transparent rounded-md px-2 py-1">
                             <img src="/images/eye.svg" alt="View" width="20" height="20">
                         </a>
                         <span
@@ -72,7 +88,11 @@
                 <td class="px-4 py-3">
                     <div class="relative group inline-block">
                         <a href="" @click.prevent="selectedComponent = 'GGU'"
-                            class="flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-700 dark:text-white bg-gray-400 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-2 py-1">
+                            :class="{
+                                'dark:bg-lime-500': selectedComponent === 'GGU',
+                                'bg-gray-400 dark:bg-gray-500 dark:hover:bg-gray-400 ease-in-out duration-300': selectedComponent !== 'GGU'
+                            }"
+                            class="flex items-center border border-transparent rounded-md px-2 py-1">
                             <img src="/images/eye.svg" alt="View" width="20" height="20">
                         </a>
                         <span

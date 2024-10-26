@@ -9,15 +9,18 @@
         <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <div class="grid grid-cols-3 divide-x-2 gap-4 items-center border-2 border-white rounded">
-                        <div class="flex flex-col items-center">
-                            <div id="provinceChart" class="w-full"></div>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <div id="projectType" class="w-full"></div>
-                        </div>
-                        <div class="flex flex-col items-center">
-                            <div id="projectCategory" class="w-full"></div>
+                    <div class="flex flex-col items-center">
+                        <div id="clearancesChart" class="w-full"></div>
+                        <div class="grid grid-cols-3 divide-x-2 gap-4 w-full">
+                            <div class="flex flex-col items-center">
+                                <div id="provinceChart" class="w-full"></div>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div id="projectType" class="w-full"></div>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div id="projectCategory" class="w-full"></div>
+                            </div>
                         </div>
                     </div>
                 </div>

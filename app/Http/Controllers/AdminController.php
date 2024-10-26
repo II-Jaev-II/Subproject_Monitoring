@@ -13,7 +13,6 @@ class AdminController extends Controller
      */
     public function index()
     {
-
         $subprojects = Subproject::all();
         $subprojectsCount = $subprojects->count();
 
@@ -25,11 +24,21 @@ class AdminController extends Controller
         foreach ($records as $record) {
             $countOK = 0;
 
-            if ($record->iPLAN === 'OK') $countOK++;
-            if ($record->iBUILD === 'OK') $countOK++;
-            if ($record->econ === 'OK') $countOK++;
-            if ($record->ses === 'OK') $countOK++;
-            if ($record->ggu === 'OK') $countOK++;
+            if ($record->iPLAN === 'OK') {
+                $countOK++;
+            }
+            if ($record->iBUILD === 'OK') {
+                $countOK++;
+            }
+            if ($record->econ === 'OK') {
+                $countOK++;
+            }
+            if ($record->ses === 'OK') {
+                $countOK++;
+            }
+            if ($record->ggu === 'OK') {
+                $countOK++;
+            }
 
             $okCount[] = $countOK;
         }
@@ -85,8 +94,36 @@ class AdminController extends Controller
             'projectTypeData' => $projectTypeData,
             'projectCategoryData' => $projectCategoryData,
             'provinceData' => $provinceData,
-            'provinceLabels' => $provinceLabels
+            'provinceLabels' => $provinceLabels,
         ]);
+    }
+
+    public function getSubprojectData()
+    {
+        $data = [
+            'iPLAN' => [
+                'cleared' => DB::table('subprojects')->whereNotNull('iPLAN')->count(),
+                'notCleared' => DB::table('subprojects')->whereNull('iPLAN')->count(),
+            ],
+            'iBUILD' => [
+                'cleared' => DB::table('subprojects')->whereNotNull('iBUILD')->count(),
+                'notCleared' => DB::table('subprojects')->whereNull('iBUILD')->count(),
+            ],
+            'econ' => [
+                'cleared' => DB::table('subprojects')->whereNotNull('econ')->count(),
+                'notCleared' => DB::table('subprojects')->whereNull('econ')->count(),
+            ],
+            'ses' => [
+                'cleared' => DB::table('subprojects')->whereNotNull('ses')->count(),
+                'notCleared' => DB::table('subprojects')->whereNull('ses')->count(),
+            ],
+            'ggu' => [
+                'cleared' => DB::table('subprojects')->whereNotNull('ggu')->count(),
+                'notCleared' => DB::table('subprojects')->whereNull('ggu')->count(),
+            ],
+        ];
+
+        return response()->json($data);
     }
 
     /**
