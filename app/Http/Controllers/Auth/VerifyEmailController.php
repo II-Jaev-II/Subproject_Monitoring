@@ -23,6 +23,14 @@ class VerifyEmailController extends Controller
                 return redirect()->intended(route('ireap.dashboard') . '?verified=1');
             } elseif ($user->userType === 'ADMIN') {
                 return redirect()->intended(route('admin.dashboard') . '?verified=1');
+            } elseif ($user->userType === 'GGU') {
+                return redirect()->intended(route('ibuild.dashboard') . '?verified=1');
+            } elseif ($user->userType === 'IPLAN') {
+                return redirect()->intended(route('iplan.dashboard') . '?verified=1');
+            } elseif ($user->userType === 'ECON') {
+                return redirect()->intended(route('econ.dashboard') . '?verified=1');
+            } elseif ($user->userType === 'SES') {
+                return redirect()->intended(route('ses.dashboard') . '?verified=1');
             }
         }
 
@@ -38,6 +46,14 @@ class VerifyEmailController extends Controller
             return redirect()->intended(route('ireap.dashboard') . '?verified=1');
         } elseif ($user->userType === 'ADMIN') {
             return redirect()->intended(route('admin.dashboard') . '?verified=1');
+        } elseif ($user->userType === 'GGU') {
+            return redirect()->intended(route('ggu.dashboard') . '?verified=1');
+        } elseif ($user->userType === 'IPLAN') {
+            return redirect()->intended(route('iplan.dashboard') . '?verified=1');
+        } elseif ($user->userType === 'ECON') {
+            return redirect()->intended(route('econ.dashboard') . '?verified=1');
+        } elseif ($user->userType === 'SES') {
+            return redirect()->intended(route('ses.dashboard') . '?verified=1');
         }
     }
 }

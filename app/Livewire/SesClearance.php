@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Subproject;
+use Illuminate\Support\Facades\Auth;
 use Livewire\WithPagination;
 
 class SesClearance extends Component
@@ -14,6 +15,12 @@ class SesClearance extends Component
     public $search = '';
     public $perPage = 5;
     public $validationStatus = '';
+    public $userType;
+
+    public function mount()
+    {
+        $this->userType = Auth::check() ? Auth::user()->userType : null;
+    }
 
     public function render()
     {
@@ -29,7 +36,8 @@ class SesClearance extends Component
                         });
                     }
                 })
-                ->paginate($this->perPage)
+                ->paginate($this->perPage),
+            'userType' => $this->userType
         ]);
     }
 }

@@ -23,6 +23,14 @@ class EmailVerificationNotificationController extends Controller
                 return redirect()->route('ireap.dashboard');
             } elseif ($user->userType === 'ADMIN') {
                 return redirect()->route('admin.dashboard');
+            } elseif ($user->userType === 'GGU') {
+                return redirect()->route('ggu.dashboard');
+            } elseif ($user->userType === 'IPLAN') {
+                return redirect()->route('iplan.dashboard');
+            } elseif ($user->userType === 'ECON') {
+                return redirect()->route('econ.dashboard');
+            } elseif ($user->userType === 'SES') {
+                return redirect()->route('ses.dashboard');
             }
         }
 

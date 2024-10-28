@@ -2,9 +2,13 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DynamicAddressController;
+use App\Http\Controllers\EconController;
+use App\Http\Controllers\GGUController;
 use App\Http\Controllers\IBuildController;
+use App\Http\Controllers\IPlanController;
 use App\Http\Controllers\IReapController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SESController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -28,6 +32,35 @@ Route::middleware(['auth', 'userType:IBUILD'])->group(function () {
     Route::get('/ibuild/view-subproject/{id}', [IBuildController::class, 'view'])->name('ibuild.view-subproject');
     Route::get('/ibuild/create-subproject', [IBuildController::class, 'create'])->name('ibuild.create-subproject');
     Route::post('/ibuild/store-subproject', [IBuildController::class, 'store'])->name('ibuild.store-subproject');
+});
+
+Route::middleware(['auth', 'userType:IPLAN'])->group(function () {
+    Route::get('/iplan/dashboard', [IPlanController::class, 'index'])->name('iplan.dashboard');
+    Route::get('/iplan/subprojects', [IPlanController::class, 'show'])->name('iplan.subprojects');
+    Route::get('/iplan/clearances', [IPlanController::class, 'showClearances'])->name('iplan.clearances');
+    Route::get('/iplan/view-subproject/{id}', [IPlanController::class, 'view'])->name('iplan.view-subproject');
+    Route::get('/iplan/edit-subprojects/{id}', [IPlanController::class, 'edit'])->name('iplan.edit-subprojects');
+});
+
+Route::middleware(['auth', 'userType:ECON'])->group(function () {
+    Route::get('/econ/dashboard', [EconController::class, 'index'])->name('econ.dashboard');
+    Route::get('/econ/subprojects', [EconController::class, 'show'])->name('econ.subprojects');
+    Route::get('/econ/clearances', [EconController::class, 'showClearances'])->name('econ.clearances');
+    Route::get('/econ/view-subproject/{id}', [EconController::class, 'view'])->name('econ.view-subproject');
+});
+
+Route::middleware(['auth', 'userType:SES'])->group(function () {
+    Route::get('/ses/dashboard', [SESController::class, 'index'])->name('ses.dashboard');
+    Route::get('/ses/subprojects', [SESController::class, 'show'])->name('ses.subprojects');
+    Route::get('/ses/clearances', [SESController::class, 'showClearances'])->name('ses.clearances');
+    Route::get('/ses/view-subproject/{id}', [SESController::class, 'view'])->name('ses.view-subproject');
+});
+
+Route::middleware(['auth', 'userType:GGU'])->group(function () {
+    Route::get('/ggu/dashboard', [GGUController::class, 'index'])->name('ggu.dashboard');
+    Route::get('/ggu/subprojects', [GGUController::class, 'show'])->name('ggu.subprojects');
+    Route::get('/ggu/clearances', [GGUController::class, 'showClearances'])->name('ggu.clearances');
+    Route::get('/ggu/view-subproject/{id}', [GGUController::class, 'view'])->name('ggu.view-subproject');
 });
 
 Route::middleware(['auth', 'userType:IREAP'])->group(function () {

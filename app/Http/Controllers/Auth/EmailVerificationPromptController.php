@@ -23,6 +23,14 @@ class EmailVerificationPromptController extends Controller
                 return redirect()->intended(route('ireap.dashboard'));
             } elseif ($user->userType === 'ADMIN') {
                 return redirect()->intended(route('admin.dashboard'));
+            } elseif ($user->userType === 'GGU') {
+                return redirect()->intended(route('ggu.dashboard'));
+            } elseif ($user->userType === 'IPLAN') {
+                return redirect()->intended(route('iplan.dashboard'));
+            } elseif ($user->userType === 'ECON') {
+                return redirect()->intended(route('econ.dashboard'));
+            } elseif ($user->userType === 'SES') {
+                return redirect()->intended(route('ses.dashboard'));
             }
         }
         return view('auth.verify-email');

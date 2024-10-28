@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Subproject;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Auth;
 
 class GguClearance extends Component
 {
@@ -13,6 +14,12 @@ class GguClearance extends Component
     public $search = '';
     public $perPage = 5;
     public $validationStatus = '';
+    public $userType;
+
+    public function mount()
+    {
+        $this->userType = Auth::check() ? Auth::user()->userType : null;
+    }
 
     public function render()
     {
@@ -28,7 +35,10 @@ class GguClearance extends Component
                         });
                     }
                 })
-                ->paginate($this->perPage)
+                ->paginate($this->perPage),
+            'userType' => $this->userType
         ]);
     }
 }
+
+

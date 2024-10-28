@@ -36,6 +36,14 @@ class AuthenticatedSessionController extends Controller
             $url = "ibuild/dashboard";
         } else if($request->user()->userType === "IREAP"){
             $url = "ireap/dashboard";
+        } else if($request->user()->userType === "GGU"){
+            $url = "ggu/dashboard";
+        } else if($request->user()->userType === "IPLAN"){
+            $url = "iplan/dashboard";
+        } else if($request->user()->userType === "ECON"){
+            $url = "econ/dashboard";
+        } else if($request->user()->userType === "SES"){
+            $url = "ses/dashboard";
         }
 
         return redirect()->intended($url);
