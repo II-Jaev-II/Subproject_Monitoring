@@ -40,6 +40,7 @@ Route::middleware(['auth', 'userType:IPLAN'])->group(function () {
     Route::get('/iplan/clearances', [IPlanController::class, 'showClearances'])->name('iplan.clearances');
     Route::get('/iplan/view-subproject/{id}', [IPlanController::class, 'view'])->name('iplan.view-subproject');
     Route::get('/iplan/edit-subprojects/{id}', [IPlanController::class, 'edit'])->name('iplan.edit-subprojects');
+    Route::post('/iplan/store-subproject', [IPlanController::class, 'store'])->name('iplan.store-subproject');
 });
 
 Route::middleware(['auth', 'userType:ECON'])->group(function () {

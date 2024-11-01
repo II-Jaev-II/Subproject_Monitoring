@@ -79,22 +79,8 @@
                 </div>
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mt-6">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <h1 class="dark:text-lime-500 text-xl mt-4 mb-4">Other Component's Validations</h1>
-                        <hr class="border-2 dark:border-lime-500 mb-2">
                         <div x-cloak style="display: none !important" x-show="selectedComponent === 'IPLAN'">
-                            <livewire:iplan-clearance />
-                        </div>
-                        <div x-cloak style="display: none !important" x-show="selectedComponent === 'IBUILD'">
-                            <livewire:ibuild-clearance />
-                        </div>
-                        <div x-cloak style="display: none !important" x-show="selectedComponent === 'ECON'">
-                            <livewire:econ-clearance />
-                        </div>
-                        <div x-cloak style="display: none !important" x-show="selectedComponent === 'SES'">
-                            <livewire:ses-clearance />
-                        </div>
-                        <div x-cloak style="display: none !important" x-show="selectedComponent === 'GGU'">
-                            <livewire:ggu-clearance />
+                            @include('iplan.components.iplan-validated-checklist')
                         </div>
                     </div>
                 </div>
