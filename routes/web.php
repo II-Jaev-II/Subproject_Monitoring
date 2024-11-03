@@ -39,7 +39,9 @@ Route::middleware(['auth', 'userType:IPLAN'])->group(function () {
     Route::get('/iplan/subprojects', [IPlanController::class, 'show'])->name('iplan.subprojects');
     Route::get('/iplan/clearances', [IPlanController::class, 'showClearances'])->name('iplan.clearances');
     Route::get('/iplan/view-subproject/{id}', [IPlanController::class, 'view'])->name('iplan.view-subproject');
-    Route::get('/iplan/edit-subprojects/{id}', [IPlanController::class, 'edit'])->name('iplan.edit-subprojects');
+    Route::get('/iplan/edit-subproject/{id}', [IPlanController::class, 'edit'])->name('iplan.edit-subproject');
+    Route::post('/iplan/update-subproject/{id}', [IPlanController::class, 'update'])->name('iplan.update-subproject');
+    Route::get('/iplan/validate-subprojects/{id}', [IPlanController::class, 'validateSubproject'])->name('iplan.validate-subprojects');
     Route::post('/iplan/store-subproject', [IPlanController::class, 'store'])->name('iplan.store-subproject');
 });
 

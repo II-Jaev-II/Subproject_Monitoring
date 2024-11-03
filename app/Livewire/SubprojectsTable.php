@@ -22,11 +22,17 @@ class SubprojectsTable extends Component
 
     public function render()
     {
+        $subprojects = Subproject::search($this->search)
+            ->orderBy('created_at', 'desc')
+            ->paginate($this->perPage);
+
+        foreach ($subprojects as $subproject) {
+            $subproject->iPlanStatus = $subproject->iPLAN === 'OK' || $subproject->iPLAN === 'Pending';
+        }
+
         return view('livewire.subprojects-table', [
-            'subprojects' => Subproject::search($this->search)
-                ->orderBy('created_at', 'desc')
-                ->paginate($this->perPage),
-                'userType' => $this->userType
+            'subprojects' => $subprojects,
+            'userType' => $this->userType,
         ]);
     }
 }

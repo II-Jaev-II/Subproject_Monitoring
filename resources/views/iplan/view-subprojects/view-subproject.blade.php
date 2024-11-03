@@ -80,7 +80,11 @@
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mt-6">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         <div x-cloak style="display: none !important" x-show="selectedComponent === 'IPLAN'">
-                            @include('iplan.components.iplan-validated-checklist')
+                            @if ($iPlanChecklists)
+                                @include('iplan.components.iplan-validated-checklist')
+                            @else
+                                <p class="text-2xl dark:text-red-500">IPLAN has not validated this subproject yet.</p>
+                            @endif
                         </div>
                     </div>
                 </div>
