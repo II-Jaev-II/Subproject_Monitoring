@@ -1,8 +1,9 @@
+@if($subprojects->iPLAN === 'Pending')
 <div class="mb-2">
     @if (!$iPlanChecklists->explanation && !$iPlanChecklists->justificationFile)
         <div class="mb-2">
             <p class="text-md font-bold dark:text-red-700 dark:bg-red-300 w-fit px-2 py-3 border-red-300 rounded-md">
-                Justification for rank and composite index is pending
+                Justification for rank/composite index is pending
             </p>
         </div>
     @endif
@@ -10,6 +11,7 @@
     <input type="text" class="block border-1 rounded-md border-gray-700 bg-gray-900 w-full mt-1"
         value="{{ implode(', ', $commodities->pluck('commodityName')->toArray()) }}" readonly>
 </div>
+@endif
 
 @if (isset($rankAndComposite) &&
         (optional($rankAndComposite)->evsaRankMango ||

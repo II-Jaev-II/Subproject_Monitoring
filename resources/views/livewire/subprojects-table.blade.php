@@ -64,7 +64,7 @@
                                         </div>
                                         <div class="relative group inline-block">
                                             <a href="{{ $userType === 'IBUILD'
-                                                ? route('ibuild.edit-subprojects', $subproject->id)
+                                                ? route('ibuild.edit-subproject', $subproject->id)
                                                 : ($userType === 'IPLAN'
                                                     ? ($subproject->iPlanStatus
                                                         ? route('iplan.edit-subproject', $subproject->id)

@@ -22,9 +22,9 @@ class UpdateIPlanChecklistRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'justificationFile' => 'file|mimes:png,jpg',
-            'pageMatrixVca' => 'file|mimes:png,jpg',
-            'pageMatrixPcip' => 'file|mimes:png,jpg',
+            'justificationFile' => 'mimes:png,jpg',
+            'pageMatrixVca' => 'mimes:png,jpg',
+            'pageMatrixPcip' => 'mimes:png,jpg',
             'sensitivity' => 'required',
             'exposure' => 'required',
             'adaptiveCapacity' => 'required',

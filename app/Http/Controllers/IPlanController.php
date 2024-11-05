@@ -127,6 +127,8 @@ class IPlanController extends Controller
             return in_array($commodity, $selectedCommodities);
         });
 
+        $unselectedCommodities = array_diff($allCommodities, $selectedCommodities);
+
         $rankCompositeData = DB::table('iplan_rank_and_composites')->where('checklistId', $checklistId)->first();
 
         $commodityData = [];
@@ -140,7 +142,16 @@ class IPlanController extends Controller
             ];
         }
 
-        return view('iplan.edit-subproject', compact('subproject', 'checklist', 'checklistId', 'commodities', 'selectedCommodities', 'commodityData', 'fields'));
+        return view('iplan.edit-subproject', compact(
+            'subproject',
+            'checklist',
+            'checklistId',
+            'commodities',
+            'selectedCommodities',
+            'unselectedCommodities',
+            'commodityData',
+            'fields'
+        ));
     }
 
     public function validateSubproject($id)
@@ -156,7 +167,6 @@ class IPlanController extends Controller
     public function update(UpdateIPlanChecklistRequest $request, $id)
     {
         $user = Auth::user();
-
         $request->validated();
 
         $subproject = Subproject::findOrFail($id);
@@ -179,36 +189,89 @@ class IPlanController extends Controller
                 $extension = $file->getClientOriginalExtension();
                 $filename = time() . '.' . $extension;
                 $file->move($basePath, $filename);
-
                 $paths[$field] = $basePath . '/' . $filename;
             }
         }
 
-        $explanationProvided = $request->filled('explanation');
-        $justificationFileProvided = !empty($paths['justificationFile'] ?? null);
+        $iPLANValue = 'OK';
 
-        if (($explanationProvided || $justificationFileProvided) && $subproject->iPLAN === 'Pending') {
-            $subproject->iPLAN = 'OK';
-            $subproject->increment('total');
-            $subproject->save();
+        $linkedVca = $request->get('linkedVca', $subproject->linkedVca);
+        $pcip = $request->get('pcip', $subproject->pcip);
+
+        if ($linkedVca === 'No') {
+            $iPLANValue = 'Failed';
+        } elseif ($pcip === 'No') {
+            $iPLANValue = 'Failed';
+        } else {
+            $hasJustification = $request->filled('explanation') || isset($paths['justificationFile']);
+
+            if ($hasJustification) {
+                $iPLANValue = 'OK';
+            } else {
+                $rankCompositeData = [
+                    ['rank' => $request->get('evsaRankMango'), 'index' => $request->get('compositeIndexMango')],
+                    ['rank' => $request->get('evsaRankOnion'), 'index' => $request->get('compositeIndexOnion')],
+                    ['rank' => $request->get('evsaRankGoat'), 'index' => $request->get('compositeIndexGoat')],
+                    ['rank' => $request->get('evsaRankPeanut'), 'index' => $request->get('compositeIndexPeanut')],
+                    ['rank' => $request->get('evsaRankTomato'), 'index' => $request->get('compositeIndexTomato')],
+                    ['rank' => $request->get('evsaRankMungbean'), 'index' => $request->get('compositeIndexMungbean')],
+                    ['rank' => $request->get('evsaRankBangus'), 'index' => $request->get('compositeIndexBangus')],
+                    ['rank' => $request->get('evsaRankGarlic'), 'index' => $request->get('compositeIndexGarlic')],
+                    ['rank' => $request->get('evsaRankCoffee'), 'index' => $request->get('compositeIndexCoffee')],
+                    ['rank' => $request->get('evsaRankHogs'), 'index' => $request->get('compositeIndexHogs')],
+                ];
+
+                foreach ($rankCompositeData as $data) {
+                    $evsaRank = $data['rank'];
+                    $compositeIndex = $data['index'];
+
+                    if ($evsaRank === null || $compositeIndex === null) continue;
+
+                    if ($evsaRank > 10 || $compositeIndex < 0.4) {
+                        $iPLANValue = 'Pending';
+                        break;
+                    }
+                }
+            }
         }
 
-        IplanChecklist::where('subprojectId', $subproject->id)->update([
+        $subprojectId = $request->get('subprojectId');
+        $currentSubproject = Subproject::find($subprojectId);
+        $updateData = ['iPLAN' => $iPLANValue];
+
+        if ($iPLANValue === 'OK' && $currentSubproject->iPLAN !== 'OK') {
+            $updateData['total'] = DB::raw('total + 1');
+        }
+
+        Subproject::where('id', $subprojectId)->update($updateData);
+
+        $iplanChecklistUpdateData = [
             'explanation' => $request->get('explanation', null),
-            'justificationFile' => $paths['justificationFile'] ?? null,
+            'linkedVca' => $linkedVca,
             'valueChainSegment' => $request->get('valueChainSegment', null),
             'opportunity' => $request->get('opportunity', null),
             'specificIntervention' => $request->get('specificIntervention', null),
-            'pageMatrixVca' => $paths['pageMatrixVca'] ?? null,
+            'pcip' => $pcip,
             'page' => $request->get('page', null),
-            'pageMatrixPcip' => $paths['pageMatrixPcip'] ?? null,
             'sensitivity' => $request->get('sensitivity', null),
             'exposure' => $request->get('exposure', null),
             'adaptiveCapacity' => $request->get('adaptiveCapacity', null),
             'overallVulnerability' => $request->get('overallVulnerability', null),
             'recommendation' => $request->get('recommendation', null),
             'generalRecommendation' => $request->get('generalRecommendation', null),
-        ]);
+        ];
+
+        if (isset($paths['justificationFile'])) {
+            $iplanChecklistUpdateData['justificationFile'] = $paths['justificationFile'];
+        }
+        if (isset($paths['pageMatrixVca'])) {
+            $iplanChecklistUpdateData['pageMatrixVca'] = $paths['pageMatrixVca'];
+        }
+        if (isset($paths['pageMatrixPcip'])) {
+            $iplanChecklistUpdateData['pageMatrixPcip'] = $paths['pageMatrixPcip'];
+        }
+
+        IplanChecklist::where('subprojectId', $subproject->id)->update($iplanChecklistUpdateData);
 
         $checklistId = $request->get('checklistId');
 
@@ -235,6 +298,15 @@ class IPlanController extends Controller
             'compositeIndexHogs' => $request->get('compositeIndexHogs', null),
         ]);
 
+        $commodities = $request->input('commodities', []);
+        foreach ($commodities as $commodity) {
+            IplanCommodity::create([
+                'checklistId' => $checklistId,
+                'commodityName' => $commodity,
+                'userId' => $user->id,
+            ]);
+        }
+
         return redirect()
             ->route('iplan.view-subproject', ['id' => $request->get('subprojectId')])
             ->with('success', 'Subproject has been validated successfully!');
@@ -246,7 +318,6 @@ class IPlanController extends Controller
     public function store(StoreIplanChecklistRequest $request)
     {
         $user = Auth::user();
-
         $request->validated();
 
         $fileFields = [
@@ -265,7 +336,6 @@ class IPlanController extends Controller
                 $extension = $file->getClientOriginalExtension();
                 $filename = time() . '.' . $extension;
                 $file->move($basePath, $filename);
-
                 $paths[$field] = $basePath . '/' . $filename;
             }
         }
@@ -294,13 +364,51 @@ class IPlanController extends Controller
         $checklistId = $checklist->id;
 
         $commodities = $request->input('commodities', []);
-
         foreach ($commodities as $commodity) {
             IplanCommodity::create([
                 'checklistId' => $checklistId,
                 'commodityName' => $commodity,
                 'userId' => $user->id,
             ]);
+        }
+
+        $iPLANValue = 'OK';
+
+        $linkedVca = $request->get('linkedVca');
+        $pcip = $request->get('pcip');
+        if ($linkedVca === 'No' || $pcip === 'No') {
+            $iPLANValue = 'Failed';
+        } else {
+            $hasJustification = $request->filled('explanation') || isset($paths['justificationFile']);
+
+            if ($hasJustification) {
+                $iPLANValue = 'OK';
+            } else {
+                $rankCompositeData = [
+                    ['rank' => $request->get('evsaRankMango'), 'index' => $request->get('compositeIndexMango')],
+                    ['rank' => $request->get('evsaRankOnion'), 'index' => $request->get('compositeIndexOnion')],
+                    ['rank' => $request->get('evsaRankGoat'), 'index' => $request->get('compositeIndexGoat')],
+                    ['rank' => $request->get('evsaRankPeanut'), 'index' => $request->get('compositeIndexPeanut')],
+                    ['rank' => $request->get('evsaRankTomato'), 'index' => $request->get('compositeIndexTomato')],
+                    ['rank' => $request->get('evsaRankMungbean'), 'index' => $request->get('compositeIndexMungbean')],
+                    ['rank' => $request->get('evsaRankBangus'), 'index' => $request->get('compositeIndexBangus')],
+                    ['rank' => $request->get('evsaRankGarlic'), 'index' => $request->get('compositeIndexGarlic')],
+                    ['rank' => $request->get('evsaRankCoffee'), 'index' => $request->get('compositeIndexCoffee')],
+                    ['rank' => $request->get('evsaRankHogs'), 'index' => $request->get('compositeIndexHogs')],
+                ];
+
+                foreach ($rankCompositeData as $data) {
+                    $evsaRank = $data['rank'];
+                    $compositeIndex = $data['index'];
+
+                    if ($evsaRank === null || $compositeIndex === null) continue;
+
+                    if ($evsaRank > 10 || $compositeIndex < 0.4) {
+                        $iPLANValue = 'Pending';
+                        break;
+                    }
+                }
+            }
         }
 
         IplanRankAndComposite::create([
@@ -329,7 +437,6 @@ class IPlanController extends Controller
         ]);
 
         $subprojectId = $request->get('subprojectId');
-        $iPLANValue = empty($request->explanation) && empty($paths['justificationFile'] ?? null) ? 'Pending' : 'OK';
         $updateData = ['iPLAN' => $iPLANValue];
         if ($iPLANValue === 'OK') {
             $updateData['total'] = DB::raw('total + 1');

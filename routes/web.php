@@ -30,6 +30,7 @@ Route::middleware(['auth', 'userType:IBUILD'])->group(function () {
     Route::get('/ibuild/subprojects', [IBuildController::class, 'show'])->name('ibuild.subprojects');
     Route::get('/ibuild/clearances', [IBuildController::class, 'showClearances'])->name('ibuild.clearances');
     Route::get('/ibuild/view-subproject/{id}', [IBuildController::class, 'view'])->name('ibuild.view-subproject');
+    Route::get('/ibuild/edit-subproject/{id}', [IPlanController::class, 'edit'])->name('ibuild.edit-subproject');
     Route::get('/ibuild/create-subproject', [IBuildController::class, 'create'])->name('ibuild.create-subproject');
     Route::post('/ibuild/store-subproject', [IBuildController::class, 'store'])->name('ibuild.store-subproject');
 });
