@@ -7,6 +7,8 @@ use App\Http\Requests\UpdateIPlanChecklistRequest;
 use App\Models\IplanChecklist;
 use App\Models\IplanCommodity;
 use App\Models\IplanRankAndComposite;
+use App\Models\SesChecklist;
+use App\Models\SesRequirements;
 use App\Models\Subproject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,11 +40,19 @@ class IPlanController extends Controller
             $rankAndComposite = IplanRankAndComposite::where('checklistId', $iPlanChecklists->id)->first();
         }
 
+        $sesChecklists = SesChecklist::where('ses_checklists.subprojectId', $id)->first();
+        $sesRequirements = [];
+        if ($sesChecklists) {
+            $sesRequirements = SesRequirements::where('checklistId', $sesChecklists->id)->get();
+        }
+
         return view('iplan.view-subprojects.view-subproject', [
             'subprojects' => $subprojects,
             'iPlanChecklists' => $iPlanChecklists,
             'commodities' => $commodities,
             'rankAndComposite' => $rankAndComposite,
+            'sesChecklists' => $sesChecklists,
+            'sesRequirements' => $sesRequirements,
         ]);
     }
 
@@ -239,7 +249,10 @@ class IPlanController extends Controller
         $currentSubproject = Subproject::find($subprojectId);
         $updateData = ['iPLAN' => $iPLANValue];
 
-        if ($iPLANValue === 'OK' && $currentSubproject->iPLAN !== 'OK') {
+        if ($iPLANValue === 'Pending' && $currentSubproject->iPLAN === 'OK') {
+            $updateData['total'] = DB::raw('total - 1');
+        }
+        elseif ($iPLANValue === 'OK' && $currentSubproject->iPLAN !== 'OK') {
             $updateData['total'] = DB::raw('total + 1');
         }
 

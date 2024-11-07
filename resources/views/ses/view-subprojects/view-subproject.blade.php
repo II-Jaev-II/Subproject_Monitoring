@@ -11,7 +11,7 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="flex justify-between items-center mb-4">
                         <h1 class="dark:text-lime-500 text-xl">Clearances for Validation</h1>
-                        <a href="{{ route('ggu.subprojects') }}"
+                        <a href="{{ route('ses.subprojects') }}"
                             class="border border-transparent text-sm leading-4 font-medium rounded-md text-gray dark:text-white bg-gray-400 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2">
                             Show Subprojects
                         </a>
@@ -79,22 +79,35 @@
                 </div>
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mt-6">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
-                        <h1 class="dark:text-lime-500 text-xl mt-4 mb-4">Other Component's Validations</h1>
-                        <hr class="border-2 dark:border-lime-500 mb-2">
                         <div x-cloak style="display: none !important" x-show="selectedComponent === 'IPLAN'">
-                            <livewire:iplan-clearance />
-                        </div>
-                        <div x-cloak style="display: none !important" x-show="selectedComponent === 'IBUILD'">
-                            <livewire:ibuild-clearance />
-                        </div>
-                        <div x-cloak style="display: none !important" x-show="selectedComponent === 'ECON'">
-                            <livewire:econ-clearance />
+                            @if ($iPlanChecklists)
+                            <h1 class="dark:text-lime-500 text-xl mt-4 mb-4">IPLAN Validation</h1>
+                            <hr class="border-2 dark:border-lime-500 mb-2">
+                            @include('iplan.components.iplan-validated-checklist')
+                            @else
+                            <p class="flex items-center gap-2 text-md rounded-md border font-bold dark:bg-red-600 border-red-400 w-fit px-2 py-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="text-white" width="20" height="20" fill="currentColor" class="bi bi-clipboard-x-fill" viewBox="0 0 16 16">
+                                    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z" />
+                                    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5zm4 7.793 1.146-1.147a.5.5 0 1 1 .708.708L8.707 10l1.147 1.146a.5.5 0 0 1-.708.708L8 10.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 10 6.146 8.854a.5.5 0 1 1 .708-.708z" />
+                                </svg>
+                                IPLAN has not validated this subproject yet.
+                            </p>
+                            @endif
                         </div>
                         <div x-cloak style="display: none !important" x-show="selectedComponent === 'SES'">
-                            <livewire:ses-clearance />
-                        </div>
-                        <div x-cloak style="display: none !important" x-show="selectedComponent === 'GGU'">
-                            <livewire:ggu-clearance />
+                            @if ($sesChecklists)
+                            <h1 class="dark:text-lime-500 text-xl mt-4 mb-4">SES Validation</h1>
+                            <hr class="border-2 dark:border-lime-500 mb-2">
+                            @include('ses.components.ses-validated-checklist')
+                            @else
+                            <p class="flex items-center gap-2 text-md rounded-md border font-bold dark:bg-red-600 border-red-400 w-fit px-2 py-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="text-white" width="20" height="20" fill="currentColor" class="bi bi-clipboard-x-fill" viewBox="0 0 16 16">
+                                    <path d="M6.5 0A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0zm3 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5z" />
+                                    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1A2.5 2.5 0 0 1 9.5 5h-3A2.5 2.5 0 0 1 4 2.5zm4 7.793 1.146-1.147a.5.5 0 1 1 .708.708L8.707 10l1.147 1.146a.5.5 0 0 1-.708.708L8 10.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 10 6.146 8.854a.5.5 0 1 1 .708-.708z" />
+                                </svg>
+                                SES has not validated this subproject yet.
+                            </p>
+                            @endif
                         </div>
                     </div>
                 </div>

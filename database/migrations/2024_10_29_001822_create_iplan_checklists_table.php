@@ -28,7 +28,6 @@ return new class extends Migration
             $table->string('overallVulnerability');
             $table->string('recommendation');
             $table->string('generalRecommendation')->nullable();
-            $table->integer('userId');
             $table->timestamps();
         });
     }

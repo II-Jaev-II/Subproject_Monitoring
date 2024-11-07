@@ -27,7 +27,8 @@ class SubprojectsTable extends Component
             ->paginate($this->perPage);
 
         foreach ($subprojects as $subproject) {
-            $subproject->iPlanStatus = $subproject->iPLAN === 'OK' || $subproject->iPLAN === 'Pending' || $subproject->iPLAN === 'Failed';
+            $subproject->iPlanStatus = in_array($subproject->iPLAN, ['OK', 'Pending', 'Failed']);
+            $subproject->sesStatus = in_array($subproject->ses, ['OK', 'Pending', 'Failed']);
         }
 
         return view('livewire.subprojects-table', [

@@ -16,6 +16,7 @@
                         <input type="text" name="subprojectId" value="{{ $subproject->id }}" hidden>
                         <div class="mb-4">
                             <h1 for="iplanChecklist" class="dark:text-lime-500 text-2xl">Edit I-PLAN Checklist</h1>
+                            <hr class="border-2 dark:border-lime-500 mb-2">
                         </div>
 
                         <label for="priorityCommodity" class="dark:text-green-600">Priority commodity supported by the

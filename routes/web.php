@@ -58,6 +58,10 @@ Route::middleware(['auth', 'userType:SES'])->group(function () {
     Route::get('/ses/subprojects', [SESController::class, 'show'])->name('ses.subprojects');
     Route::get('/ses/clearances', [SESController::class, 'showClearances'])->name('ses.clearances');
     Route::get('/ses/view-subproject/{id}', [SESController::class, 'view'])->name('ses.view-subproject');
+    Route::get('/ses/edit-subproject/{id}', [SESController::class, 'edit'])->name('ses.edit-subproject');
+    Route::post('/ses/update-subproject/{id}', [SESController::class, 'update'])->name('ses.update-subproject');
+    Route::get('/ses/validate-subprojects/{id}', [SESController::class, 'validateSubproject'])->name('ses.validate-subprojects');
+    Route::post('/ses/store-subproject', [SESController::class, 'store'])->name('ses.store-subproject');
 });
 
 Route::middleware(['auth', 'userType:GGU'])->group(function () {
