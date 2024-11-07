@@ -28,6 +28,7 @@ class IplanChecklist extends Model
         'overallVulnerability',
         'recommendation',
         'generalRecommendation',
+        'reviewDate',
         'userId',
     ];
 

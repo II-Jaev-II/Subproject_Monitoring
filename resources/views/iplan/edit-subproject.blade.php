@@ -14,6 +14,17 @@
                         @csrf
                         <input type="text" name="checklistId" value="{{ $checklistId }}" hidden>
                         <input type="text" name="subprojectId" value="{{ $subproject->id }}" hidden>
+
+                        <div class="flex items-center space-x-4 mb-6">
+                            <label for="reviewDate" class="dark:text-lime-500">Date of Review <span class="dark:text-red-500">*</span></label>
+                            <input type="date" name="reviewDate" id="reviewDate" value="{{ old('reviewDate') }}" class="dark:bg-gray-900 rounded-md dark:[color-scheme:dark]">
+                            @if ($errors->has('reviewDate'))
+                            <div class="text-red-600 mt-2 mb-2">
+                                {{ $errors->first('reviewDate') }}
+                            </div>
+                            @endif
+                        </div>
+
                         <div class="mb-4">
                             <h1 for="iplanChecklist" class="dark:text-lime-500 text-2xl">Edit I-PLAN Checklist</h1>
                             <hr class="border-2 dark:border-lime-500 mb-2">

@@ -1,7 +1,7 @@
 <div class="mb-6">
     <div class="flex items-center space-x-4 mb-6">
         <label for="reviewDate" class="dark:text-lime-500">Date of Review</label>
-        <input type="date" name="reviewDate" id="reviewDate" value="{{ $sesChecklists->reviewDate }}" class="dark:bg-gray-900 rounded-md dark:[color-scheme:dark]" readonly>
+        <input type="text" name="reviewDate" id="reviewDate" value="{{ $formattedReviewDateSes }}" class="dark:bg-gray-900 rounded-md dark:[color-scheme:dark]" readonly>
     </div>
 </div>
 

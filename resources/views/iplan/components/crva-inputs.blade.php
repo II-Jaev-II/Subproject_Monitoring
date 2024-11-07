@@ -53,7 +53,12 @@
     @endif
 </div>
 <div>
-    <label for="generalRecommendation" class="dark:text-green-600 text-2xl">General Recommendations</label>
+    <label for="generalRecommendation" class="dark:text-green-600 text-2xl">General Recommendations <span class="dark:text-red-500">*</span></label>
     <textarea name="generalRecommendation" id="generalRecommendation" rows="4"
         class="block border-1 rounded-md border-gray-700 bg-gray-900 w-full mt-1">{{ old('generalRecommendation') }}</textarea>
+        @if ($errors->has('generalRecommendation'))
+        <div class="text-red-600 mt-2 mb-2">
+            {{ $errors->first('generalRecommendation') }}
+        </div>
+    @endif
 </div>

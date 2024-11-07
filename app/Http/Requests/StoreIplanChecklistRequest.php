@@ -34,6 +34,8 @@ class StoreIplanChecklistRequest extends FormRequest
             'justificationFile' => 'file|mimes:jpg,png',
             'pageMatrixVca' => 'file|mimes:jpg,png',
             'pageMatrixPcip' => 'file|mimes:jpg,png',
+            'reviewDate' => 'required',
+            'generalRecommendation' => 'required',
         ];
     }
 
@@ -51,6 +53,8 @@ class StoreIplanChecklistRequest extends FormRequest
             'justificationFile.mimes' => 'JPG & PNG are the only supported file types.',
             'pageMatrixVca.mimes' => 'JPG & PNG are the only supported file types.',
             'pageMatrixPcip.mimes' => 'JPG & PNG are the only supported file types.',
+            'reviewDate.required' => 'Please select a date of review.',
+            'generalRecommendation.review' => 'Please fill in the general recommendations field.',
         ];
     }
 }

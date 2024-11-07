@@ -9,6 +9,7 @@ use App\Models\IplanRankAndComposite;
 use App\Models\SesChecklist;
 use App\Models\SesRequirements;
 use App\Models\Subproject;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -47,6 +48,9 @@ class SESController extends Controller
             $sesRequirements = SesRequirements::where('checklistId', $sesChecklists->id)->get();
         }
 
+        $formattedReviewDateIPlan = Carbon::parse($iPlanChecklists->reviewDate)->format('F j, Y');
+        $formattedReviewDateSes = Carbon::parse($sesChecklists->reviewDate)->format('F j, Y');
+
         return view('ses.view-subprojects.view-subproject', [
             'subprojects' => $subprojects,
             'iPlanChecklists' => $iPlanChecklists,
@@ -54,6 +58,9 @@ class SESController extends Controller
             'rankAndComposite' => $rankAndComposite,
             'sesChecklists' => $sesChecklists,
             'sesRequirements' => $sesRequirements,
+            
+            'formattedReviewDateIPlan' => $formattedReviewDateIPlan,
+            'formattedReviewDateSes' => $formattedReviewDateSes,
         ]);
     }
 

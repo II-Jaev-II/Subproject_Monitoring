@@ -10,6 +10,7 @@ use App\Models\IplanRankAndComposite;
 use App\Models\SesChecklist;
 use App\Models\SesRequirements;
 use App\Models\Subproject;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -46,6 +47,9 @@ class IPlanController extends Controller
             $sesRequirements = SesRequirements::where('checklistId', $sesChecklists->id)->get();
         }
 
+        $formattedReviewDateIPlan = Carbon::parse($iPlanChecklists->reviewDate)->format('F j, Y');
+        $formattedReviewDateSes = Carbon::parse($sesChecklists->reviewDate)->format('F j, Y');
+
         return view('iplan.view-subprojects.view-subproject', [
             'subprojects' => $subprojects,
             'iPlanChecklists' => $iPlanChecklists,
@@ -53,6 +57,8 @@ class IPlanController extends Controller
             'rankAndComposite' => $rankAndComposite,
             'sesChecklists' => $sesChecklists,
             'sesRequirements' => $sesRequirements,
+            'formattedReviewDateIPlan' => $formattedReviewDateIPlan,
+            'formattedReviewDateSes' => $formattedReviewDateSes,
         ]);
     }
 
@@ -208,7 +214,10 @@ class IPlanController extends Controller
         $linkedVca = $request->get('linkedVca', $subproject->linkedVca);
         $pcip = $request->get('pcip', $subproject->pcip);
 
-        if ($linkedVca === 'No') {
+        $checklist = IplanChecklist::where('subprojectId', $subproject->id)->first();
+        if ($checklist && !empty($checklist->justificationFile)) {
+            $iPLANValue = 'OK';
+        } elseif ($linkedVca === 'No') {
             $iPLANValue = 'Failed';
         } elseif ($pcip === 'No') {
             $iPLANValue = 'Failed';
@@ -251,8 +260,7 @@ class IPlanController extends Controller
 
         if ($iPLANValue === 'Pending' && $currentSubproject->iPLAN === 'OK') {
             $updateData['total'] = DB::raw('total - 1');
-        }
-        elseif ($iPLANValue === 'OK' && $currentSubproject->iPLAN !== 'OK') {
+        } elseif ($iPLANValue === 'OK' && $currentSubproject->iPLAN !== 'OK') {
             $updateData['total'] = DB::raw('total + 1');
         }
 
@@ -272,6 +280,7 @@ class IPlanController extends Controller
             'overallVulnerability' => $request->get('overallVulnerability', null),
             'recommendation' => $request->get('recommendation', null),
             'generalRecommendation' => $request->get('generalRecommendation', null),
+            'reviewDate' => $request->get('reviewDate', null),
         ];
 
         if (isset($paths['justificationFile'])) {
@@ -371,6 +380,7 @@ class IPlanController extends Controller
             'overallVulnerability' => $request->get('overallVulnerability', null),
             'recommendation' => $request->get('recommendation', null),
             'generalRecommendation' => $request->get('generalRecommendation', null),
+            'reviewDate' => $request->get('reviewDate', null),
             'userId' => $user->id,
         ]);
 

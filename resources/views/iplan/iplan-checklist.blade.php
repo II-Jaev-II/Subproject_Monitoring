@@ -12,6 +12,17 @@
                     <form action="{{ route('iplan.store-subproject') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="text" name="subprojectId" value="{{ $subproject->id }}" hidden>
+                        
+                        <div class="flex items-center space-x-4 mb-6">
+                            <label for="reviewDate" class="dark:text-lime-500">Date of Review <span class="dark:text-red-500">*</span></label>
+                            <input type="date" name="reviewDate" id="reviewDate" value="{{ old('reviewDate') }}" class="dark:bg-gray-900 rounded-md dark:[color-scheme:dark]">
+                            @if ($errors->has('reviewDate'))
+                            <div class="text-red-600 mt-2 mb-2">
+                                {{ $errors->first('reviewDate') }}
+                            </div>
+                            @endif
+                        </div>
+
                         <label for="priorityCommodity" class="dark:text-lime-500 text-2xl">Priority commodity supported
                             by the
                             SP Proposal <span class="dark:text-red-500">*</span></label>
