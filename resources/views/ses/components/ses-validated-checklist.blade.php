@@ -1,9 +1,9 @@
-<div class="mb-6">
-    <div class="flex items-center space-x-4 mb-6">
-        <label for="reviewDate" class="dark:text-lime-500">Date of Review</label>
-        <input type="text" name="reviewDate" id="reviewDate" value="{{ $formattedReviewDateSes }}" class="dark:bg-gray-900 rounded-md dark:[color-scheme:dark]" readonly>
-    </div>
+@if($sesChecklists && $sesChecklists->reviewDate)
+<div class="flex items-center space-x-4 mb-2">
+    <label for="reviewDate" class="dark:text-lime-500">Date of Review</label>
+    <input type="text" name="reviewDate" id="reviewDate" value="{{ $formattedReviewDateSes }}" class="dark:bg-gray-900 rounded-md dark:[color-scheme:dark]" readonly>
 </div>
+@endif
 
 @if($sesChecklists->reason)
 <div class="mb-6">

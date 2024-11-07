@@ -30,6 +30,8 @@ class UpdateIPlanChecklistRequest extends FormRequest
             'adaptiveCapacity' => 'required',
             'overallVulnerability' => 'required',
             'recommendation' => 'required',
+            'reviewDate' => 'required',
+            'generalRecommendation' => 'required',
         ];
     }
 
@@ -45,6 +47,8 @@ class UpdateIPlanChecklistRequest extends FormRequest
             'adaptiveCapacity.required' => 'Please fill in the adaptive capacity field.',
             'overallVulnerability.required' => 'Please fill in the overall vulnerability field.',
             'recommendation.required' => 'Please fill in the recommendation field.',
+            'reviewDate.required' => 'Please select a date of review.',
+            'generalRecommendation.required' => 'Please fill in the general recommendations field.',
         ];
     }
 }

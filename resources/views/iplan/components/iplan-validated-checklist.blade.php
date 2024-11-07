@@ -10,10 +10,12 @@
 </div>
 @endif
 
+@if($iPlanChecklists && $iPlanChecklists->reviewDate)
 <div class="flex items-center space-x-4 mb-2">
     <label for="reviewDate" class="dark:text-lime-500">Date of Review</label>
     <input type="text" name="reviewDate" id="reviewDate" value="{{ $formattedReviewDateIPlan }}" class="dark:bg-gray-900 rounded-md dark:[color-scheme:dark]" readonly>
 </div>
+@endif
 
 <div class="mb-2">
     <label for="commodities" class="dark:text-lime-500 text-2xl">Priority commodity supported by the SP Proposal</label>

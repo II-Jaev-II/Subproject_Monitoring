@@ -47,8 +47,16 @@ class IPlanController extends Controller
             $sesRequirements = SesRequirements::where('checklistId', $sesChecklists->id)->get();
         }
 
-        $formattedReviewDateIPlan = Carbon::parse($iPlanChecklists->reviewDate)->format('F j, Y');
-        $formattedReviewDateSes = Carbon::parse($sesChecklists->reviewDate)->format('F j, Y');
+        $formattedReviewDateIPlan = null;
+        if ($iPlanChecklists && $iPlanChecklists->reviewDate) {
+            $formattedReviewDateIPlan = Carbon::parse($iPlanChecklists->reviewDate)->format('F j, Y');
+        }
+
+        $formattedReviewDateSes = null;
+        if ($sesChecklists && $sesChecklists->reviewDate) {
+            $formattedReviewDateSes = Carbon::parse($sesChecklists->reviewDate)->format('F j, Y');
+        }
+
 
         return view('iplan.view-subprojects.view-subproject', [
             'subprojects' => $subprojects,
@@ -93,48 +101,6 @@ class IPlanController extends Controller
 
         $checklistId = $checklist->id;
 
-        $fields = [
-            'sensitivity' => [
-                'label' => 'Sensitivity',
-                'value' => $checklist->sensitivity,
-                'type' => 'text',
-                'name' => 'sensitivity',
-            ],
-            'exposure' => [
-                'label' => 'Exposure',
-                'value' => $checklist->exposure,
-                'type' => 'text',
-                'name' => 'exposure',
-            ],
-            'adaptiveCapacity' => [
-                'label' => 'Adaptive Capacity',
-                'value' => $checklist->adaptiveCapacity,
-                'type' => 'text',
-                'name' => 'adaptiveCapacity',
-            ],
-            'overallVulnerability' => [
-                'label' => 'Overall Vulnerability',
-                'value' => $checklist->overallVulnerability,
-                'type' => 'text',
-                'name' => 'overallVulnerability',
-            ],
-            'recommendation' => [
-                'label' => 'Recommendation',
-                'value' => $checklist->recommendation,
-                'type' => 'textarea',
-                'name' => 'recommendation',
-            ],
-        ];
-
-        if (isset($checklist->generalRecommendation)) {
-            $fields['generalRecommendation'] = [
-                'label' => 'General Recommendation',
-                'value' => $checklist->generalRecommendation,
-                'type' => 'textarea',
-                'name' => 'generalRecommendation',
-            ];
-        }
-
         $selectedCommodities = IplanCommodity::where('checklistId', $checklistId)->pluck('commodityName')->toArray();
 
         $allCommodities = ['Mango', 'Onion', 'Goat', 'Peanut', 'Tomato', 'Mungbean', 'Bangus', 'Garlic', 'Coffee', 'Hogs'];
@@ -166,7 +132,6 @@ class IPlanController extends Controller
             'selectedCommodities',
             'unselectedCommodities',
             'commodityData',
-            'fields'
         ));
     }
 

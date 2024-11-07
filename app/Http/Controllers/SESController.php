@@ -48,8 +48,15 @@ class SESController extends Controller
             $sesRequirements = SesRequirements::where('checklistId', $sesChecklists->id)->get();
         }
 
-        $formattedReviewDateIPlan = Carbon::parse($iPlanChecklists->reviewDate)->format('F j, Y');
-        $formattedReviewDateSes = Carbon::parse($sesChecklists->reviewDate)->format('F j, Y');
+        $formattedReviewDateIPlan = null;
+        if ($iPlanChecklists && $iPlanChecklists->reviewDate) {
+            $formattedReviewDateIPlan = Carbon::parse($iPlanChecklists->reviewDate)->format('F j, Y');
+        }
+
+        $formattedReviewDateSes = null;
+        if ($sesChecklists && $sesChecklists->reviewDate) {
+            $formattedReviewDateSes = Carbon::parse($sesChecklists->reviewDate)->format('F j, Y');
+        }
 
         return view('ses.view-subprojects.view-subproject', [
             'subprojects' => $subprojects,
@@ -58,7 +65,7 @@ class SESController extends Controller
             'rankAndComposite' => $rankAndComposite,
             'sesChecklists' => $sesChecklists,
             'sesRequirements' => $sesRequirements,
-            
+
             'formattedReviewDateIPlan' => $formattedReviewDateIPlan,
             'formattedReviewDateSes' => $formattedReviewDateSes,
         ]);
