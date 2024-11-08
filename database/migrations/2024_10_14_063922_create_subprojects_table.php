@@ -27,7 +27,6 @@ return new class extends Migration
             $table->string('letterOfInterest');
             $table->string('commodity');
             $table->string('report');
-            $table->string('userId');
             $table->timestamps();
         });
     }

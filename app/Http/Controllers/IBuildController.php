@@ -55,13 +55,18 @@ class IBuildController extends Controller
             'commodityReport' => 'uploadedFiles/report',
         ];
 
+        $paths = [];
+
         foreach ($fileFields as $field => $basePath) {
-            if ($request->has($field)) {
+            if (!file_exists($basePath)) {
+                mkdir($basePath, 0755, true);
+            }
+
+            if ($request->hasFile($field)) {
                 $file = $request->file($field);
                 $extension = $file->getClientOriginalExtension();
                 $filename = time() . '.' . $extension;
                 $file->move($basePath, $filename);
-
                 $paths[$field] = $basePath . '/' . $filename;
             }
         }

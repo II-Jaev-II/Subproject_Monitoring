@@ -12,17 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('subprojects', function (Blueprint $table) {
-            $table->string('iPLAN')->after('report');
-            $table->string('iPLANRemarks')->after('iPLAN');
-            $table->string('iBUILD')->after('iPLANRemarks');
-            $table->string('iBUILDRemarks')->after('iBUILD');
-            $table->string('econ')->after('iBUILDRemarks');
-            $table->string('econRemarks')->after('econ');
-            $table->string('ses')->after('econRemarks');
-            $table->string('sesRemarks')->after('ses');
-            $table->string('ggu')->after('sesRemarks');
-            $table->string('gguRemarks')->after('ggu');
-            $table->integer('total')->after('gguRemarks');
+            $table->string('iPLAN')->after('report')->nullable();
+            $table->string('iPLANRemarks')->after('iPLAN')->nullable();
+            $table->string('iBUILD')->after('iPLANRemarks')->nullable();
+            $table->string('iBUILDRemarks')->after('iBUILD')->nullable();
+            $table->string('econ')->after('iBUILDRemarks')->nullable();
+            $table->string('econRemarks')->after('econ')->nullable();
+            $table->string('ses')->after('econRemarks')->nullable();
+            $table->string('sesRemarks')->after('ses')->nullable();
+            $table->string('ggu')->after('sesRemarks')->nullable();
+            $table->string('gguRemarks')->after('ggu')->nullable();
+            $table->integer('total')->after('gguRemarks')->default(0)->nullable();
         });
     }
 
