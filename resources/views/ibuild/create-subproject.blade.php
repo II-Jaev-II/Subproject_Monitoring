@@ -7,23 +7,24 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-gray-200 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <form action="{{ route('ibuild.store-subproject') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="flex justify-between items-center mb-4">
-                            <h1 class="dark:text-lime-500 text-xl">Proponent & Location</h1>
+                            <h1 class="text-green-600 dark:text-lime-500 text-xl">Proponent & Location</h1>
                             <a href="{{ route('ibuild.subprojects') }}"
-                                class="border border-transparent text-sm leading-4 font-medium rounded-md text-gray dark:text-white bg-gray-400 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2">
+                                class="border border-transparent text-sm leading-4 font-medium rounded-md text-white dark:text-white bg-gray-400 dark:bg-lime-500 hover:text-gray-200 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2">
                                 Show Subprojects
                             </a>
                         </div>
-                        <hr class="border-2 dark:border-lime-500 mb-2">
+                        <hr class="border-2 dark:border-lime-500 border-green-500 mb-2">
                         <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                             <div>
-                                <label for="proponent">Proponent <span class="dark:text-red-500">*</span></label>
+                                <label for="proponent" class="dark:text-green-600 text-green-800">Proponent <span
+                                        class="text-red-600">*</span></label>
                                 <select name="proponent" id="proponent"
-                                    class="block border-1 rounded-md border-gray-700 bg-gray-900 w-full mt-1">
+                                    class="block border-1 rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1">
                                     <option value="" disabled {{ old('proponent') == '' ? 'selected' : '' }}>
                                         Select a proponent</option>
                                     <option value="CLGU" {{ old('proponent') == 'CLGU' ? 'selected' : '' }}>CLGU
@@ -38,35 +39,22 @@
                                 @enderror
                             </div>
                             <div>
-                                <label for="cluster">Cluster <span class="dark:text-red-500">*</span></label>
-                                <select name="cluster" id="cluster"
-                                    class="block border-1 rounded-md border-gray-700 bg-gray-900 w-full mt-1">
-                                    <option value="" {{ old('cluster') == '' ? 'selected' : '' }} disabled
-                                        selected>Select a cluster</option>
-                                    <option value="Luzon A" {{ old('cluster') == 'Luzon A' ? 'selected' : '' }}>Luzon A
-                                    </option>
-                                </select>
-                                @error('cluster')
-                                    <span class="text-red-500">{{ $message }}</span>
-                                @enderror
+                                <label for="cluster" class="dark:text-green-600 text-green-800">Cluster</label>
+                                <input
+                                    class="block border-1 rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1"
+                                    type="text" name="cluster" id="cluster" value="Luzon A" readonly>
                             </div>
                             <div>
-                                <label for="region">Region <span class="dark:text-red-500">*</span></label>
-                                <select name="region" id="region"
-                                    class="block border-1 rounded-md border-gray-700 bg-gray-900 w-full mt-1">
-                                    <option value="" {{ old('region') == '' ? 'selected' : '' }} disabled
-                                        selected>Select a region</option>
-                                    <option value="Region 1" {{ old('region') == 'Region 1' ? 'selected' : '' }}>Region
-                                        1</option>
-                                </select>
-                                @error('region')
-                                    <span class="text-red-500">{{ $message }}</span>
-                                @enderror
+                                <label for="region" class="dark:text-green-600 text-green-800">Region</label>
+                                <input
+                                    class="block border-1 rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1"
+                                    type="text" name="region" id="region" value="Region 1" readonly>
                             </div>
                             <div>
-                                <label for="province">Province <span class="dark:text-red-500">*</span></label>
+                                <label for="province" class="dark:text-green-600 text-green-800">Province <span
+                                        class="text-red-600">*</span></label>
                                 <select name="province" id="province"
-                                    class="block border-1 rounded-md border-gray-700 bg-gray-900 w-full mt-1"
+                                    class="block border-1 rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1"
                                     onchange="fetchMunicipalities(this.value)">
                                     <option value="" disabled selected>Select a province</option>
                                     @foreach ($provinces as $province)
@@ -81,9 +69,10 @@
                                 @enderror
                             </div>
                             <div>
-                                <label for="municipality">Municipality <span class="dark:text-red-500">*</span></label>
+                                <label for="municipality" class="dark:text-green-600 text-green-800">Municipality <span
+                                        class="text-red-600">*</span></label>
                                 <select name="municipality" id="municipality"
-                                    class="block border-1 rounded-md border-gray-700 bg-gray-900 w-full mt-1"
+                                    class="block border-1 rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1"
                                     onchange="fetchBarangays(this.value)">
                                 </select>
                                 @error('municipality')
@@ -91,31 +80,34 @@
                                 @enderror
                             </div>
                             <div>
-                                <label for="barangay">Barangay <span class="dark:text-red-500">*</span></label>
+                                <label for="barangay" class="dark:text-green-600 text-green-800">Barangay <span
+                                        class="text-red-600">*</span></label>
                                 <select name="barangay" id="barangay"
-                                    class="block border-1 rounded-md border-gray-700 bg-gray-900 w-full mt-1">
+                                    class="block border-1 rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1">
                                 </select>
                                 @error('barangay')
                                     <span class="text-red-500">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
-                        <h1 class="dark:text-lime-500 text-xl mt-4 mb-4">Subproject Profile</h1>
-                        <hr class="border-2 dark:border-lime-500 mb-2">
+                        <h1 class="text-green-600 dark:text-lime-500 text-xl mt-4 mb-4">Subproject Profile</h1>
+                        <hr class="border-2 border-green-600 dark:border-lime-500 mb-2">
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                             <div>
-                                <label for="projectName">Project Name <span class="dark:text-red-500">*</span></label>
+                                <label for="projectName" class="dark:text-green-600 text-green-800">Project Name <span
+                                        class="text-red-600">*</span></label>
                                 <input type="text" name="projectName" id="projectName"
-                                    class="block border-1 rounded-md border-gray-700 bg-gray-900 w-full mt-1"
+                                    class="block border-1 rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1"
                                     value="{{ old('projectName') }}">
                                 @error('projectName')
                                     <span class="text-red-500">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div>
-                                <label for="projectType">Project Type <span class="dark:text-red-500">*</span></label>
+                                <label for="projectType" class="dark:text-green-600 text-green-800">Project Type <span
+                                        class="text-red-600">*</span></label>
                                 <select name="projectType" id="projectType"
-                                    class="block border-1 rounded-md border-gray-700 bg-gray-900 w-full mt-1">
+                                    class="block border-1 rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1">
                                     <option value="" {{ old('projectType') == '' ? 'selected' : '' }} disabled
                                         selected>Select a project type</option>
                                     <option value="FMR" {{ old('projectType') == 'FMR' ? 'selected' : '' }}>FMR
@@ -136,10 +128,10 @@
                                 @enderror
                             </div>
                             <div>
-                                <label for="projectCategory">Project Category <span
-                                        class="dark:text-red-500">*</span></label>
+                                <label for="projectCategory" class="dark:text-green-600 text-green-800">Project Category
+                                    <span class="text-red-600">*</span></label>
                                 <select name="projectCategory" id="projectCategory"
-                                    class="block border-1 rounded-md border-gray-700 bg-gray-900 w-full mt-1">
+                                    class="block border-1 rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1">
                                     <option value="" {{ old('projectCategory') == '' ? 'selected' : '' }}
                                         disabled selected>Select a project category</option>
                                     <option value="Construction"
@@ -160,72 +152,70 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3">
+                            <div>
+                                <label for="fundSource" class="dark:text-green-600 text-green-800">Fund Source</label>
+                                <input
+                                    class="block border-1 rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1"
+                                    type="text" name="fundSource" id="fundSource" value="PRDP Scale-Up" readonly>
+                            </div>
+                            <div x-data="{
+                                number: '',
+                                rawNumber: '',
+                                formatNumber() {
+                                    let cleanedValue = this.number.replace(/,/g, '');
+                                    if (!isNaN(cleanedValue) && cleanedValue !== '') {
+                                        const [integerPart, decimalPart] = cleanedValue.split('.');
+                                        this.number = Number(integerPart).toLocaleString('en-US') +
+                                            (decimalPart !== undefined ? '.' + decimalPart.slice(0, 2) : '');
+                                        this.rawNumber = cleanedValue.includes('.') ? parseFloat(cleanedValue).toFixed(2) : cleanedValue;
+                                    }
+                                }
+                            }">
+                                <label for="indicativeCost" class="dark:text-green-600 text-green-800">Indicative
+                                    Cost</label>
+                                <input type="text" id="indicativeCost"
+                                    class="block border-1 rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1"
+                                    step=".01"
+                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\..*/, '$1');"
+                                    x-model="number" @input="formatNumber">
+                                <input
+                                    class="block border-1 rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1"
+                                    type="hidden" name="indicativeCost" :value="rawNumber">
+                            </div>
+                        </div>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
                             <div>
-                                <label for="fundSource">Fund Source <span class="dark:text-red-500">*</span></label>
-                                <select name="fundSource" id="fundSource"
-                                    class="block border-1 rounded-md border-gray-700 bg-gray-900 w-full mt-1">
-                                    <option value="" {{ old('fundSource') == '' ? 'selected' : '' }} disabled
-                                        selected>Select a fund source</option>
-                                    <option value="PRDP Scale-up"
-                                        {{ old('fundSource') == 'PRDP Scale-up' ? 'selected' : '' }}>PRDP Scale-up
-                                    </option>
-                                </select>
-                                @error('fundSource')
-                                    <span class="text-red-500">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div>
-                                <label for="indicativeCost">Indicative Cost <span
-                                        class="dark:text-red-500">*</span></label>
-                                <input type="text" name="indicativeCost" id="indicativeCost"
-                                    class="block border-1 rounded-md border-gray-700 bg-gray-900 w-full mt-1"
-                                    step=".01"
-                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\..*/,'$1');"
-                                    value="{{ old('indicativeCost') }}">
-                                @error('indicativeCost')
-                                    <span class="text-red-500">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div>
-                                <label for="letterOfInterest">Letter of Interest/Request/Endorsement <span
-                                        class="dark:text-red-500">*</span></label>
+                                <label for="letterOfInterest" class="dark:text-green-600 text-green-800">Letter of
+                                    Interest</label>
                                 <input type="file" name="letterOfInterest" id="letterOfInterest"
-                                    class="block border-1 rounded-md border-gray-700 bg-gray-900 w-full mt-1 py-1 px-2">
+                                    class="block border-1 rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1 py-1 px-2">
                                 @error('letterOfInterest')
                                     <span class="text-red-500">{{ $message }}</span>
                                 @enderror
                             </div>
-                        </div>
-                        <h1 class="dark:text-lime-500 text-xl mt-4 mb-4">Linked to Commodity Investment Plan</h1>
-                        <hr class="border-2 dark:border-lime-500 mb-2">
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
                             <div>
-                                <label for="commodity">Commodity <span class="dark:text-red-500">*</span></label>
-                                <select name="commodity" id="commodity"
-                                    class="block border-1 rounded-md border-gray-700 bg-gray-900 w-full mt-1">
-                                    <option value="" {{ old('commodity') == '' ? 'selected' : '' }} disabled
-                                        selected>Select a commodity</option>
-                                    <option value="Mango" {{ old('commodity') == 'Mango' ? 'selected' : '' }}>Mango</option>
-                                    <option value="Coffee" {{ old('commodity') == 'Coffee' ? 'selected' : '' }}>Coffee</option>
-                                    <option value="Hogs" {{ old('commodity') == 'Hogs' ? 'selected' : '' }}>Hogs</option>
-                                </select>
-                                @error('commodity')
+                                <label for="letterOfRequest" class="dark:text-green-600 text-green-800">Letter of
+                                    Request</label>
+                                <input type="file" name="letterOfRequest" id="letterOfRequest"
+                                    class="block border-1 rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1 py-1 px-2">
+                                @error('letterOfRequest')
                                     <span class="text-red-500">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div>
-                                <label for="commodityReport">Report <span class="dark:text-red-500">*</span></label>
-                                <input type="file" name="commodityReport" id="commodityReport"
-                                    class="block border-1 rounded-md border-gray-700 bg-gray-900 w-full mt-1 py-1 px-2">
-                                @error('commodityReport')
+                                <label for="letterOfEndorsement" class="dark:text-green-600 text-green-800">Letter of
+                                    Endorsement</label>
+                                <input type="file" name="letterOfEndorsement" id="letterOfEndorsement"
+                                    class="block border-1 rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1 py-1 px-2">
+                                @error('letterOfEndorsement')
                                     <span class="text-red-500">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
-                        <div class="flex justify-end">
+                        <div class="flex justify-end mt-2">
                             <button type="submit"
-                                class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray dark:text-white bg-gray-400 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2">
+                                class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white dark:text-white bg-gray-400 dark:bg-lime-500 hover:text-gray-200 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2">
                                 <img src="/images/floppy.svg" alt="Save" width="22" height="22">
                                 Save
                             </button>

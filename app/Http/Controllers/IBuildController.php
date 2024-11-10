@@ -20,14 +20,19 @@ class IBuildController extends Controller
 
     public function view($id)
     {
-        $subprojects = Subproject::join('provinces', 'subprojects.province', '=', 'provinces.id')
+        $address = Subproject::join('provinces', 'subprojects.province', '=', 'provinces.id')
             ->join('municipalities', 'subprojects.municipality', '=', 'municipalities.id')
             ->join('barangays', 'subprojects.barangay', '=', 'barangays.id')
             ->where('subprojects.id', $id)
             ->firstOrFail();
 
+        $subprojects = Subproject::where('subprojects.id', $id)
+            ->select('subprojects.*', 'subprojects.letterOfRequest', 'subprojects.letterOfEndorsement')
+            ->first();
+
         return view('ibuild.view-subprojects.view-subproject', [
-            'subprojects' => $subprojects
+            'subprojects' => $subprojects,
+            'address' => $address,
         ]);
     }
 
@@ -52,7 +57,8 @@ class IBuildController extends Controller
 
         $fileFields = [
             'letterOfInterest' => 'uploadedFiles/letterOfInterest',
-            'commodityReport' => 'uploadedFiles/report',
+            'letterOfRequest' => 'uploadedFiles/letterOfRequest',
+            'letterOfEndorsement' => 'uploadedFiles/letterOfEndorsement',
         ];
 
         $paths = [];
@@ -84,8 +90,8 @@ class IBuildController extends Controller
             'fundSource' => $request->get('fundSource', ''),
             'indicativeCost' => $request->get('indicativeCost', ''),
             'letterOfInterest' => $paths['letterOfInterest'] ?? null,
-            'commodity' => $request->get('commodity', ''),
-            'report' => $paths['commodityReport'] ?? null,
+            'letterOfRequest' => $paths['letterOfRequest'] ?? null,
+            'letterOfEndorsement' => $paths['letterOfEndorsement'] ?? null,
             'userId' => $user->id,
         ]);
 
