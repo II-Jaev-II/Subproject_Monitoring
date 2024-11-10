@@ -7,7 +7,7 @@
     <div x-data="{ selectedComponent: '' }" x-cloak>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-gray-200 shadow-2xl dark:bg-gray-800 overflow-x-auto sm:rounded-lg">
+                <div class="bg-gray-200 shadow-2xl dark:bg-gray-800 sm:rounded-lg">
                     @include('ibuild.clearances.clearances-table')
                 </div>
             </div>
