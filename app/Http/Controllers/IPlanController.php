@@ -211,7 +211,9 @@ class IPlanController extends Controller
 
                     if ($evsaRank === null || $compositeIndex === null) continue;
 
-                    if ($evsaRank > 10 || $compositeIndex < 0.4) {
+                    if ($evsaRank < 10 && $compositeIndex < 0.4) {
+                        $iPLANValue = 'OK';
+                    } elseif ($evsaRank > 10 && $compositeIndex > 0.4) {
                         $iPLANValue = 'Pending';
                         break;
                     }
@@ -391,7 +393,9 @@ class IPlanController extends Controller
 
                     if ($evsaRank === null || $compositeIndex === null) continue;
 
-                    if ($evsaRank > 10 || $compositeIndex < 0.4) {
+                    if ($evsaRank < 10 && $compositeIndex < 0.4) {
+                        $iPLANValue = 'OK';
+                    } elseif ($evsaRank > 10 && $compositeIndex > 0.4) {
                         $iPLANValue = 'Pending';
                         break;
                     }
