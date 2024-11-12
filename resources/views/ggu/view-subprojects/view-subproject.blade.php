@@ -7,12 +7,12 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-white border border-gray-300 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="flex justify-between items-center mb-4">
                         <h1 class="dark:text-lime-500 text-xl">Clearances for Validation</h1>
                         <a href="{{ route('ggu.subprojects') }}"
-                            class="border border-transparent text-sm leading-4 font-medium rounded-md text-gray dark:text-white bg-gray-400 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2">
+                            class="border border-transparent text-sm leading-4 font-medium rounded-md text-gray text-white bg-green-500 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2">
                             Show Subprojects
                         </a>
                     </div>
@@ -25,7 +25,7 @@
     </div>
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="bg-white border border-gray-300 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100">
                 @include('ggu.view-subprojects.subproject-profile')
             </div>
@@ -77,7 +77,7 @@
                         GGU
                     </a>
                 </div>
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mt-6">
+                <div class="bg-white border border-gray-300 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mt-6">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         <div x-cloak style="display: none !important" x-show="selectedComponent === 'IPLAN'">
                             @if ($iPlanChecklists)

@@ -4,7 +4,7 @@
     </div>
     <div class="overflow-x-auto rounded-md">
         <table class="w-full text-sm text-gray-500 dark:text-gray-400" style="text-align: center;">
-            <thead class="text-xs text-black dark:text-gray-300 dark:bg-green-900 uppercase bg-gray-400">
+            <thead class="text-xs text-black dark:text-gray-300 dark:bg-green-900 uppercase bg-green-500">
                 <tr>
                     <th scope="col" class="px-4 py-3">iPLAN</th>
                     <th scope="col" class="px-4 py-3">iBUILD</th>
@@ -14,20 +14,20 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="dark:bg-gray-900 dark:border-gray-700 bg-gray-500">
+                <tr class="dark:bg-gray-900 dark:border-gray-700 bg-green-700">
                     <td class="px-4 py-3 text-white">{{ $subprojects->where('iPLAN', 'OK')->count() }}</td>
                     <td class="px-4 py-3 text-white">{{ $subprojects->where('iBUILD', 'OK')->count() }}</td>
                     <td class="px-4 py-3 text-white">{{ $subprojects->where('econ', 'OK')->count() }}</td>
                     <td class="px-4 py-3 text-white">{{ $subprojects->where('ses', 'OK')->count() }}</td>
                     <td class="px-4 py-3 text-white">{{ $subprojects->where('ggu', 'OK')->count() }}</td>
                 </tr>
-                <tr class="dark:bg-gray-900 border-t-2 border-white">
+                <tr class="dark:bg-gray-900 bg-green-700 border-t-2 border-white">
                     <td class="px-4 py-3">
                         <div class="relative group inline-block">
                             <a href="#" @click.prevent="selectedComponent = 'IPLAN'"
                                 :class="{
-                                    'dark:bg-lime-500 bg-lime-300 shadow-xl border border-green-700': selectedComponent === 'IPLAN',
-                                    'bg-gray-400 dark:bg-gray-500 dark:hover:bg-gray-400 ease-in-out duration-300': selectedComponent !== 'IPLAN'
+                                    'dark:bg-lime-500 bg-green-500': selectedComponent === 'IPLAN',
+                                    'bg-gray-400 dark:bg-gray-500 dark:hover:bg-gray-400 hover:bg-gray-300 ease-in-out duration-300': selectedComponent !== 'IPLAN'
                                 }"
                                 class="flex items-center border border-transparent rounded-md px-2 py-1">
                                 <img src="/images/eye.svg" alt="View" width="20" height="20">
@@ -42,8 +42,8 @@
                         <div class="relative group inline-block">
                             <a href="" @click.prevent="selectedComponent = 'IBUILD'"
                                 :class="{
-                                    'dark:bg-lime-500 bg-lime-300 shadow-xl border border-green-700': selectedComponent === 'IBUILD',
-                                    'bg-gray-400 dark:bg-gray-500 dark:hover:bg-gray-400 ease-in-out duration-300': selectedComponent !== 'IBUILD'
+                                    'dark:bg-lime-500 bg-green-500': selectedComponent === 'IBUILD',
+                                    'bg-gray-400 dark:bg-gray-500 dark:hover:bg-gray-400 hover:bg-gray-300 ease-in-out duration-300': selectedComponent !== 'IBUILD'
                                 }"
                                 class="flex items-center border border-transparent rounded-md px-2 py-1">
                                 <img src="/images/eye.svg" alt="View" width="20" height="20">
@@ -58,8 +58,8 @@
                         <div class="relative group inline-block">
                             <a href="" @click.prevent="selectedComponent = 'ECON'"
                                 :class="{
-                                    'dark:bg-lime-500 bg-lime-300 shadow-xl border border-green-700': selectedComponent === 'ECON',
-                                    'bg-gray-400 dark:bg-gray-500 dark:hover:bg-gray-400 ease-in-out duration-300': selectedComponent !== 'ECON'
+                                    'dark:bg-lime-500 bg-green-500': selectedComponent === 'ECON',
+                                    'bg-gray-400 dark:bg-gray-500 dark:hover:bg-gray-400 hover:bg-gray-300 ease-in-out duration-300': selectedComponent !== 'ECON'
                                 }"
                                 class="flex items-center border border-transparent rounded-md px-2 py-1">
                                 <img src="/images/eye.svg" alt="View" width="20" height="20">
@@ -74,8 +74,8 @@
                         <div class="relative group inline-block">
                             <a href="" @click.prevent="selectedComponent = 'SES'"
                                 :class="{
-                                    'dark:bg-lime-500 bg-lime-300 shadow-xl border border-green-700': selectedComponent === 'SES',
-                                    'bg-gray-400 dark:bg-gray-500 dark:hover:bg-gray-400 ease-in-out duration-300': selectedComponent !== 'SES'
+                                    'dark:bg-lime-500 bg-green-500': selectedComponent === 'SES',
+                                    'bg-gray-400 dark:bg-gray-500 dark:hover:bg-gray-400 hover:bg-gray-300 ease-in-out duration-300': selectedComponent !== 'SES'
                                 }"
                                 class="flex items-center border border-transparent rounded-md px-2 py-1">
                                 <img src="/images/eye.svg" alt="View" width="20" height="20">
@@ -90,8 +90,8 @@
                         <div class="relative group inline-block">
                             <a href="" @click.prevent="selectedComponent = 'GGU'"
                                 :class="{
-                                    'dark:bg-lime-500 bg-lime-300 shadow-xl border border-green-700': selectedComponent === 'GGU',
-                                    'bg-gray-400 dark:bg-gray-500 dark:hover:bg-gray-400 ease-in-out duration-300': selectedComponent !== 'GGU'
+                                    'dark:bg-lime-500 bg-green-500': selectedComponent === 'GGU',
+                                    'bg-gray-400 dark:bg-gray-500 dark:hover:bg-gray-400 hover:bg-gray-300 ease-in-out duration-300': selectedComponent !== 'GGU'
                                 }"
                                 class="flex items-center border border-transparent rounded-md px-2 py-1">
                                 <img src="/images/eye.svg" alt="View" width="20" height="20">

@@ -21,7 +21,7 @@
                 </div>
                 <div class="overflow-x-auto rounded-md">
                     <table class="w-full text-sm text-left dark:text-gray-400">
-                        <thead class="text-xs dark:text-gray-300 dark:bg-green-900 uppercase bg-gray-400">
+                        <thead class="text-xs dark:text-gray-300 dark:bg-green-900 uppercase bg-green-500">
                             <tr>
                                 <th scope="col" class="px-4 py-3">Subproject Name</th>
                                 <th scope="col" class="px-4 py-3">Proponent</th>
@@ -34,7 +34,7 @@
                         </thead>
                         <tbody>
                             @foreach ($subprojects as $subproject)
-                            <tr class="dark:bg-gray-900 dark:border-gray-700 bg-gray-500 text-white">
+                            <tr class="dark:bg-gray-900 dark:border-gray-700 bg-green-700 text-white">
                                 <th scope="row" class="px-4 py-3 dark:text-white">
                                     {{ $subproject->projectName }}
                                 </th>

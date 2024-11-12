@@ -7,7 +7,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-white border border-gray-300 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <form action="{{ route('iplan.update-subproject', $subproject->id) }}" method="POST"
                         enctype="multipart/form-data">
@@ -21,15 +21,15 @@
                             <input type="date" name="reviewDate" id="reviewDate" value="{{ old('reviewDate') }}"
                                 class="dark:bg-gray-900 rounded-md dark:[color-scheme:dark]">
                             @if ($errors->has('reviewDate'))
-                                <div class="text-red-600 mt-2 mb-2">
-                                    {{ $errors->first('reviewDate') }}
-                                </div>
+                            <div class="text-red-600 mt-2 mb-2">
+                                {{ $errors->first('reviewDate') }}
+                            </div>
                             @endif
                         </div>
 
                         <div class="mb-4">
                             <h1 for="iplanChecklist" class="dark:text-lime-500 text-2xl">Edit I-PLAN Checklist</h1>
-                            <hr class="border-2 dark:border-lime-500 border-gray-400 mb-2">
+                            <hr class="border-2 dark:border-lime-500 border-green-500 mb-2">
                         </div>
 
                         <label for="priorityCommodity" class="dark:text-green-600">Priority commodity supported by the
@@ -37,43 +37,43 @@
                             Proposal</label>
                         <div class="flex items-center gap-4 mt-2 mb-2">
                             @foreach ($commodities as $commodity)
-                                <div class="flex items-center gap-2">
-                                    <input class="dark:bg-gray-800 rounded-sm" type="checkbox" name="commodities[]"
-                                        value="{{ $commodity }}" checked disabled>
-                                    <label for="{{ strtolower($commodity) }}">{{ $commodity }}</label>
-                                </div>
+                            <div class="flex items-center gap-2">
+                                <input class="dark:bg-gray-800 rounded-sm" type="checkbox" name="commodities[]"
+                                    value="{{ $commodity }}" checked disabled>
+                                <label for="{{ strtolower($commodity) }}">{{ $commodity }}</label>
+                            </div>
                             @endforeach
                         </div>
 
                         <div>
                             @foreach ($selectedCommodities as $commodity)
-                                <div class="mt-2 mb-2">
-                                    <div class="grid grid-cols-2 gap-2">
-                                        <div>
-                                            <label for="evsaRank{{ $commodity }}" class="dark:text-green-600">E-VSA
-                                                Rank ({{ $commodity }})</label>
-                                            <input type="text" name="evsaRank{{ $commodity }}"
-                                                id="evsaRank{{ $commodity }}"
-                                                value="{{ old('evsaRank' . $commodity, $commodityData[$commodity]['evsaRank'] ?? '') }}"
-                                                class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1"
-                                                step="1" min="0" inputmode="numeric"
-                                                oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
-                                        </div>
-                                        <div>
-                                            <label for="compositeIndex{{ $commodity }}"
-                                                class="dark:text-green-600">Composite Index
-                                                ({{ $commodity }})
-                                            </label>
-                                            <input type="text" name="compositeIndex{{ $commodity }}"
-                                                id="compositeIndex{{ $commodity }}"
-                                                value="{{ old('compositeIndex' . $commodity, $commodityData[$commodity]['compositeIndex'] ?? '') }}"
-                                                class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1"
-                                                inputmode="decimal"
-                                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1')"
-                                                required>
-                                        </div>
+                            <div class="mt-2 mb-2">
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div>
+                                        <label for="evsaRank{{ $commodity }}" class="dark:text-green-600">E-VSA
+                                            Rank ({{ $commodity }})</label>
+                                        <input type="text" name="evsaRank{{ $commodity }}"
+                                            id="evsaRank{{ $commodity }}"
+                                            value="{{ old('evsaRank' . $commodity, $commodityData[$commodity]['evsaRank'] ?? '') }}"
+                                            class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1"
+                                            step="1" min="0" inputmode="numeric"
+                                            oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
+                                    </div>
+                                    <div>
+                                        <label for="compositeIndex{{ $commodity }}"
+                                            class="dark:text-green-600">Composite Index
+                                            ({{ $commodity }})
+                                        </label>
+                                        <input type="text" name="compositeIndex{{ $commodity }}"
+                                            id="compositeIndex{{ $commodity }}"
+                                            value="{{ old('compositeIndex' . $commodity, $commodityData[$commodity]['compositeIndex'] ?? '') }}"
+                                            class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1"
+                                            inputmode="decimal"
+                                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1')"
+                                            required>
                                     </div>
                                 </div>
+                            </div>
                             @endforeach
 
                             <div x-data="{ selectedCommodities: [] }" x-cloak>
@@ -81,12 +81,12 @@
                                     commodity</label>
                                 <div class="flex items-center gap-4 mt-2 mb-2">
                                     @foreach ($unselectedCommodities as $commodity)
-                                        <div class="flex items-center gap-2">
-                                            <input class="dark:bg-gray-800 rounded-sm" type="checkbox"
-                                                name="commodities[]" value="{{ $commodity }}"
-                                                x-model="selectedCommodities">
-                                            <label for="{{ strtolower($commodity) }}">{{ $commodity }}</label>
-                                        </div>
+                                    <div class="flex items-center gap-2">
+                                        <input class="dark:bg-gray-800 rounded-sm" type="checkbox"
+                                            name="commodities[]" value="{{ $commodity }}"
+                                            x-model="selectedCommodities">
+                                        <label for="{{ strtolower($commodity) }}">{{ $commodity }}</label>
+                                    </div>
                                     @endforeach
                                 </div>
 
@@ -133,105 +133,133 @@
                                     <textarea name="explanation" id="explanation" rows="4"
                                         class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1">{{ $checklist->explanation ?? '' }}</textarea>
                                     @if (!$checklist->justificationFile)
-                                        <div>
-                                            <label for="justificationFile" class="dark:text-green-600">Attach a
-                                                File</label>
-                                            <input
-                                                class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-1/2 mt-1 py-1 px-2"
-                                                type="file" name="justificationFile" id="justificationFile">
-                                            @if ($errors->has('justificationFile'))
-                                                <div class="text-red-600 mt-2 mb-2">
-                                                    {{ $errors->first('justificationFile') }}
-                                                </div>
-                                            @endif
-                                        </div>
-                                    @else
-                                        <div class="mb-2">
-                                            <a class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray dark:text-white bg-gray-400 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2 w-fit mt-1"
-                                                href="{{ asset($checklist->justificationFile) }}" target="_blank">
-                                                <img src="/images/file-earmark-text.svg" alt="Save"
-                                                    width="22" height="22">View File</a>
-                                        </div>
+                                    <div>
                                         <label for="justificationFile" class="dark:text-green-600">Attach a
                                             File</label>
                                         <input
                                             class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-1/2 mt-1 py-1 px-2"
                                             type="file" name="justificationFile" id="justificationFile">
                                         @if ($errors->has('justificationFile'))
-                                            <div class="text-red-600 mt-2 mb-2">
-                                                {{ $errors->first('justificationFile') }}
-                                            </div>
+                                        <div class="text-red-600 mt-2 mb-2">
+                                            {{ $errors->first('justificationFile') }}
+                                        </div>
                                         @endif
+                                    </div>
+                                    @else
+                                    <div x-data="{ showFileInput: false }" class="">
+                                        <label for="justificationFileInput" class="dark:text-green-600">Justification File</label>
+                                        <div class="flex items-center mt-1 rounded-md overflow-hidden">
+                                            <button type="button"
+                                                @click="showFileInput = !showFileInput"
+                                                class="flex items-center justify-center px-3 py-2 bg-blue-400 dark:bg-sky-500 text-gray-700 dark:text-white text-sm font-medium hover:bg-blue-500 dark:hover:bg-sky-600 transition ease-in-out duration-150 h-full">
+                                                <img src="/images/pencil-square.svg" alt="Edit" width="22" height="22">
+                                            </button>
+
+                                            <input
+                                                id="justificationFileInput"
+                                                type="file"
+                                                name="justificationFile"
+                                                x-show="showFileInput"
+                                                class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded-md"
+                                                style="display: none;">
+
+                                            <a
+                                                x-show="!showFileInput"
+                                                class="flex items-center gap-2 border-l px-3 py-2 text-sm font-medium rounded-r-md text-white dark:text-white bg-green-500 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 h-full"
+                                                href="{{ asset($checklist->justificationFile) }}"
+                                                target="_blank">
+                                                <img src="/images/file-earmark-text.svg" alt="Save" width="22" height="22">
+                                                View File
+                                            </a>
+                                        </div>
+                                        @if ($errors->has('justificationFile'))
+                                        <div class="text-red-600 mt-2 mb-2">
+                                            {{ $errors->first('justificationFile') }}
+                                        </div>
+                                        @endif
+                                    </div>
                                     @endif
                                 </div>
                             </div>
-                            <hr class="border-2 dark:border-lime-500 border-gray-400 mb-2">
+                            <hr class="border-2 dark:border-lime-500 border-green-500 mb-2">
                             <div class="mb-2">
                                 <label for="linkedVca" class="dark:text-lime-500 text-2xl">Linked to VCA?</label>
                                 <div class="flex items-center gap-2">
                                     @foreach (['Yes', 'No'] as $option)
-                                        <div class="flex items-center gap-2">
-                                            <input class="dark:bg-gray-800" type="radio"
-                                                {{ isset($checklist->linkedVca) && $checklist->linkedVca === $option ? 'checked' : '' }}
-                                                disabled>
-                                            <input type="hidden" name="linkedVca" class="dark:bg-gray-800"
-                                                value="{{ $checklist->linkedVca }}">
-                                            <label for="vca{{ $option }}">{{ $option }}</label>
-                                        </div>
+                                    <div class="flex items-center gap-2">
+                                        <input class="dark:bg-gray-800" type="radio"
+                                            {{ isset($checklist->linkedVca) && $checklist->linkedVca === $option ? 'checked' : '' }}
+                                            disabled>
+                                        <input type="hidden" name="linkedVca" class="dark:bg-gray-800"
+                                            value="{{ $checklist->linkedVca }}">
+                                        <label for="vca{{ $option }}">{{ $option }}</label>
+                                    </div>
                                     @endforeach
                                 </div>
                                 @if (isset($checklist) &&
-                                        ($checklist->valueChainSegment ||
-                                            $checklist->opportunity ||
-                                            $checklist->specificIntervention ||
-                                            $checklist->pageMatrixVca))
-                                    <div class="grid grid-cols-2 gap-2 mt-2">
-                                        @foreach (['valueChainSegment' => 'Value Chain Segment', 'opportunity' => 'Opportunity or Constraint Being Addressed', 'specificIntervention' => 'Specific Intervention'] as $field => $label)
-                                            <div>
-                                                <label for="{{ $field }}"
-                                                    class="dark:text-green-600">{{ $label }}</label>
-                                                <input type="text"
-                                                    class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1"
-                                                    name="{{ $field }}" value="{{ $checklist->$field }}"
-                                                    required>
-                                            </div>
-                                        @endforeach
-                                        <div class="flex flex-col">
-                                            <label for="pageMatrixVca" class="dark:text-green-600 mb-2">Page of
-                                                VCA</label>
-                                            <div class="flex items-center space-x-4">
-                                                <a class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white dark:text-white bg-gray-400 dark:bg-lime-500 hover:text-gray-200 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2"
-                                                    href="{{ asset($checklist->pageMatrixVca) }}" target="_blank">
-                                                    <img src="/images/file-earmark-text.svg" alt="Save"
-                                                        width="22" height="22">View File
-                                                </a>
-                                                <p>or</p>
-                                                <input
-                                                    class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 py-1 px-2 w-1/2"
-                                                    type="file" name="pageMatrixVca" id="pageMatrixVca">
-                                            </div>
-                                            @if ($errors->has('pageMatrixVca'))
-                                                <div class="text-red-600 mt-2 mb-2">
-                                                    {{ $errors->first('pageMatrixVca') }}
-                                                </div>
-                                            @endif
-                                        </div>
+                                ($checklist->valueChainSegment ||
+                                $checklist->opportunity ||
+                                $checklist->specificIntervention ||
+                                $checklist->pageMatrixVca))
+                                <div class="grid grid-cols-2 gap-2 mt-2">
+                                    @foreach (['valueChainSegment' => 'Value Chain Segment', 'opportunity' => 'Opportunity or Constraint Being Addressed', 'specificIntervention' => 'Specific Intervention'] as $field => $label)
+                                    <div>
+                                        <label for="{{ $field }}"
+                                            class="dark:text-green-600">{{ $label }}</label>
+                                        <input type="text"
+                                            class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1"
+                                            name="{{ $field }}" value="{{ $checklist->$field }}"
+                                            required>
                                     </div>
+                                    @endforeach
+                                    <div x-data="{ showFileInput: false }" class="">
+                                        <label for="pageMatrixVcaInput" class="dark:text-green-600">Page of VCA</label>
+                                        <div class="flex items-center mt-1 rounded-md overflow-hidden">
+                                            <button type="button"
+                                                @click="showFileInput = !showFileInput"
+                                                class="flex items-center justify-center px-3 py-2 bg-blue-400 dark:bg-sky-500 text-gray-700 dark:text-white text-sm font-medium hover:bg-blue-500 dark:hover:bg-sky-600 transition ease-in-out duration-150 h-full">
+                                                <img src="/images/pencil-square.svg" alt="Edit" width="22" height="22">
+                                            </button>
+
+                                            <input
+                                                id="pageMatrixVcaInput"
+                                                type="file"
+                                                name="pageMatrixVca"
+                                                x-show="showFileInput"
+                                                class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded-md"
+                                                style="display: none;">
+
+                                            <a
+                                                x-show="!showFileInput"
+                                                class="flex items-center gap-2 border-l px-3 py-2 text-sm font-medium rounded-r-md text-white dark:text-white bg-green-500 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 h-full"
+                                                href="{{ asset($checklist->pageMatrixVca) }}"
+                                                target="_blank">
+                                                <img src="/images/file-earmark-text.svg" alt="Save" width="22" height="22">
+                                                View File
+                                            </a>
+                                        </div>
+                                        @if ($errors->has('pageMatrixVca'))
+                                        <div class="text-red-600 mt-2 mb-2">
+                                            {{ $errors->first('pageMatrixVca') }}
+                                        </div>
+                                        @endif
+                                    </div>
+                                </div>
                                 @endif
                             </div>
-                            <hr class="border-2 dark:border-lime-500 border-gray-400 mb-2">
+                            <hr class="border-2 dark:border-lime-500 border-green-500 mb-2">
                             <div x-data="{ pcip: '{{ $checklist->pcip ?? old('pcip', '') }}' }" x-cloak class="mb-2 mt-4">
                                 <label for="pcip" class="dark:text-lime-500 text-2xl">Aligned with the
                                     PCIP?</label>
                                 <div class="flex items-center gap-2 mb-2">
                                     @foreach (['Yes', 'No'] as $pcipOption)
-                                        <div class="flex items-center gap-2">
-                                            <input class="dark:bg-gray-800" type="radio" name="pcip"
-                                                id="pcip{{ $pcipOption }}" value="{{ $pcipOption }}"
-                                                @click="pcip = '{{ $pcipOption }}'"
-                                                {{ (isset($checklist->pcip) && $checklist->pcip === $pcipOption) || old('pcip') === $pcipOption ? 'checked' : '' }}>
-                                            <label for="pcip{{ $pcipOption }}">{{ $pcipOption }}</label>
-                                        </div>
+                                    <div class="flex items-center gap-2">
+                                        <input class="dark:bg-gray-800" type="radio" name="pcip"
+                                            id="pcip{{ $pcipOption }}" value="{{ $pcipOption }}"
+                                            @click="pcip = '{{ $pcipOption }}'"
+                                            {{ (isset($checklist->pcip) && $checklist->pcip === $pcipOption) || old('pcip') === $pcipOption ? 'checked' : '' }}>
+                                        <label for="pcip{{ $pcipOption }}">{{ $pcipOption }}</label>
+                                    </div>
                                     @endforeach
                                 </div>
 
@@ -246,46 +274,58 @@
                                             inputmode="numeric"
                                             oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                                         @if ($errors->has('page'))
-                                            <div class="text-red-600 mt-2 mb-2">
-                                                {{ $errors->first('page') }}
-                                            </div>
+                                        <div class="text-red-600 mt-2 mb-2">
+                                            {{ $errors->first('page') }}
+                                        </div>
                                         @endif
                                     </div>
+                                    @if ($checklist->pageMatrixPcip)
+                                    <div x-data="{ showFileInput: false }" class="">
+                                        <label for="pageMatrixPcipInput" class="dark:text-green-600">Page of VCA</label>
+                                        <div class="flex items-center mt-1 rounded-md overflow-hidden">
+                                            <button type="button"
+                                                @click="showFileInput = !showFileInput"
+                                                class="flex items-center justify-center px-3 py-2 bg-blue-400 dark:bg-sky-500 text-gray-700 dark:text-white text-sm font-medium hover:bg-blue-500 dark:hover:bg-sky-600 transition ease-in-out duration-150 h-full">
+                                                <img src="/images/pencil-square.svg" alt="Edit" width="22" height="22">
+                                            </button>
 
-                                    <div class="flex flex-col">
-                                        <label for="pageMatrixPcip" class="dark:text-green-600">Page of Matrix</label>
-                                        <div class="flex items-center space-x-4">
-                                            @if ($checklist->pageMatrixPcip)
-                                                <a class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white dark:text-white bg-gray-400 dark:bg-lime-500 hover:text-gray-200 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2"
-                                                    href="{{ asset($checklist->pageMatrixPcip) }}" target="_blank">
-                                                    <img src="/images/file-earmark-text.svg" alt="Save"
-                                                        width="22" height="22">View File
-                                                </a>
-                                                <p>or</p>
-                                                <input
-                                                    class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-1/4 mt-1 py-1 px-2"
-                                                    type="file" name="pageMatrixPcip" id="pageMatrixPcip">
-                                            @else
-                                                <input
-                                                    class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-1/4 mt-1 py-1 px-2"
-                                                    type="file" name="pageMatrixPcip" id="pageMatrixPcip"
-                                                    x-bind:required="pcip === 'Yes'">
-                                            @endif
+                                            <input
+                                                id="pageMatrixPcipInput"
+                                                type="file"
+                                                name="pageMatrixPcip"
+                                                x-show="showFileInput"
+                                                class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded-md"
+                                                style="display: none;">
+
+                                            <a
+                                                x-show="!showFileInput"
+                                                class="flex items-center gap-2 border-l px-3 py-2 text-sm font-medium rounded-r-md text-white dark:text-white bg-green-500 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 h-full"
+                                                href="{{ asset($checklist->pageMatrixPcip) }}"
+                                                target="_blank">
+                                                <img src="/images/file-earmark-text.svg" alt="Save" width="22" height="22">
+                                                View File
+                                            </a>
                                         </div>
                                         @if ($errors->has('pageMatrixPcip'))
-                                            <div class="text-red-600 mt-2 mb-2">
-                                                {{ $errors->first('pageMatrixPcip') }}
-                                            </div>
+                                        <div class="text-red-600 mt-2 mb-2">
+                                            {{ $errors->first('pageMatrixPcip') }}
+                                        </div>
                                         @endif
                                     </div>
+                                    @else
+                                    <input
+                                        class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-1/4 mt-1 py-1 px-2"
+                                        type="file" name="pageMatrixPcip" id="pageMatrixPcip"
+                                        x-bind:required="pcip === 'Yes'">
+                                    @endif
                                 </div>
                                 @if ($errors->has('pcip'))
-                                    <div class="text-red-600 mt-2 mb-2">
-                                        {{ $errors->first('pcip') }}
-                                    </div>
+                                <div class="text-red-600 mt-2 mb-2">
+                                    {{ $errors->first('pcip') }}
+                                </div>
                                 @endif
                             </div>
-                            <hr class="border-2 dark:border-lime-500 border-gray-400 mb-2">
+                            <hr class="border-2 dark:border-lime-500 border-green-500 mb-2">
                             <label for="crva" class="dark:text-lime-500 text-2xl">CRVA</label>
 
                             <div>
@@ -318,9 +358,9 @@
                                         - Loss</option>
                                 </select>
                                 @if ($errors->has('sensitivity'))
-                                    <div class="text-red-600 mt-2 mb-2">
-                                        {{ $errors->first('sensitivity') }}
-                                    </div>
+                                <div class="text-red-600 mt-2 mb-2">
+                                    {{ $errors->first('sensitivity') }}
+                                </div>
                                 @endif
                             </div>
                             <div>
@@ -347,9 +387,9 @@
                                         Very High</option>
                                 </select>
                                 @if ($errors->has('exposure'))
-                                    <div class="text-red-600 mt-2 mb-2">
-                                        {{ $errors->first('exposure') }}
-                                    </div>
+                                <div class="text-red-600 mt-2 mb-2">
+                                    {{ $errors->first('exposure') }}
+                                </div>
                                 @endif
                             </div>
                             <div>
@@ -358,7 +398,8 @@
                                 <select name="adaptiveCapacity" id="adaptiveCapacity"
                                     class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1">
                                     <option {{ old('adaptiveCapacity') ? '' : 'selected' }}>
-                                        {{ $checklist->adaptiveCapacity }}</option>
+                                        {{ $checklist->adaptiveCapacity }}
+                                    </option>
                                     <option value="0.00 - 0.20 Very Low"
                                         {{ old('adaptiveCapacity') == '0.00 - 0.20 Very Low' ? 'selected' : '' }}>0.00
                                         - 0.20 Very Low</option>
@@ -376,9 +417,9 @@
                                         - 1.00 Very High</option>
                                 </select>
                                 @if ($errors->has('adaptiveCapacity'))
-                                    <div class="text-red-600 mt-2 mb-2">
-                                        {{ $errors->first('adaptiveCapacity') }}
-                                    </div>
+                                <div class="text-red-600 mt-2 mb-2">
+                                    {{ $errors->first('adaptiveCapacity') }}
+                                </div>
                                 @endif
                             </div>
                             <div>
@@ -387,7 +428,8 @@
                                 <select name="overallVulnerability" id="overallVulnerability"
                                     class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1">
                                     <option {{ old('overallVulnerability') ? '' : 'selected' }}>
-                                        {{ $checklist->overallVulnerability }}</option>
+                                        {{ $checklist->overallVulnerability }}
+                                    </option>
                                     <option value="0.00 - 0.20 Very Low"
                                         {{ old('overallVulnerability') == '0.00 - 0.20 Very Low' ? 'selected' : '' }}>
                                         0.00 - 0.20 Very Low</option>
@@ -405,9 +447,9 @@
                                         0.80 - 1.00 Very High</option>
                                 </select>
                                 @if ($errors->has('overallVulnerability'))
-                                    <div class="text-red-600 mt-2 mb-2">
-                                        {{ $errors->first('overallVulnerability') }}
-                                    </div>
+                                <div class="text-red-600 mt-2 mb-2">
+                                    {{ $errors->first('overallVulnerability') }}
+                                </div>
                                 @endif
                             </div>
                             <div>
@@ -416,9 +458,9 @@
                                 <textarea name="recommendation" id="recommendation" rows="4"
                                     class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1">{{ old('recommendation', $checklist->recommendation) }}</textarea>
                                 @if ($errors->has('recommendation'))
-                                    <div class="text-red-600 mt-2 mb-2">
-                                        {{ $errors->first('recommendation') }}
-                                    </div>
+                                <div class="text-red-600 mt-2 mb-2">
+                                    {{ $errors->first('recommendation') }}
+                                </div>
                                 @endif
                             </div>
                             <div>
@@ -427,9 +469,9 @@
                                 <textarea name="generalRecommendation" id="generalRecommendation" rows="4"
                                     class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1">{{ old('generalRecommendation', $checklist->generalRecommendation) }}</textarea>
                                 @if ($errors->has('generalRecommendation'))
-                                    <div class="text-red-600 mt-2 mb-2">
-                                        {{ $errors->first('generalRecommendation') }}
-                                    </div>
+                                <div class="text-red-600 mt-2 mb-2">
+                                    {{ $errors->first('generalRecommendation') }}
+                                </div>
                                 @endif
                             </div>
 
