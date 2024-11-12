@@ -29,6 +29,7 @@ class SubprojectsTable extends Component
         foreach ($subprojects as $subproject) {
             $subproject->iPlanStatus = in_array($subproject->iPLAN, ['OK', 'Pending', 'Failed']);
             $subproject->sesStatus = in_array($subproject->ses, ['OK', 'Pending', 'Failed']);
+            $subproject->gguStatus = in_array($subproject->ggu, ['Passed', 'Pending', 'Failed']);
         }
 
         return view('livewire.subprojects-table', [

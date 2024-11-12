@@ -69,6 +69,10 @@ Route::middleware(['auth', 'userType:GGU'])->group(function () {
     Route::get('/ggu/subprojects', [GGUController::class, 'show'])->name('ggu.subprojects');
     Route::get('/ggu/clearances', [GGUController::class, 'showClearances'])->name('ggu.clearances');
     Route::get('/ggu/view-subproject/{id}', [GGUController::class, 'view'])->name('ggu.view-subproject');
+    Route::get('/ggu/edit-subproject/{id}', [GGUController::class, 'edit'])->name('ggu.edit-subproject');
+    Route::post('/ggu/update-subproject/{id}', [GGUController::class, 'update'])->name('ggu.update-subproject');
+    Route::get('/ggu/validate-subprojects/{id}', [GGUController::class, 'validateSubproject'])->name('ggu.validate-subprojects');
+    Route::post('/ggu/store-subproject', [GGUController::class, 'store'])->name('ggu.store-subproject');
 });
 
 Route::middleware(['auth', 'userType:IREAP'])->group(function () {
