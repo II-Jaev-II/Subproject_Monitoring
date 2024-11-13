@@ -477,7 +477,7 @@
 
                             <div class="flex justify-end mt-2">
                                 <button type="submit"
-                                    class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white dark:text-white bg-gray-400 dark:bg-lime-500 hover:text-gray-200 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2">
+                                    class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white dark:text-white bg-green-500 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2">
                                     <img src="/images/check2-square.svg" alt="Save" width="22"
                                         height="22">
                                     Update Subproject

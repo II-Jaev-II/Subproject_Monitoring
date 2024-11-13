@@ -13,7 +13,7 @@
         </label>
     </div>
     <div class="mt-2 mb-2">
-        <textarea class="block border border-gray-700 rounded-md bg-gray-900 w-full mt-1 p-2" rows="6" readonly>{{ $sesChecklists->reason }}</textarea>
+        <textarea class="block border dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 rounded-md w-full mt-1 p-2" rows="6" readonly>{{ $sesChecklists->reason }}</textarea>
     </div>
 </div>
 @endif
@@ -26,7 +26,7 @@
         </label>
     </div>
     <div class="mt-2 mb-2">
-        <textarea class="block border border-gray-700 rounded-md bg-gray-900 w-full mt-1 p-2" rows="6" readonly>{{ $sesChecklists->requirementCompliance }}</textarea>
+        <textarea class="block border dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 rounded-md w-full mt-1 p-2" rows="6" readonly>{{ $sesChecklists->requirementCompliance }}</textarea>
     </div>
 </div>
 @endif
@@ -52,7 +52,7 @@
         </label>
     </div>
     <div class="mt-2 mb-2">
-        <textarea class="block border border-gray-700 rounded-md bg-gray-900 w-full mt-1 p-2" rows="6" readonly>{{ $sesChecklists->cleared }}</textarea>
+        <textarea class="block border dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 rounded-md w-full mt-1 p-2" rows="6" readonly>{{ $sesChecklists->cleared }}</textarea>
     </div>
 </div>
 @endif
@@ -62,7 +62,7 @@
         Social Assesment
     </label>
     <div class="mt-2 mb-2">
-        <textarea class="block border border-gray-700 rounded-md bg-gray-900 w-full mt-1 p-2" rows="6" readonly>{{ $sesChecklists->socialAssesment }}</textarea>
+        <textarea class="block border dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 rounded-md w-full mt-1 p-2" rows="6" readonly>{{ $sesChecklists->socialAssesment }}</textarea>
     </div>
 </div>
 
@@ -71,6 +71,6 @@
         Environmental Assesment
     </label>
     <div class="mt-2 mb-2">
-        <textarea class="block border border-gray-700 rounded-md bg-gray-900 w-full mt-1 p-2" rows="6" readonly>{{ $sesChecklists->environmentalAssesment }}</textarea>
+        <textarea class="block border dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 rounded-md w-full mt-1 p-2" rows="6" readonly>{{ $sesChecklists->environmentalAssesment }}</textarea>
     </div>
 </div>

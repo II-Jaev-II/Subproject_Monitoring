@@ -7,7 +7,7 @@
 
 <div class="flex items-center space-x-4 mb-2">
     <label for="kmzFile" class="dark:text-lime-500">KMZ File</label>
-    <a class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white dark:text-white bg-gray-400 dark:bg-lime-500 hover:text-gray-200 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2 w-fit mt-1"
+    <a class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-green-500 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2 w-fit mt-1"
         href="{{ asset($gguChecklists->kmzFile) }}" target="_blank">
         <img src="/images/file-earmark-text.svg" alt="Save" width="22" height="22">Download File</a>
 </div>

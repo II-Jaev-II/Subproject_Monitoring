@@ -3,8 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSubprojectRequest;
+use App\Models\GGUChecklist;
+use App\Models\IplanChecklist;
+use App\Models\IplanCommodity;
+use App\Models\IplanRankAndComposite;
 use App\Models\Province;
+use App\Models\SesChecklist;
+use App\Models\SesRequirements;
 use App\Models\Subproject;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,9 +37,55 @@ class IBuildController extends Controller
             ->select('subprojects.*', 'subprojects.letterOfRequest', 'subprojects.letterOfEndorsement')
             ->first();
 
+        $iPlanChecklists = IplanChecklist::where('iplan_checklists.subprojectId', $id)->first();
+        $commodities = [];
+        if ($iPlanChecklists) {
+            $commodities = IplanCommodity::where('checklistId', $iPlanChecklists->id)->get();
+        }
+        $rankAndComposite = null;
+        if ($iPlanChecklists) {
+            $rankAndComposite = IplanRankAndComposite::where('checklistId', $iPlanChecklists->id)->first();
+        }
+
+        $sesChecklists = SesChecklist::where('ses_checklists.subprojectId', $id)->first();
+        $sesRequirements = [];
+        if ($sesChecklists) {
+            $sesRequirements = SesRequirements::where('checklistId', $sesChecklists->id)->get();
+        }
+
+        $gguChecklists = GGUChecklist::where('ggu_checklists.subprojectId', $id)->first();
+
+        $gguReport = $gguChecklists ? $gguChecklists->report : null;
+
+        $formattedReviewDateIPlan = null;
+        if ($iPlanChecklists && $iPlanChecklists->reviewDate) {
+            $formattedReviewDateIPlan = Carbon::parse($iPlanChecklists->reviewDate)->format('F j, Y');
+        }
+
+        $formattedReviewDateSes = null;
+        if ($sesChecklists && $sesChecklists->reviewDate) {
+            $formattedReviewDateSes = Carbon::parse($sesChecklists->reviewDate)->format('F j, Y');
+        }
+
+        $formattedReviewDateGgu = null;
+        if ($gguChecklists && $gguChecklists->reviewDate) {
+            $formattedReviewDateGgu = Carbon::parse($gguChecklists->reviewDate)->format('F j, Y');
+        }
+
         return view('ibuild.view-subprojects.view-subproject', [
             'subprojects' => $subprojects,
             'address' => $address,
+            'iPlanChecklists' => $iPlanChecklists,
+            'commodities' => $commodities,
+            'rankAndComposite' => $rankAndComposite,
+            'sesChecklists' => $sesChecklists,
+            'sesRequirements' => $sesRequirements,
+            'gguChecklists' => $gguChecklists,
+            'gguReport' => $gguReport,
+
+            'formattedReviewDateIPlan' => $formattedReviewDateIPlan,
+            'formattedReviewDateSes' => $formattedReviewDateSes,
+            'formattedReviewDateGgu' => $formattedReviewDateGgu,
         ]);
     }
 

@@ -249,14 +249,14 @@ optional($rankAndComposite)->compositeIndexHogs))
     @endif
 
     @if (!empty($iPlanChecklists->justificationFile))
-    <a class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray dark:text-white bg-gray-400 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2 w-fit mt-1"
+    <a class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-green-500 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2 w-fit mt-1"
         href="{{ asset($iPlanChecklists->justificationFile) }}" target="_blank">
         <img src="/images/file-earmark-text.svg" alt="Save" width="22" height="22">View File
     </a>
     @endif
 </div>
 @endif
-<hr class="border-2 dark:border-lime-500 border-gray-400 mb-2">
+<hr class="border-2 dark:border-lime-500 border-green-500 mb-2">
 <div class="mb-4">
     <label for="linkedVca" class="dark:text-lime-500 text-2xl">Linked to VCA?</label>
     <div class="flex items-center gap-2">
@@ -299,7 +299,7 @@ optional($rankAndComposite)->compositeIndexHogs))
         </div>
         <div>
             <label for="pageMatrixVca" class="dark:text-green-600">Page of VCA</label>
-            <a class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white dark:text-white bg-gray-400 dark:bg-lime-500 hover:text-gray-200 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2 w-fit mt-1"
+            <a class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-green-500 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2 w-fit mt-1"
                 href="{{ asset($iPlanChecklists->pageMatrixVca) }}" target="_blank">
                 <img src="/images/file-earmark-text.svg" alt="Save" width="22" height="22">View
                 File</a>
@@ -307,7 +307,7 @@ optional($rankAndComposite)->compositeIndexHogs))
         @endif
     </div>
 </div>
-<hr class="border-2 dark:border-lime-500 border-gray-400 mb-2">
+<hr class="border-2 dark:border-lime-500 border-green-500 mb-2">
 <div class="mb-4">
     <label for="pcip" class="dark:text-lime-500 text-2xl">Aligned with the PCIP?</label>
     <div class="flex items-center gap-2 mb-2">
@@ -331,13 +331,13 @@ optional($rankAndComposite)->compositeIndexHogs))
     </div>
     <div>
         <label for="pageMatrixPcip" class="dark:text-green-600">Page of Matrix</label>
-        <a class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white dark:text-white bg-gray-400 dark:bg-lime-500 hover:text-gray-200 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2 w-fit mt-1"
+        <a class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-green-500 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2 w-fit mt-1"
             href="{{ asset($iPlanChecklists->pageMatrixPcip) }}" target="_blank">
             <img src="/images/file-earmark-text.svg" alt="Save" width="22" height="22">View File</a>
     </div>
     @endif
 </div>
-<hr class="border-2 dark:border-lime-500 border-gray-400 mb-2">
+<hr class="border-2 dark:border-lime-500 border-green-500 mb-2">
 <label for="crva" class="dark:text-lime-500 text-2xl">CRVA</label>
 
 <div class="mb-2">
