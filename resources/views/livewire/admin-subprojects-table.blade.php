@@ -1,7 +1,6 @@
 <div>
     <section>
         <div>
-            <!-- Start coding here -->
             <div class="">
                 <div class="flex items-center justify-between d space-x-4 p-4">
                     <div class="flex">
@@ -77,8 +76,8 @@
                     </div>
                 </div>
                 <div class="overflow-x-auto">
-                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs dark:text-gray-300 dark:bg-green-900 uppercase bg-gray-50">
+                    <table class="w-full text-sm text-left">
+                        <thead class="text-xs dark:text-gray-300 text-black dark:bg-green-900 uppercase bg-green-500">
                             <tr>
                                 <th scope="col" class="px-4 py-3">Subproject Name</th>
                                 <th scope="col" class="px-4 py-3">Proponent</th>
@@ -94,43 +93,43 @@
                         </thead>
                         <tbody>
                             @foreach ($subprojects as $subproject)
-                                <tr class="dark:bg-gray-900 dark:border-gray-700">
-                                    <th scope="row" class="px-4 py-3 dark:text-white">
-                                        {{ $subproject->projectName }}
-                                    </th>
-                                    <td class="px-4 py-3 dark:text-white">{{ $subproject->proponent }}</td>
-                                    <td class="px-4 py-3 dark:text-white">{{ $subproject->projectType }}</td>
-                                    <td class="px-4 py-3 dark:text-white">{{ $subproject->projectCategory }}</td>
-                                    <td class="px-4 py-3 dark:text-white">
-                                        {{ $subproject->indicativeCost }}
-                                    </td>
-                                    <td class="px-4 py-3 dark:text-white">{{ $subproject->total }}</td>
-                                    <td class="px-4 py-3 dark:text-white">{{ $subproject->inactiveDays }}</td>
-                                    <td class="px-4 py-3 flex items-center gap-3">
-                                        <div class="relative group inline-block">
-                                            <a href="#"
-                                                class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-700 dark:text-white bg-gray-400 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2">
-                                                <img src="/images/eye.svg" alt="View" width="15"
-                                                    height="15">
-                                            </a>
-                                            <span
-                                                class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden text-xs text-white bg-gray-800 rounded py-1 px-2 group-hover:block">
-                                                View
-                                            </span>
-                                        </div>
-                                        <div class="relative group inline-block">
-                                            <a href="#"
-                                                class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray dark:text-white bg-gray-400 dark:bg-sky-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2">
-                                                <img src="/images/pencil-square.svg" alt="Save" width="15"
-                                                    height="15">
-                                            </a>
-                                            <span
-                                                class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden text-xs text-white bg-gray-800 rounded py-1 px-2 group-hover:block">
-                                                Edit
-                                            </span>
-                                        </div>
-                                    </td>
-                                </tr>
+                            <tr class="dark:bg-gray-900 dark:border-gray-700 bg-green-700">
+                                <th scope="row" class="px-4 py-3 text-white">
+                                    {{ $subproject->projectName }}
+                                </th>
+                                <td class="px-4 py-3 text-white">{{ $subproject->proponent }}</td>
+                                <td class="px-4 py-3 text-white">{{ $subproject->projectType }}</td>
+                                <td class="px-4 py-3 text-white">{{ $subproject->projectCategory }}</td>
+                                <td class="px-4 py-3 text-white">
+                                    {{ number_format($subproject->indicativeCost, 2) }}
+                                </td>
+                                <td class="px-4 py-3 text-white">{{ $subproject->total }}</td>
+                                <td class="px-4 py-3 text-white">{{ $subproject->inactiveDays }}</td>
+                                <td class="px-4 py-3 flex items-center gap-3">
+                                    <div class="relative group inline-block">
+                                        <a href="#"
+                                            class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-700 dark:text-white bg-gray-400 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2">
+                                            <img src="/images/eye.svg" alt="View" width="15"
+                                                height="15">
+                                        </a>
+                                        <span
+                                            class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden text-xs text-white bg-gray-800 rounded py-1 px-2 group-hover:block">
+                                            View
+                                        </span>
+                                    </div>
+                                    <div class="relative group inline-block">
+                                        <a href="#"
+                                            class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray dark:text-white bg-gray-400 dark:bg-sky-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2">
+                                            <img src="/images/pencil-square.svg" alt="Save" width="15"
+                                                height="15">
+                                        </a>
+                                        <span
+                                            class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden text-xs text-white bg-gray-800 rounded py-1 px-2 group-hover:block">
+                                            Edit
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
                             @endforeach
                         </tbody>
                     </table>

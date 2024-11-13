@@ -19,12 +19,12 @@
                             <input type="date" name="reviewDate" id="reviewDate" value="{{ old('reviewDate') }}"
                                 class="dark:bg-gray-900 rounded-md dark:[color-scheme:dark]">
                             @if ($errors->has('reviewDate'))
-                                <div class="text-red-600 mt-2 mb-2">
-                                    {{ $errors->first('reviewDate') }}
-                                </div>
+                            <div class="text-red-600 mt-2 mb-2">
+                                {{ $errors->first('reviewDate') }}
+                            </div>
                             @endif
                         </div>
-                        <hr class="border-2 dark:border-lime-500 border-gray-400 mb-2">
+                        <hr class="border-2 dark:border-lime-500 border-green-500 mb-2">
                         <label for="priorityCommodity" class="dark:text-lime-500 text-black text-2xl">Priority commodity
                             supported
                             by the
@@ -32,9 +32,9 @@
                         <div x-data="{ selectedCommodities: [] }" x-cloak>
                             @include('iplan.components.commodity-checkbox')
                             @if ($errors->has('commodities'))
-                                <div class="text-red-600 mb-2">
-                                    {{ $errors->first('commodities') }}
-                                </div>
+                            <div class="text-red-600 mb-2">
+                                {{ $errors->first('commodities') }}
+                            </div>
                             @endif
                             <div>
                                 @include('iplan.components.selected-commodity-inputs')
@@ -48,19 +48,19 @@
                             <div class="flex flex-col mt-2 mb-2">
                                 <label for="explain" class="dark:text-green-600">Please explain:</label>
                                 <textarea name="explanation" id="explanation" rows="4"
-                                    class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1">{{ old('explanation') }}</textarea>
+                                    class="block border rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1">{{ old('explanation') }}</textarea>
                                 <label for="justificationFile" class="dark:text-green-600">Attach a File</label>
                                 <input
-                                    class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-1/2 mt-1 py-1 px-2"
+                                    class="block border rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-1/2 mt-1 py-1 px-2"
                                     type="file" name="justificationFile" id="justificationFile">
                                 @if ($errors->has('justificationFile'))
-                                    <div class="text-red-600 mt-2 mb-2">
-                                        {{ $errors->first('justificationFile') }}
-                                    </div>
+                                <div class="text-red-600 mt-2 mb-2">
+                                    {{ $errors->first('justificationFile') }}
+                                </div>
                                 @endif
                             </div>
                         </div>
-                        <hr class="border-2 dark:border-lime-500 border-gray-400 mb-2">
+                        <hr class="border-2 dark:border-lime-500 border-green-500 mb-2">
                         <div x-data="{ linkedVca: '{{ old('linkedVca') }}' }" x-cloak class="mb-4">
                             <label for="linkedVca" class="dark:text-lime-500 text-black text-2xl">Linked to VCA? <span
                                     class="text-red-500">*</span></label>
@@ -83,12 +83,12 @@
                                 @include('iplan.components.vca-inputs')
                             </div>
                             @if ($errors->has('linkedVca'))
-                                <div class="text-red-600 mt-2 mb-2">
-                                    {{ $errors->first('linkedVca') }}
-                                </div>
+                            <div class="text-red-600 mt-2 mb-2">
+                                {{ $errors->first('linkedVca') }}
+                            </div>
                             @endif
                         </div>
-                        <hr class="border-2 dark:border-lime-500 border-gray-400 mb-2">
+                        <hr class="border-2 dark:border-lime-500 border-green-500 mb-2">
                         <div x-data="{ pcip: '{{ old('pcip') }}' }" x-cloak class="mt-2 mb-4">
                             <label for="pcip" class="dark:text-lime-500 text-black text-2xl">Aligned with the PCIP?
                                 <span class="text-red-500">*</span></label>
@@ -117,9 +117,9 @@
                                         id="page" :required="pcip.includes('Yes')" step="1" min="0"
                                         inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                                     @if ($errors->has('page'))
-                                        <div class="text-red-600 mt-2 mb-2">
-                                            {{ $errors->first('page') }}
-                                        </div>
+                                    <div class="text-red-600 mt-2 mb-2">
+                                        {{ $errors->first('page') }}
+                                    </div>
                                     @endif
                                 </div>
                                 <div>
@@ -130,19 +130,19 @@
                                         type="file" name="pageMatrixPcip" id="pageMatrixPcip"
                                         :required="pcip.includes('Yes')">
                                     @if ($errors->has('pageMatrixPcip'))
-                                        <div class="text-red-600 mt-2 mb-2">
-                                            {{ $errors->first('pageMatrixPcip') }}
-                                        </div>
+                                    <div class="text-red-600 mt-2 mb-2">
+                                        {{ $errors->first('pageMatrixPcip') }}
+                                    </div>
                                     @endif
                                 </div>
                             </div>
                             @if ($errors->has('pcip'))
-                                <div class="text-red-600 mt-2 mb-2">
-                                    {{ $errors->first('pcip') }}
-                                </div>
+                            <div class="text-red-600 mt-2 mb-2">
+                                {{ $errors->first('pcip') }}
+                            </div>
                             @endif
                         </div>
-                        <hr class="border-2 dark:border-lime-500 border-gray-400 mb-2">
+                        <hr class="border-2 dark:border-lime-500 border-green-500 mb-2">
                         <label for="crva" class="dark:text-lime-500 text-2xl">CRVA</label>
                         <div class="grid grid-rows-1 gap-2 mt-4 mb-2">
                             @include('iplan.components.crva-inputs')

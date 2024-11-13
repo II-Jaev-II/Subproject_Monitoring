@@ -140,12 +140,6 @@
                                     <option value="Rehabilitation"
                                         {{ old('projectCategory') == 'Rehabilitation' ? 'selected' : '' }}>
                                         Rehabilitation</option>
-                                    <option value="Upgrading"
-                                        {{ old('projectCategory') == 'Upgrading' ? 'selected' : '' }}>Upgrading
-                                    </option>
-                                    <option value="Additional Work"
-                                        {{ old('projectCategory') == 'Additional Work' ? 'selected' : '' }}>Additional
-                                        Work</option>
                                 </select>
                                 @error('projectCategory')
                                 <span class="text-red-500">{{ $message }}</span>

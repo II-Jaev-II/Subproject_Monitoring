@@ -1,186 +1,173 @@
-//Provinces Chart
-var options = {
-    chart: {
-        type: 'donut',
-        height: 300,
-        pie: {
-            size: 200
-        }
+// Define color variables for both charts' light and dark modes
+const colors = {
+    light: {
+        background: '#ffffff',
+        text: '#333333',
+        stroke: '#ffffff',
     },
-    series: provinceData,
-    labels: provinceLabels,
-    legend: {
-        labels: {
-            colors: '#ffffff',
-            useSeriesColors: false
-        }
-    },
-    title: {
-        text: 'Project Distribution per Province',
-        align: 'center',
-        style: {
-            fontSize: '16px',
-            color: '#ffffff'
-        }
-    },
-};
-
-var chart = new ApexCharts(document.querySelector("#provinceChart"), options);
-
-chart.render();
-
-//Project Types Chart
-var options = {
-    series: projectTypeData,
-    chart: {
-        type: 'polarArea',
-        height: 300,
-        pie: {
-            size: 200
-        }
-    },
-    fill: {
-        opacity: 0.6
-    },
-    labels: ['FMR', 'FMB', 'Bridge', 'CIS', 'PWS', 'VCI'],
-    legend: {
-        labels: {
-            colors: '#ffffff',
-            useSeriesColors: false
-        }
-    },
-    title: {
-        text: 'Project Type Distribution',
-        align: 'center',
-        style: {
-            fontSize: '16px',
-            color: '#ffffff'
-        }
-    },
-    stroke: {
-        colors: ['#ffffff']
-    },
-    yaxis: {
-        labels: {
-            style: {
-                colors: '#ffffff'
-            }
-        }
+    dark: {
+        background: '#1F2937',
+        text: '#ffffff',
+        stroke: '#1F2937',
     }
 };
 
-var chart = new ApexCharts(document.querySelector("#projectType"), options);
-chart.render();
-
-//Project Category Chart
-var options = {
-    series: projectCategoryData,
-    chart: {
-        type: 'donut',
-        height: 300,
-        pie: {
-            size: 200
-        }
-    },
-    labels: ['Construction', 'Rehabilitation', 'Upgrading', 'Additional Work'],
-    legend: {
-        labels: {
-            colors: '#ffffff',
-            useSeriesColors: false
-        }
-    },
-    title: {
-        text: 'Project Category Distribution',
-        align: 'center',
-        style: {
-            fontSize: '16px',
-            color: '#ffffff'
-        }
-    },
+// Dark mode options for Project Distribution per Province
+const darkModeOptions = {
+    chart: { type: 'donut', height: 200, background: colors.dark.background },
+    series: provinceData,
+    labels: provinceLabels,
+    legend: { labels: { colors: colors.dark.text } },
+    tooltip: { theme: 'dark' },
+    dataLabels: { style: { colors: [colors.dark.text] } },
+    stroke: { colors: [colors.dark.stroke] }
 };
 
-// Render the chart
-var chart = new ApexCharts(document.querySelector("#projectCategory"), options);
-chart.render();
+// Light mode options for Project Distribution per Province
+const lightModeOptions = {
+    chart: { type: 'donut', height: 200, background: colors.light.background },
+    series: provinceData,
+    labels: provinceLabels,
+    legend: { labels: { colors: colors.light.text } },
+    tooltip: { theme: 'light' },
+    dataLabels: { style: { colors: [colors.light.text] } },
+    stroke: { colors: [colors.light.stroke] }
+};
 
-// Clearances Chart
+// Function to get Project Types chart options based on the theme
+function getProjectTypeOptions(isDarkMode) {
+    const theme = isDarkMode ? 'dark' : 'light';
+    return {
+        series: projectTypeData,
+        chart: { type: 'polarArea', height: 200, background: colors[theme].background },
+        fill: { opacity: 0.6 },
+        labels: ['FMR', 'FMB', 'Bridge', 'CIS', 'PWS', 'VCI'],
+        legend: { labels: { colors: colors[theme].text } },
+        stroke: { colors: [colors[theme].stroke] },
+        tooltip: { theme: isDarkMode ? 'dark' : 'light' },
+        dataLabels: { style: { colors: [colors[theme].text] } }
+    };
+}
+
+// Function to get Project Category chart options based on the theme
+function getProjectCategoryOptions(isDarkMode) {
+    const theme = isDarkMode ? 'dark' : 'light';
+    return {
+        series: projectCategoryData,
+        chart: { type: 'donut', height: 200, background: colors[theme].background },
+        labels: ['Construction', 'Rehabilitation'],
+        legend: { labels: { colors: colors[theme].text } },
+        stroke: { colors: [colors[theme].stroke] },
+        tooltip: { theme: isDarkMode ? 'dark' : 'light' },
+        dataLabels: { style: { colors: [colors[theme].text] } }
+    };
+}
+
+// Check initial mode from the HTML (e.g., if a "dark" class is present on <html>)
+let isDarkMode = document.documentElement.classList.contains('dark');
+
+// Function to initialize or re-render the Province chart
+let provinceChart;
+function renderProvinceChart() {
+    const options = isDarkMode ? darkModeOptions : lightModeOptions;
+    if (provinceChart) provinceChart.destroy();
+    provinceChart = new ApexCharts(document.querySelector("#provinceChart"), options);
+    provinceChart.render();
+}
+
+// Function to initialize or re-render the Project Types chart
+let projectTypeChart;
+function renderProjectTypeChart() {
+    const options = getProjectTypeOptions(isDarkMode);
+    if (projectTypeChart) projectTypeChart.destroy();
+    projectTypeChart = new ApexCharts(document.querySelector("#projectType"), options);
+    projectTypeChart.render();
+}
+
+// Function to initialize or re-render the Project Category chart
+let projectCategoryChart;
+function renderProjectCategoryChart() {
+    const options = getProjectCategoryOptions(isDarkMode);
+    if (projectCategoryChart) projectCategoryChart.destroy();
+    projectCategoryChart = new ApexCharts(document.querySelector("#projectCategory"), options);
+    projectCategoryChart.render();
+}
+
+// Initial renders based on detected theme
+renderProvinceChart();
+renderProjectTypeChart();
+renderProjectCategoryChart();
+
+// Toggle button to switch themes
+document.querySelector('#theme-toggle').addEventListener('click', () => {
+    // Toggle the dark mode flag and the "dark" class on <html>
+    isDarkMode = !isDarkMode;
+    document.documentElement.classList.toggle('dark', isDarkMode);
+
+    // Re-render all charts with the updated theme
+    renderProvinceChart();
+    renderProjectTypeChart();
+    renderProjectCategoryChart();
+});
+
+const clearancesColors = {
+    light: {
+        background: '#ffffff',
+        text: '#333333',
+        barColors: ['#4caf50', '#e53935', '#ffc107'],
+    },
+    dark: {
+        background: '#1F2937',
+        text: '#ffffff',
+        barColors: ['#29f276', '#b50520', '#ebdd17'],
+    }
+};
+
+function getClearanceChartOptions(isDarkMode, data) {
+    const theme = isDarkMode ? 'dark' : 'light';
+    return {
+        series: [
+            { name: 'Cleared', data: [data.iPLAN.cleared, data.iBUILD.cleared, data.econ.cleared, data.ses.cleared, data.ggu.cleared] },
+            { name: 'Failed', data: [data.iPLAN.failed, data.iBUILD.failed, data.econ.failed, data.ses.failed, data.ggu.failed] },
+            { name: 'Pending', data: [data.iPLAN.pending, data.iBUILD.pending, data.econ.pending, data.ses.pending, data.ggu.pending] },
+        ],
+        chart: {
+            type: 'bar',
+            height: 400,
+            background: clearancesColors[theme].background,
+            foreColor: clearancesColors[theme].text,
+            toolbar: {
+                show: true,
+                tools: {
+                    download: false
+                }
+            }
+        },
+        colors: clearancesColors[theme].barColors,
+        xaxis: { categories: ['iPLAN', 'iBUILD', 'Econ', 'SES', 'GGU'] },
+    };
+}
+
+let isClearancesDarkMode = document.documentElement.classList.contains('dark');
+
+let clearanceChart;
+function renderClearanceChart(data) {
+    const options = getClearanceChartOptions(isClearancesDarkMode, data);
+    if (clearanceChart) clearanceChart.destroy();
+    clearanceChart = new ApexCharts(document.querySelector("#clearancesChart"), options);
+    clearanceChart.render();
+}
+
 fetch('/get-subproject-data')
     .then(response => response.json())
     .then(data => {
-        var options = {
-            series: [
-                {
-                    name: 'Cleared',
-                    data: [
-                        data.iPLAN.cleared,
-                        data.iBUILD.cleared,
-                        data.econ.cleared,
-                        data.ses.cleared,
-                        data.ggu.cleared
-                    ]
-                },
-                {
-                    name: 'Not Cleared',
-                    data: [
-                        data.iPLAN.notCleared,
-                        data.iBUILD.notCleared,
-                        data.econ.notCleared,
-                        data.ses.notCleared,
-                        data.ggu.notCleared
-                    ]
-                }
-            ],
-            chart: {
-                type: 'bar',
-                height: 400,
-                foreColor: '#ffffff',
-                toolbar: {
-                    show: true,
-                    tools: {
-                        download: false
-                    }
-                }
-            },
-            colors: ['#29f276', '#b50520'],
-            plotOptions: {
-                bar: {
-                    horizontal: false,
-                    columnWidth: '55%',
-                    endingShape: 'rounded'
-                }
-            },
-            dataLabels: {
-                enabled: false
-            },
-            stroke: {
-                show: true,
-                width: 2,
-                colors: ['transparent']
-            },
-            xaxis: {
-                categories: ['iPLAN', 'iBUILD', 'Econ', 'SES', 'GGU'],
-            },
-            fill: {
-                opacity: 1
-            },
-            tooltip: {
-                theme: 'dark',
-                y: {
-                    formatter: function (val) {
-                        return val + " subprojects";
-                    }
-                }
-            },
-            legend: {
-                show: true,
-                position: 'top',
-                horizontalAlign: 'center',
-                floating: true,
-                fontSize: '14px',
-            }
-        };
+        renderClearanceChart(data);
 
-        var chart = new ApexCharts(document.querySelector("#clearancesChart"), options);
-        chart.render();
+        document.querySelector('#theme-toggle').addEventListener('click', () => {
+            isClearancesDarkMode = !isClearancesDarkMode;
+            document.documentElement.classList.toggle('dark', isClearancesDarkMode);
+
+            renderClearanceChart(data);
+        });
     })
     .catch(error => console.error('Error:', error));

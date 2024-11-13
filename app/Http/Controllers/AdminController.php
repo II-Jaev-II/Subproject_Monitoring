@@ -15,8 +15,26 @@ class AdminController extends Controller
     {
         $subprojects = Subproject::all();
         $subprojectsCount = $subprojects->count();
+        $clearedSubprojectsCount = $subprojects->where('total', 5)->count();
+        $onGoingSubprojectsCount = $subprojects->where('total', '<', 5)->count();
 
-        //Clearances Data
+        $failedSubprojectsCount = Subproject::where(function ($query) {
+            $query->where('iPLAN', 'Failed')
+                ->orWhere('iBUILD', 'Failed')
+                ->orWhere('econ', 'Failed')
+                ->orWhere('ses', 'Failed')
+                ->orWhere('ggu', 'Failed');
+        })->count();
+
+        $ongoingSubprojects = Subproject::where('total', '<', 5)->get();
+        $onGoingSubprojectsCount = $ongoingSubprojects->filter(function ($subproject) {
+            return $subproject->iPLAN !== 'Failed' &&
+                $subproject->iBUILD !== 'Failed' &&
+                $subproject->econ !== 'Failed' &&
+                $subproject->ses !== 'Failed' &&
+                $subproject->ggu !== 'Failed';
+        })->count();
+
         $records = Subproject::select('iPLAN', 'iBUILD', 'econ', 'ses', 'ggu')->get();
 
         $okCount = [];
@@ -64,11 +82,11 @@ class AdminController extends Controller
 
         //Project Category Data
         $projectCategoryCounts = Subproject::select('projectCategory', DB::raw('count(*) as total'))
-            ->whereIn('projectCategory', ['Construction', 'Rehabilitation', 'Upgrading', 'Additional Work'])
+            ->whereIn('projectCategory', ['Construction', 'Rehabilitation'])
             ->groupBy('projectCategory')
             ->pluck('total', 'projectCategory');
 
-        $projectCategoryLabels = ['Construction', 'Rehabilitation', 'Upgrading', 'Additional Work'];
+        $projectCategoryLabels = ['Construction', 'Rehabilitation'];
         $projectCategoryData = [];
         foreach ($projectCategoryLabels as $projectCategoryLabel) {
             $projectCategoryData[] = $projectCategoryCounts->get($projectCategoryLabel, 0);
@@ -95,6 +113,9 @@ class AdminController extends Controller
             'projectCategoryData' => $projectCategoryData,
             'provinceData' => $provinceData,
             'provinceLabels' => $provinceLabels,
+            'clearedSubprojectsCount' => $clearedSubprojectsCount,
+            'onGoingSubprojectsCount' => $onGoingSubprojectsCount,
+            'failedSubprojectsCount' => $failedSubprojectsCount
         ]);
     }
 
@@ -102,24 +123,44 @@ class AdminController extends Controller
     {
         $data = [
             'iPLAN' => [
-                'cleared' => DB::table('subprojects')->whereNotNull('iPLAN')->count(),
-                'notCleared' => DB::table('subprojects')->whereNull('iPLAN')->count(),
+                'cleared' => DB::table('subprojects')->whereIn('iPLAN', ['OK', 'Passed'])->count(),
+                'failed' => DB::table('subprojects')->where('iPLAN', 'Failed')->count(),
+                'pending' => DB::table('subprojects')
+                    ->where('iPLAN', 'Pending')
+                    ->orWhereNull('iPLAN')
+                    ->count(),
             ],
             'iBUILD' => [
-                'cleared' => DB::table('subprojects')->whereNotNull('iBUILD')->count(),
-                'notCleared' => DB::table('subprojects')->whereNull('iBUILD')->count(),
+                'cleared' => DB::table('subprojects')->whereIn('iBUILD', ['OK', 'Passed'])->count(),
+                'failed' => DB::table('subprojects')->where('iBUILD', 'Failed')->count(),
+                'pending' => DB::table('subprojects')
+                    ->where('iBUILD', 'Pending')
+                    ->orWhereNull('iBUILD')
+                    ->count(),
             ],
             'econ' => [
-                'cleared' => DB::table('subprojects')->whereNotNull('econ')->count(),
-                'notCleared' => DB::table('subprojects')->whereNull('econ')->count(),
+                'cleared' => DB::table('subprojects')->whereIn('econ', ['OK', 'Passed'])->count(),
+                'failed' => DB::table('subprojects')->where('econ', 'Failed')->count(),
+                'pending' => DB::table('subprojects')
+                    ->where('econ', 'Pending')
+                    ->orWhereNull('econ')
+                    ->count(),
             ],
             'ses' => [
-                'cleared' => DB::table('subprojects')->whereNotNull('ses')->count(),
-                'notCleared' => DB::table('subprojects')->whereNull('ses')->count(),
+                'cleared' => DB::table('subprojects')->whereIn('ses', ['OK', 'Passed'])->count(),
+                'failed' => DB::table('subprojects')->where('ses', 'Failed')->count(),
+                'pending' => DB::table('subprojects')
+                    ->where('ses', 'Pending')
+                    ->orWhereNull('ses')
+                    ->count(),
             ],
             'ggu' => [
-                'cleared' => DB::table('subprojects')->whereNotNull('ggu')->count(),
-                'notCleared' => DB::table('subprojects')->whereNull('ggu')->count(),
+                'cleared' => DB::table('subprojects')->whereIn('ggu', ['OK', 'Passed'])->count(),
+                'failed' => DB::table('subprojects')->where('ggu', 'Failed')->count(),
+                'pending' => DB::table('subprojects')
+                    ->where('ggu', 'Pending')
+                    ->orWhereNull('ggu')
+                    ->count(),
             ],
         ];
 
