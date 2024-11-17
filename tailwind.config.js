@@ -15,6 +15,19 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            animation: {
+                'slow-bounce': 'slow-bounce 5s ease-in-out infinite',
+            },
+            keyframes: {
+                'slow-bounce': {
+                    '0%, 100%': {
+                        transform: 'translateY(0)',
+                    },
+                    '50%': {
+                        transform: 'translateY(-10px)',
+                    },
+                },
+            },
         },
     },
 

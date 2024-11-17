@@ -1,4 +1,4 @@
-<x-alpine-layout>
+<x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Dashboard') }}
@@ -17,8 +17,8 @@
                             <svg class="w-6 h-6 mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <!-- Larger Clipboard Body -->
-                                <rect x="2" y="3" width="20" height="20" rx="2" ry="2" fill="#E2E8F0" stroke="#2D3748"
-                                    stroke-width="1.5" />
+                                <rect x="2" y="3" width="20" height="20" rx="2" ry="2"
+                                    fill="#E2E8F0" stroke="#2D3748" stroke-width="1.5" />
                                 <!-- Clipboard Clip -->
                                 <rect x="8" y="1" width="8" height="3" rx="1.5" fill="#A0AEC0" />
 
@@ -44,8 +44,8 @@
                             <svg class="w-6 h-6 mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <!-- Larger Clipboard Body -->
-                                <rect x="2" y="3" width="20" height="20" rx="2" ry="2" fill="#E2E8F0" stroke="#2D3748"
-                                    stroke-width="1.5" />
+                                <rect x="2" y="3" width="20" height="20" rx="2" ry="2"
+                                    fill="#E2E8F0" stroke="#2D3748" stroke-width="1.5" />
                                 <!-- Clipboard Clip -->
                                 <rect x="8" y="1" width="8" height="3" rx="1.5" fill="#A0AEC0" />
 
@@ -67,18 +67,19 @@
                             <svg class="w-6 h-6 mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <!-- Larger Clipboard Body -->
-                                <rect x="2" y="3" width="20" height="20" rx="2" ry="2" fill="#E2E8F0" stroke="#2D3748"
-                                    stroke-width="1.5" />
+                                <rect x="2" y="3" width="20" height="20" rx="2" ry="2"
+                                    fill="#E2E8F0" stroke="#2D3748" stroke-width="1.5" />
                                 <!-- Clipboard Clip -->
                                 <rect x="8" y="1" width="8" height="3" rx="1.5" fill="#A0AEC0" />
 
                                 <!-- Clock Face inside Clipboard (Original Size) -->
-                                <circle cx="12" cy="12" r="5" fill="white" stroke="#2D3748" stroke-width="1.5" />
+                                <circle cx="12" cy="12" r="5" fill="white" stroke="#2D3748"
+                                    stroke-width="1.5" />
                                 <!-- Clock Hands -->
-                                <line x1="12" y1="12" x2="12" y2="9" stroke="#2D3748" stroke-width="1.5"
-                                    stroke-linecap="round" />
-                                <line x1="12" y1="12" x2="14" y2="13" stroke="#2D3748" stroke-width="1.5"
-                                    stroke-linecap="round" />
+                                <line x1="12" y1="12" x2="12" y2="9" stroke="#2D3748"
+                                    stroke-width="1.5" stroke-linecap="round" />
+                                <line x1="12" y1="12" x2="14" y2="13" stroke="#2D3748"
+                                    stroke-width="1.5" stroke-linecap="round" />
                                 <!-- Clock Center Dot -->
                                 <circle cx="12" cy="12" r="0.5" fill="#2D3748" />
                             </svg>
@@ -93,19 +94,19 @@
                     class="bg-gradient-to-r from-red-500 to-red-700 text-white shadow-lg rounded-lg transform transition duration-300 hover:scale-105">
                     <div class="p-6">
                         <div class="flex items-center mb-4">
-                            <svg class="w-6 h-6 mr-2" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
+                            <svg class="w-6 h-6 mr-2" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <!-- Larger Clipboard Body -->
-                                <rect x="2" y="3" width="20" height="20" rx="2" ry="2" fill="#E2E8F0" stroke="#2D3748"
-                                    stroke-width="1.5" />
+                                <rect x="2" y="3" width="20" height="20" rx="2" ry="2"
+                                    fill="#E2E8F0" stroke="#2D3748" stroke-width="1.5" />
                                 <!-- Clipboard Clip -->
                                 <rect x="8" y="1" width="8" height="3" rx="1.5" fill="#A0AEC0" />
 
                                 <!-- Taller X Mark Inside Clipboard -->
-                                <line x1="7" y1="10" x2="17" y2="18" stroke="#2D3748" stroke-width="1.5"
-                                    stroke-linecap="round" />
-                                <line x1="7" y1="18" x2="17" y2="10" stroke="#2D3748" stroke-width="1.5"
-                                    stroke-linecap="round" />
+                                <line x1="7" y1="10" x2="17" y2="18" stroke="#2D3748"
+                                    stroke-width="1.5" stroke-linecap="round" />
+                                <line x1="7" y1="18" x2="17" y2="10" stroke="#2D3748"
+                                    stroke-width="1.5" stroke-linecap="round" />
                             </svg>
                             <h3 class="text-lg font-semibold">Failed Subprojects</h3>
                         </div>
@@ -159,8 +160,7 @@
                 </div>
 
                 <!-- Clearance Chart (at the bottom) -->
-                <div
-                    class="bg-white border border-gray-300 dark:bg-gray-800 shadow-md rounded-lg">
+                <div class="bg-white border border-gray-300 dark:bg-gray-800 shadow-md rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-black">
                         <div id="clearancesChart" class="h-64 w-full flex items-center justify-center">
                             <!-- Clearance Chart Content Here -->
@@ -179,4 +179,4 @@
         var provinceLabels = JSON.parse('@json($provinceLabels)');
     </script>
     <script src="{{ asset('js/adminCharts.js') }}"></script>
-</x-alpine-layout>
+</x-app-layout>

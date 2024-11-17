@@ -17,7 +17,7 @@
     <script src="{{ asset('js/darkMode.js') }}"></script>
 </head>
 
-<body class="font-sans antialiased dark:bg-gray-900 dark:text-white/50">
+<body class="font-sans antialiased dark:bg-gray-900 dark:text-white/50 flex flex-col min-h-screen">
     <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
         <div class=" selection:bg-[#FF2D20] selection:text-white">
             <nav x-data="{ open: false }"
@@ -27,57 +27,56 @@
                     <div class="flex justify-between h-16">
                         <div class="flex items-center space-x-4">
                             <img src="{{ asset('images/prdp_logo.png') }}" class="h-16" alt="PRDP Logo">
-                            <label for="trackingSystem" class="text-white dark:text-slate-300">Subproject
-                                Monitoring</label>
+
                         </div>
                         @if (Route::has('login'))
                             <nav class="flex items-center space-x-4">
                                 @auth
                                     @if (auth()->user()->userType === 'IBUILD')
                                         <a href="{{ url('/ibuild/dashboard') }}"
-                                            class="rounded-md px-2 py-2 text-white ring-1 ring-transparent transition hover:text-slate-100 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-slate-300 dark:hover:text-white/80 dark:focus-visible:ring-white">
+                                            class="rounded-md px-2 py-2 text-white ring-1 ring-transparent transition hover:text-slate-100 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-slate-300 dark:hover:text-white/64 dark:focus-visible:ring-white">
                                             Dashboard
                                         </a>
                                     @elseif (auth()->user()->userType === 'IREAP')
                                         <a href="{{ url('/ireap/dashboard') }}"
-                                            class="rounded-md px-2 py-2 text-white ring-1 ring-transparent transition hover:text-slate-100 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-slate-300 dark:hover:text-white/80 dark:focus-visible:ring-white">
+                                            class="rounded-md px-2 py-2 text-white ring-1 ring-transparent transition hover:text-slate-100 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-slate-300 dark:hover:text-white/64 dark:focus-visible:ring-white">
                                             Dashboard
                                         </a>
                                     @elseif (auth()->user()->userType === 'IPLAN')
                                         <a href="{{ url('/iplan/dashboard') }}"
-                                            class="rounded-md px-2 py-2 text-white ring-1 ring-transparent transition hover:text-slate-100 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-slate-300 dark:hover:text-white/80 dark:focus-visible:ring-white">
+                                            class="rounded-md px-2 py-2 text-white ring-1 ring-transparent transition hover:text-slate-100 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-slate-300 dark:hover:text-white/64 dark:focus-visible:ring-white">
                                             Dashboard
                                         </a>
                                     @elseif (auth()->user()->userType === 'ECON')
                                         <a href="{{ url('/econ/dashboard') }}"
-                                            class="rounded-md px-2 py-2 text-white ring-1 ring-transparent transition hover:text-slate-100 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-slate-300 dark:hover:text-white/80 dark:focus-visible:ring-white">
+                                            class="rounded-md px-2 py-2 text-white ring-1 ring-transparent transition hover:text-slate-100 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-slate-300 dark:hover:text-white/64 dark:focus-visible:ring-white">
                                             Dashboard
                                         </a>
                                     @elseif (auth()->user()->userType === 'SES')
                                         <a href="{{ url('/ses/dashboard') }}"
-                                            class="rounded-md px-2 py-2 text-white ring-1 ring-transparent transition hover:text-slate-100 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-slate-300 dark:hover:text-white/80 dark:focus-visible:ring-white">
+                                            class="rounded-md px-2 py-2 text-white ring-1 ring-transparent transition hover:text-slate-100 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-slate-300 dark:hover:text-white/64 dark:focus-visible:ring-white">
                                             Dashboard
                                         </a>
                                     @elseif (auth()->user()->userType === 'GGU')
                                         <a href="{{ url('/ggu/dashboard') }}"
-                                            class="rounded-md px-2 py-2 text-white ring-1 ring-transparent transition hover:text-slate-100 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-slate-300 dark:hover:text-white/80 dark:focus-visible:ring-white">
+                                            class="rounded-md px-2 py-2 text-white ring-1 ring-transparent transition hover:text-slate-100 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-slate-300 dark:hover:text-white/64 dark:focus-visible:ring-white">
                                             Dashboard
                                         </a>
                                     @elseif (auth()->user()->userType === 'ADMIN')
                                         <a href="{{ url('/admin/dashboard') }}"
-                                            class="rounded-md px-2 py-2 text-white ring-1 ring-transparent transition hover:text-slate-100 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-slate-300 dark:hover:text-white/80 dark:focus-visible:ring-white">
+                                            class="rounded-md px-2 py-2 text-white ring-1 ring-transparent transition hover:text-slate-100 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-slate-300 dark:hover:text-white/64 dark:focus-visible:ring-white">
                                             Dashboard
                                         </a>
                                     @endif
                                 @else
                                     <a href="{{ route('login') }}"
-                                        class="rounded-md px-2 py-2 text-white ring-1 ring-transparent transition hover:text-slate-100 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-slate-300 dark:hover:text-white/80 dark:focus-visible:ring-white">
+                                        class="rounded-md px-2 py-2 text-white ring-1 ring-transparent transition hover:text-slate-100 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-slate-300 dark:hover:text-white/64 dark:focus-visible:ring-white">
                                         Log in
                                     </a>
 
                                     @if (Route::has('register'))
                                         <a href="{{ route('register') }}"
-                                            class="rounded-md px-2 py-2 text-white ring-1 ring-transparent transition hover:text-slate-100 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-slate-300 dark:hover:text-white/80 dark:focus-visible:ring-white">
+                                            class="rounded-md px-2 py-2 text-white ring-1 ring-transparent transition hover:text-slate-100 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-slate-300 dark:hover:text-white/64 dark:focus-visible:ring-white">
                                             Register
                                         </a>
                                     @endif
@@ -103,6 +102,50 @@
             </nav>
         </div>
     </div>
+
+    <main class="flex-grow">
+        <div class="relative flex flex-col items-center gap-4 mt-96">
+            <!-- Text Section -->
+            <h2 class="relative text-8xl uppercase font-bold text-yellow-500">
+                Subproject <span class="text-green-500">Monitoring</span>
+                <!-- Background Images layered directly behind the text -->
+                <div class="absolute inset-0 -z-10 flex justify-center items-center">
+                    <img src="{{ asset('images/econ.png') }}" alt="Econ"
+                        class="absolute -top-40 left-0 w-36 animate-slow-bounce">
+                    <img src="{{ asset('images/iplan.png') }}" alt="IPlan"
+                        class="absolute -top-40 right-0 w-36 animate-slow-bounce">
+                    <img src="{{ asset('images/ibuild.png') }}" alt="IBuild"
+                        class="absolute bottom-10 left-30 w-48 animate-slow-bounce">
+                </div>
+            </h2>
+            <p class="relative text-lg italic text-black dark:text-white text-center">
+                Designed to simplify and streamline the validation process, making subproject tracking
+                more efficient, accurate, and user-friendly.
+            <div class="absolute inset-0 -z-10 flex justify-center items-center">
+                <img src="{{ asset('images/geomapping.png') }}" alt="Geomapping"
+                    class="absolute top-3/4 left-1/4 w-36 animate-slow-bounce">
+                <img src="{{ asset('images/ses.png') }}" alt="SES"
+                    class="absolute top-3/4 right-1/4 w-36 animate-slow-bounce">
+            </div>
+            </p>
+            <a href="{{ route('register') }}" class="relative inline-block px-4 py-2 font-medium group">
+                <span
+                    class="absolute inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-green-500 group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
+                <span
+                    class="absolute inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-green-500"></span>
+                <span class="relative text-black group-hover:text-white">Get Started</span>
+            </a>
+        </div>
+    </main>
+
+    <footer class="dark:bg-gray-900 bg-white dark:text-white text-black font-semibold py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+            <p class="text-sm">
+                &copy; {{ date('Y') }} Subproject Monitoring. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
     <script src="{{ asset('js/darkModeToggle.js') }}"></script>
 </body>
 

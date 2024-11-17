@@ -56,6 +56,9 @@
                         <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                             {{ __('Dashboard') }}
                         </x-nav-link>
+                        <x-nav-link :href="route('admin.subprojects')" :active="request()->routeIs('admin.subprojects')">
+                            {{ __('Subprojects') }}
+                        </x-nav-link>
                     @elseif(auth()->user()->userType === 'GGU')
                         <x-nav-link :href="route('ggu.dashboard')" :active="request()->routeIs('ggu.dashboard')">
                             {{ __('Dashboard') }}
@@ -188,6 +191,9 @@
             @elseif(auth()->user()->userType === 'ADMIN')
                 <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                     {{ __('Dashboard') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('admin.subprojects')" :active="request()->routeIs('admin.subprojects')">
+                    {{ __('Subprojects') }}
                 </x-responsive-nav-link>
             @elseif(auth()->user()->userType === 'GGU')
                 <x-responsive-nav-link :href="route('ggu.dashboard')" :active="request()->routeIs('ggu.dashboard')">
