@@ -41,26 +41,30 @@ class AdminSubprojectsTable extends Component
 
         // Component filter
         if ($this->component && $this->component !== 'All') {
-            // Include records with the selected component or NULL for Pending
+            // Include all records for the selected component, even if the value is NULL
             $query->where(function ($q) {
                 $q->whereNotNull($this->component)->orWhereNull($this->component);
             });
+
+            // Filter by clearances for specific component
+            if ($this->clearances === 'OK') {
+                $query->where($this->component, 'OK')->orWhere($this->component, 'Passed');
+            } elseif ($this->clearances === 'Pending') {
+                $query->whereNull($this->component)->orWhere($this->component, 'Pending');
+            } elseif ($this->clearances === 'Failed') {
+                $query->where($this->component, 'Failed');
+            }
         }
 
-        // Clearance filter
-        if ($this->clearances) {
-            if ($this->clearances === 'All') {
-                // No additional filter for "All"
-            } elseif ($this->clearances === 'OK') {
-                // Include records with total = 5
+        // Clearance filter for "All" components
+        if ($this->component === 'All') {
+            if ($this->clearances === 'OK') {
                 $query->where('total', '=', 5);
             } elseif ($this->clearances === 'Pending') {
-                // Include records with total < 5 and exclude Failed
                 $query->where('total', '<', 5)->where(function ($q) {
                     $q->where('iPLAN', '!=', 'Failed')->where('iBUILD', '!=', 'Failed')->where('econ', '!=', 'Failed')->where('SES', '!=', 'Failed')->where('GGU', '!=', 'Failed');
                 });
             } elseif ($this->clearances === 'Failed') {
-                // Include records where any component has a value of Failed
                 $query->where(function ($q) {
                     $q->where('iPLAN', 'Failed')->orWhere('iBUILD', 'Failed')->orWhere('econ', 'Failed')->orWhere('SES', 'Failed')->orWhere('GGU', 'Failed');
                 });
