@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreIbuildChecklistRequest;
 use App\Http\Requests\StoreSubprojectRequest;
 use App\Models\GGUChecklist;
+use App\Models\IbuildVcriChecklist;
 use App\Models\IplanChecklist;
 use App\Models\IplanCommodity;
 use App\Models\IplanRankAndComposite;
@@ -27,15 +29,9 @@ class IBuildController extends Controller
 
     public function view($id)
     {
-        $address = Subproject::join('provinces', 'subprojects.province', '=', 'provinces.id')
-            ->join('municipalities', 'subprojects.municipality', '=', 'municipalities.id')
-            ->join('barangays', 'subprojects.barangay', '=', 'barangays.id')
-            ->where('subprojects.id', $id)
-            ->firstOrFail();
+        $address = Subproject::join('provinces', 'subprojects.province', '=', 'provinces.id')->join('municipalities', 'subprojects.municipality', '=', 'municipalities.id')->join('barangays', 'subprojects.barangay', '=', 'barangays.id')->where('subprojects.id', $id)->firstOrFail();
 
-        $subprojects = Subproject::where('subprojects.id', $id)
-            ->select('subprojects.*', 'subprojects.letterOfRequest', 'subprojects.letterOfEndorsement')
-            ->first();
+        $subprojects = Subproject::where('subprojects.id', $id)->select('subprojects.*', 'subprojects.letterOfRequest', 'subprojects.letterOfEndorsement')->first();
 
         $iPlanChecklists = IplanChecklist::where('iplan_checklists.subprojectId', $id)->first();
         $commodities = [];
@@ -151,6 +147,44 @@ class IBuildController extends Controller
         return redirect()->route('ibuild.subprojects')->with('success', 'Subproject has been created successfully!');
     }
 
+    public function storeValidatedSubproject(StoreIbuildChecklistRequest $request)
+    {
+        $user = Auth::user();
+        $request->validated();
+
+        $fileFields = [
+            'vcriAccreditedDistance' => 'uploadedFiles/vcriAccreditedDistance',
+        ];
+
+        foreach ($fileFields as $field => $basePath) {
+            if (!file_exists($basePath)) {
+                mkdir($basePath, 0755, true);
+            }
+
+            if ($request->hasFile($field)) {
+                $file = $request->file($field);
+                $extension = $file->getClientOriginalExtension();
+                $filename = time() . '.' . $extension;
+                $file->move($basePath, $filename);
+                $paths[$field] = $basePath . '/' . $filename;
+            }
+        }
+
+        IbuildVcriChecklist::create([
+            'userId' => $user->id,
+            'subprojectId' => $request->get('subprojectId', null),
+            'reviewDate' => $request->get('vcriReviewDate', null),
+            'accessibility' => $request->get('accessibility', null),
+            'lotDescription' => $request->get('lotDescription', null),
+            'maximumFloodLevel' => $request->get('maximumFloodLevel', null),
+            'vcriAccreditedDistance' => $paths['vcriAccreditedDistance'] ?? null,
+        ]);
+
+        return redirect()
+            ->route('ibuild.view-subproject', ['id' => $request->get('subprojectId')])
+            ->with('success', 'Subproject has been validated successfully!');
+    }
+
     /**
      * Display the specified resource.
      */
@@ -182,6 +216,17 @@ class IBuildController extends Controller
         return view('ibuild.clearances.clearances', [
             'subprojects' => $subprojects,
         ]);
+    }
+
+    public function validateSubproject($id)
+    {
+        $subproject = Subproject::findOrFail($id);
+
+        // Retrieve the `projectType` directly
+        $subprojectType = $subproject->projectType;
+
+        // Pass `subprojectType` to the view
+        return view('ibuild.ibuild-checklist', compact('subproject', 'subprojectType'));
     }
 
     /**

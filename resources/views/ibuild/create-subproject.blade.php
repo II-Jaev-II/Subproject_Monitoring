@@ -35,7 +35,7 @@
                                     </option>
                                 </select>
                                 @error('proponent')
-                                <span class="text-red-500">{{ $message }}</span>
+                                    <span class="text-red-500">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div>
@@ -58,14 +58,14 @@
                                     onchange="fetchMunicipalities(this.value)">
                                     <option value="" disabled selected>Select a province</option>
                                     @foreach ($provinces as $province)
-                                    <option value="{{ $province->id }}"
-                                        {{ old('province_id') == $province->id ? 'selected' : '' }}>
-                                        {{ $province->province_name }}
-                                    </option>
+                                        <option value="{{ $province->id }}"
+                                            {{ old('province_id') == $province->id ? 'selected' : '' }}>
+                                            {{ $province->province_name }}
+                                        </option>
                                     @endforeach
                                 </select>
                                 @error('province')
-                                <span class="text-red-500">{{ $message }}</span>
+                                    <span class="text-red-500">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div>
@@ -76,7 +76,7 @@
                                     onchange="fetchBarangays(this.value)">
                                 </select>
                                 @error('municipality')
-                                <span class="text-red-500">{{ $message }}</span>
+                                    <span class="text-red-500">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div>
@@ -86,7 +86,7 @@
                                     class="block border-1 rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1">
                                 </select>
                                 @error('barangay')
-                                <span class="text-red-500">{{ $message }}</span>
+                                    <span class="text-red-500">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
@@ -100,7 +100,7 @@
                                     class="block border-1 rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1"
                                     value="{{ old('projectName') }}">
                                 @error('projectName')
-                                <span class="text-red-500">{{ $message }}</span>
+                                    <span class="text-red-500">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div>
@@ -120,11 +120,11 @@
                                     </option>
                                     <option value="PWS" {{ old('projectType') == 'PWS' ? 'selected' : '' }}>PWS
                                     </option>
-                                    <option value="VCI" {{ old('projectType') == 'VCI' ? 'selected' : '' }}>VCI
+                                    <option value="VCRI" {{ old('projectType') == 'VCRI' ? 'selected' : '' }}>VCRI
                                     </option>
                                 </select>
                                 @error('projectType')
-                                <span class="text-red-500">{{ $message }}</span>
+                                    <span class="text-red-500">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div>
@@ -142,7 +142,7 @@
                                         Rehabilitation</option>
                                 </select>
                                 @error('projectCategory')
-                                <span class="text-red-500">{{ $message }}</span>
+                                    <span class="text-red-500">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
@@ -185,7 +185,7 @@
                                 <input type="file" name="letterOfInterest" id="letterOfInterest"
                                     class="block border rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1 py-1 px-2">
                                 @error('letterOfInterest')
-                                <span class="text-red-500">{{ $message }}</span>
+                                    <span class="text-red-500">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div>
@@ -194,7 +194,7 @@
                                 <input type="file" name="letterOfRequest" id="letterOfRequest"
                                     class="block border rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1 py-1 px-2">
                                 @error('letterOfRequest')
-                                <span class="text-red-500">{{ $message }}</span>
+                                    <span class="text-red-500">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div>
@@ -203,7 +203,7 @@
                                 <input type="file" name="letterOfEndorsement" id="letterOfEndorsement"
                                     class="block border rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1 py-1 px-2">
                                 @error('letterOfEndorsement')
-                                <span class="text-red-500">{{ $message }}</span>
+                                    <span class="text-red-500">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>

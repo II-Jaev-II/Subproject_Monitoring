@@ -104,8 +104,10 @@
     </div>
 
     <main class="flex-grow">
-        <div class="relative flex flex-col items-center gap-4 mt-96">
+        <div class="relative flex flex-col items-center gap-4 mt-80">
             <!-- Text Section -->
+            <h2 class="text-5xl uppercase font-bold dark:text-gray-200">Philippine Rural Development
+                Project</h2>
             <h2 class="relative text-8xl uppercase font-bold text-yellow-500">
                 Subproject <span class="text-green-500">Monitoring</span>
                 <!-- Background Images layered directly behind the text -->
@@ -115,10 +117,10 @@
                     <img src="{{ asset('images/iplan.png') }}" alt="IPlan"
                         class="absolute -top-40 right-0 w-36 animate-slow-bounce">
                     <img src="{{ asset('images/ibuild.png') }}" alt="IBuild"
-                        class="absolute bottom-10 left-30 w-48 animate-slow-bounce">
+                        class="absolute bottom-32 left-30 w-48 animate-slow-bounce">
                 </div>
             </h2>
-            <p class="relative text-lg italic text-black dark:text-white text-center">
+            <p class="relative text-lg italic text-black dark:text-gray-200 text-center">
                 Designed to simplify and streamline the validation process, making subproject tracking
                 more efficient, accurate, and user-friendly.
             <div class="absolute inset-0 -z-10 flex justify-center items-center">
@@ -141,7 +143,7 @@
     <footer class="dark:bg-gray-900 bg-white dark:text-white text-black font-semibold py-4">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
             <p class="text-sm">
-                &copy; {{ date('Y') }} Subproject Monitoring. All rights reserved.
+                &copy; {{ date('Y') }} Philippine Rural Development Project RPCO1. All rights reserved.
             </p>
         </div>
     </footer>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSesChecklistRequest;
+use App\Models\GGUChecklist;
 use App\Models\IplanChecklist;
 use App\Models\IplanCommodity;
 use App\Models\IplanRankAndComposite;
@@ -26,11 +27,7 @@ class SESController extends Controller
 
     public function view($id)
     {
-        $subprojects = Subproject::join('provinces', 'subprojects.province', '=', 'provinces.id')
-            ->join('municipalities', 'subprojects.municipality', '=', 'municipalities.id')
-            ->join('barangays', 'subprojects.barangay', '=', 'barangays.id')
-            ->where('subprojects.id', $id)
-            ->firstOrFail();
+        $subprojects = Subproject::join('provinces', 'subprojects.province', '=', 'provinces.id')->join('municipalities', 'subprojects.municipality', '=', 'municipalities.id')->join('barangays', 'subprojects.barangay', '=', 'barangays.id')->where('subprojects.id', $id)->firstOrFail();
 
         $iPlanChecklists = IplanChecklist::where('iplan_checklists.subprojectId', $id)->first();
         $commodities = [];
@@ -48,6 +45,10 @@ class SESController extends Controller
             $sesRequirements = SesRequirements::where('checklistId', $sesChecklists->id)->get();
         }
 
+        $gguChecklists = GGUChecklist::where('ggu_checklists.subprojectId', $id)->first();
+
+        $gguReport = $gguChecklists ? $gguChecklists->report : null;
+
         $formattedReviewDateIPlan = null;
         if ($iPlanChecklists && $iPlanChecklists->reviewDate) {
             $formattedReviewDateIPlan = Carbon::parse($iPlanChecklists->reviewDate)->format('F j, Y');
@@ -58,6 +59,11 @@ class SESController extends Controller
             $formattedReviewDateSes = Carbon::parse($sesChecklists->reviewDate)->format('F j, Y');
         }
 
+        $formattedReviewDateGgu = null;
+        if ($gguChecklists && $gguChecklists->reviewDate) {
+            $formattedReviewDateGgu = Carbon::parse($gguChecklists->reviewDate)->format('F j, Y');
+        }
+
         return view('ses.view-subprojects.view-subproject', [
             'subprojects' => $subprojects,
             'iPlanChecklists' => $iPlanChecklists,
@@ -65,9 +71,12 @@ class SESController extends Controller
             'rankAndComposite' => $rankAndComposite,
             'sesChecklists' => $sesChecklists,
             'sesRequirements' => $sesRequirements,
+            'gguChecklists' => $gguChecklists,
+            'gguReport' => $gguReport,
 
             'formattedReviewDateIPlan' => $formattedReviewDateIPlan,
             'formattedReviewDateSes' => $formattedReviewDateSes,
+            'formattedReviewDateGgu' => $formattedReviewDateGgu,
         ]);
     }
 
