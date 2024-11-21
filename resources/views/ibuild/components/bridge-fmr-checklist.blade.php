@@ -1,15 +1,16 @@
 <div>
     <input type="text" name="subprojectId" value="{{ $subproject->id }}" hidden>
+    <input type="text" name="projectType" value="{{ $subproject->projectType }}" hidden>
 
     <div class="flex items-center space-x-4 mb-6">
-        <label for="reviewDate" class="dark:text-green-600 text-black">Date of Review <span
+        <label for="bridgeFmrReviewDate" class="dark:text-green-600 text-black">Date of Review <span
                 class="text-red-500">*</span></label>
-        <input type="date" name="reviewDate" id="reviewDate" value="{{ old('reviewDate') }}"
+        <input type="date" name="bridgeFmrReviewDate" id="bridgeFmrReviewDate" value="{{ old('bridgeFmrReviewDate') }}"
             class="dark:bg-gray-900 rounded-md dark:[color-scheme:dark]">
-        @if ($errors->has('reviewDate'))
-            <div class="text-red-600 mt-2 mb-2">
-                {{ $errors->first('reviewDate') }}
-            </div>
+        @if ($errors->has('bridgeFmrReviewDate'))
+        <div class="text-red-600 mt-2 mb-2">
+            {{ $errors->first('bridgeFmrReviewDate') }}
+        </div>
         @endif
     </div>
 
@@ -28,13 +29,14 @@
             <label for="connectedAllWeatherNo">No</label>
         </div>
         @if ($errors->has('connectedAllWeather'))
-            <div class="text-red-600 mt-2 mb-2">
-                {{ $errors->first('connectedAllWeather') }}
-            </div>
+        <div class="text-red-600 mt-2 mb-2">
+            {{ $errors->first('connectedAllWeather') }}
+        </div>
         @endif
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3 mb-4">
+
         <div>
             <label for="accessibility" class="dark:text-green-600">Accesibility</label>
             <input
@@ -58,15 +60,15 @@
         </div>
 
         <div>
-            <label for="accreditedDistance" class="dark:text-green-600">Distance from accredited DPWH quarry
+            <label for="fmrBridgeAccreditedDistance" class="dark:text-green-600">Distance from accredited DPWH quarry
                 site</label>
             <input
                 class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 py-1 px-2"
-                type="file" name="accreditedDistance" id="accreditedDistance">
-            @if ($errors->has('accreditedDistance'))
-                <div class="text-red-600 mt-2 mb-2">
-                    {{ $errors->first('accreditedDistance') }}
-                </div>
+                type="file" name="fmrBridgeAccreditedDistance" id="fmrBridgeAccreditedDistance">
+            @if ($errors->has('fmrBridgeAccreditedDistance'))
+            <div class="text-red-600 mt-2 mb-2">
+                {{ $errors->first('fmrBridgeAccreditedDistance') }}
+            </div>
             @endif
         </div>
 
@@ -77,9 +79,9 @@
                 class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 py-1 px-2"
                 type="file" name="trafficCount" id="trafficCount">
             @if ($errors->has('trafficCount'))
-                <div class="text-red-600 mt-2 mb-2">
-                    {{ $errors->first('trafficCount') }}
-                </div>
+            <div class="text-red-600 mt-2 mb-2">
+                {{ $errors->first('trafficCount') }}
+            </div>
             @endif
         </div>
 

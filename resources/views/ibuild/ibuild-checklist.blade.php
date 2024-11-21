@@ -12,12 +12,13 @@
                     <form action="{{ route('ibuild.store-validated-subproject') }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
+
                         @if ($subprojectType === 'Bridge' || $subprojectType === 'FMR')
-                            @include('ibuild.components.bridge-fmr-checklist')
+                        @include('ibuild.components.bridge-fmr-checklist')
                         @elseif ($subprojectType === 'VCRI')
-                            @include('ibuild.components.vcri-checklist')
+                        @include('ibuild.components.vcri-checklist')
                         @elseif ($subprojectType === 'PWS' || $subprojectType === 'CIS')
-                            @include('ibuild.components.pws-cis-checklist')
+                        @include('ibuild.components.pws-cis-checklist')
                         @endif
                     </form>
                 </div>

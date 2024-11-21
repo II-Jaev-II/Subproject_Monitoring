@@ -31,7 +31,9 @@ Route::middleware(['auth', 'userType:IBUILD'])->group(function () {
     Route::get('/ibuild/subprojects', [IBuildController::class, 'show'])->name('ibuild.subprojects');
     Route::get('/ibuild/clearances', [IBuildController::class, 'showClearances'])->name('ibuild.clearances');
     Route::get('/ibuild/view-subproject/{id}', [IBuildController::class, 'view'])->name('ibuild.view-subproject');
-    Route::get('/ibuild/edit-subproject/{id}', [IPlanController::class, 'edit'])->name('ibuild.edit-subproject');
+    Route::get('/ibuild/edit-subproject/{id}', [IBuildController::class, 'edit'])->name('ibuild.edit-subproject');
+    Route::post('/ibuild/update-subproject/{id}', [IBuildController::class, 'update'])->name('ibuild.update-subproject');
+    Route::post('/ibuild/update-subproject-profile/{id}', [IBuildController::class, 'updateSubprojectProfile'])->name('ibuild.update-subproject-profile');
     Route::get('/ibuild/validate-subprojects/{id}', [IBuildController::class, 'validateSubproject'])->name('ibuild.validate-subprojects');
     Route::post('/ibuild/store-validated-subproject', [IBuildController::class, 'storeValidatedSubproject'])->name('ibuild.store-validated-subproject');
     Route::get('/ibuild/create-subproject', [IBuildController::class, 'create'])->name('ibuild.create-subproject');

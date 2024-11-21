@@ -1,14 +1,15 @@
 <div>
     <input type="text" name="subprojectId" value="{{ $subproject->id }}" hidden>
+    <input type="text" name="projectType" value="{{ $subproject->projectType }}" hidden>
 
     <div class="flex items-center space-x-4 mb-6">
-        <label for="reviewDate" class="dark:text-green-600 text-black">Date of Review <span
+        <label for="pwsCisReviewDate" class="dark:text-green-600 text-black">Date of Review <span
                 class="text-red-500">*</span></label>
-        <input type="date" name="reviewDate" id="reviewDate" value="{{ old('reviewDate') }}"
+        <input type="date" name="pwsCisReviewDate" id="pwsCisReviewDate" value="{{ old('pwsCisReviewDate') }}"
             class="dark:bg-gray-900 rounded-md dark:[color-scheme:dark]">
-        @if ($errors->has('reviewDate'))
+        @if ($errors->has('pwsCisReviewDate'))
             <div class="text-red-600 mt-2 mb-2">
-                {{ $errors->first('reviewDate') }}
+                {{ $errors->first('pwsCisReviewDate') }}
             </div>
         @endif
     </div>
@@ -46,14 +47,14 @@
         </div>
 
         <div>
-            <label for="accreditedDistance" class="dark:text-green-600">Distance from accredited DPWH quarry
+            <label for="pwsCisAccreditedDistance" class="dark:text-green-600">Distance from accredited DPWH quarry
                 site</label>
             <input
                 class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 py-1 px-2"
-                type="file" name="accreditedDistance" id="accreditedDistance">
-            @if ($errors->has('accreditedDistance'))
+                type="file" name="pwsCisAccreditedDistance" id="pwsCisAccreditedDistance">
+            @if ($errors->has('pwsCisAccreditedDistance'))
                 <div class="text-red-600 mt-2 mb-2">
-                    {{ $errors->first('accreditedDistance') }}
+                    {{ $errors->first('pwsCisAccreditedDistance') }}
                 </div>
             @endif
         </div>

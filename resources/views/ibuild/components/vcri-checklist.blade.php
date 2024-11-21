@@ -1,5 +1,6 @@
 <div>
     <input type="text" name="subprojectId" value="{{ $subproject->id }}" hidden>
+    <input type="text" name="projectType" value="{{ $subproject->projectType }}" hidden>
 
     <div class="flex items-center space-x-4 mb-6">
         <label for="vcriReviewDate" class="dark:text-green-600 text-black">Date of Review <span
@@ -7,13 +8,14 @@
         <input type="date" name="vcriReviewDate" id="vcriReviewDate" value="{{ old('vcriReviewDate') }}"
             class="dark:bg-gray-900 rounded-md dark:[color-scheme:dark]">
         @if ($errors->has('vcriReviewDate'))
-            <div class="text-red-600 mt-2 mb-2">
-                {{ $errors->first('vcriReviewDate') }}
-            </div>
+        <div class="text-red-600 mt-2 mb-2">
+            {{ $errors->first('vcriReviewDate') }}
+        </div>
         @endif
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3 mb-4">
+
         <div>
             <label for="accessibility" class="dark:text-green-600">Accesibility</label>
             <input
@@ -43,9 +45,9 @@
                 class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 py-1 px-2"
                 type="file" name="vcriAccreditedDistance" id="vcriAccreditedDistance">
             @if ($errors->has('vcriAccreditedDistance'))
-                <div class="text-red-600 mt-2 mb-2">
-                    {{ $errors->first('vcriAccreditedDistance') }}
-                </div>
+            <div class="text-red-600 mt-2 mb-2">
+                {{ $errors->first('vcriAccreditedDistance') }}
+            </div>
             @endif
         </div>
     </div>
