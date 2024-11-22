@@ -34,18 +34,18 @@
                         </thead>
                         <tbody>
                             @foreach ($subprojects as $subproject)
-                                <tr class="dark:bg-gray-900 dark:border-gray-700 bg-green-700 text-white">
-                                    <th scope="row" class="px-4 py-3 dark:text-white">
-                                        {{ $subproject->projectName }}
-                                    </th>
-                                    <td class="px-4 py-3 dark:text-white">{{ $subproject->proponent }}</td>
-                                    <td class="px-4 py-3 dark:text-white">
-                                        {{ number_format($subproject->indicativeCost, 2) }}
-                                    </td>
-                                    <td class="px-4 py-3 dark:text-white">{{ $subproject->total }}</td>
-                                    <td class="px-4 py-3 flex items-center gap-3">
-                                        <div class="relative group inline-block">
-                                            <a href="{{ $userType === 'IBUILD'
+                            <tr class="dark:bg-gray-900 dark:border-gray-700 bg-green-700 text-white">
+                                <th scope="row" class="px-4 py-3 dark:text-white">
+                                    {{ $subproject->projectName }}
+                                </th>
+                                <td class="px-4 py-3 dark:text-white">{{ $subproject->proponent }}</td>
+                                <td class="px-4 py-3 dark:text-white">
+                                    {{ number_format($subproject->indicativeCost, 2) }}
+                                </td>
+                                <td class="px-4 py-3 dark:text-white">{{ $subproject->total }}</td>
+                                <td class="px-4 py-3 flex items-center gap-3">
+                                    <div class="relative group inline-block">
+                                        <a href="{{ $userType === 'IBUILD'
                                                 ? route('ibuild.view-subproject', $subproject->id)
                                                 : ($userType === 'IPLAN'
                                                     ? route('iplan.view-subproject', $subproject->id)
@@ -54,16 +54,16 @@
                                                         : ($userType === 'SES'
                                                             ? route('ses.view-subproject', $subproject->id)
                                                             : route('ggu.view-subproject', $subproject->id)))) }}"
-                                                class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-700 dark:text-white bg-lime-300 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2">
-                                                <img src="/images/eye.svg" alt="View" width="15" height="15">
-                                            </a>
-                                            <span
-                                                class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden text-xs text-white bg-gray-800 rounded py-1 px-2 group-hover:block">
-                                                View
-                                            </span>
-                                        </div>
-                                        <div class="relative group inline-block">
-                                            <a href="{{ $userType === 'IBUILD'
+                                            class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-700 dark:text-white bg-lime-300 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2">
+                                            <img src="/images/eye.svg" alt="View" width="15" height="15">
+                                        </a>
+                                        <span
+                                            class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden text-xs text-white bg-gray-800 rounded py-1 px-2 group-hover:block">
+                                            View
+                                        </span>
+                                    </div>
+                                    <div class="relative group inline-block">
+                                        <a href="{{ $userType === 'IBUILD'
                                                 ? ($subproject->iBuildStatus
                                                     ? route('ibuild.edit-subproject', $subproject->id)
                                                     : route('ibuild.validate-subprojects', $subproject->id))
@@ -72,7 +72,9 @@
                                                         ? route('iplan.edit-subproject', $subproject->id)
                                                         : route('iplan.validate-subprojects', $subproject->id))
                                                     : ($userType === 'ECON'
-                                                        ? route('econ.edit-subprojects', $subproject->id)
+                                                    ? ($subproject->econStatus
+                                                        ? route('econ.edit-subproject', $subproject->id)
+                                                        : route('econ.validate-subprojects', $subproject->id))
                                                         : ($userType === 'SES'
                                                             ? ($subproject->sesStatus
                                                                 ? route('ses.edit-subproject', $subproject->id)
@@ -82,17 +84,17 @@
                                                                     ? route('ggu.edit-subproject', $subproject->id)
                                                                     : route('ggu.validate-subprojects', $subproject->id))
                                                                 : '#')))) }}"
-                                                class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray dark:text-white bg-sky-300 dark:bg-sky-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2">
-                                                <img src="/images/pencil-square.svg" alt="Save" width="15"
-                                                    height="15">
-                                            </a>
-                                            <span
-                                                class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden text-xs text-white bg-gray-800 rounded py-1 px-2 group-hover:block">
-                                                Validate
-                                            </span>
-                                        </div>
-                                    </td>
-                                </tr>
+                                            class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray dark:text-white bg-sky-300 dark:bg-sky-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2">
+                                            <img src="/images/pencil-square.svg" alt="Save" width="15"
+                                                height="15">
+                                        </a>
+                                        <span
+                                            class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden text-xs text-white bg-gray-800 rounded py-1 px-2 group-hover:block">
+                                            Validate
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
                             @endforeach
                         </tbody>
                     </table>

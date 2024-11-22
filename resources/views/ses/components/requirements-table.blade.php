@@ -1,6 +1,6 @@
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg mb-6">
     <table class="w-full text-sm text-center">
-        <thead class="text-xs dark:text-lime-500 uppercase bg-gray-50 dark:bg-gray-700">
+        <thead class="text-xs dark:text-lime-500 uppercase bg-green-500 dark:bg-gray-700">
             <tr>
                 <th scope="col" class="px-6 py-3">
                     Requirements

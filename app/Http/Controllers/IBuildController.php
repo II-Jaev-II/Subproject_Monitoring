@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreIbuildChecklistRequest;
 use App\Http\Requests\StoreSubprojectRequest;
+use App\Models\EconChecklist;
 use App\Models\GGUChecklist;
 use App\Models\IbuildFmrBridgeChecklist;
 use App\Models\IbuildPwsCisChecklist;
@@ -56,6 +57,8 @@ class IBuildController extends Controller
         $gguChecklists = GGUChecklist::where('ggu_checklists.subprojectId', $id)->first();
 
         $gguReport = $gguChecklists ? $gguChecklists->report : null;
+
+        $econChecklists = EconChecklist::where('econ_checklists.subprojectId', $id)->first();
 
         // Query each checklist independently
         $vcriChecklists = DB::table('ibuild_vcri_checklists')
@@ -113,6 +116,11 @@ class IBuildController extends Controller
             $formattedReviewDateIBuildPwsCis = Carbon::parse($pwsCisChecklists->reviewDate)->format('F j, Y');
         }
 
+        $formattedReviewDateEcon = null;
+        if ($econChecklists && $econChecklists->reviewDate) {
+            $formattedReviewDateEcon = Carbon::parse($econChecklists->reviewDate)->format('F j, Y');
+        }
+
         return view('ibuild.view-subprojects.view-subproject', [
             'subprojects' => $subprojects,
             'address' => $address,
@@ -128,6 +136,7 @@ class IBuildController extends Controller
             'pwsCisChecklists' => $pwsCisChecklists,
             'subprojectType' => $subprojectType,
             'hasRecords' => $hasRecords,
+            'econChecklists' => $econChecklists,
 
             'formattedReviewDateIPlan' => $formattedReviewDateIPlan,
             'formattedReviewDateSes' => $formattedReviewDateSes,
@@ -135,6 +144,7 @@ class IBuildController extends Controller
             'formattedReviewDateIBuildVcri' => $formattedReviewDateIBuildVcri,
             'formattedReviewDateIBuildFmrBridge' => $formattedReviewDateIBuildFmrBridge,
             'formattedReviewDateIBuildPwsCis' => $formattedReviewDateIBuildPwsCis,
+            'formattedReviewDateEcon' => $formattedReviewDateEcon,
         ]);
     }
 

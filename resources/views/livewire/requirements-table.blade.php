@@ -1,7 +1,7 @@
 <div x-show="selectedCheckbox" class="relative overflow-x-auto shadow-md sm:rounded-lg mb-6">
     <table class="w-full text-sm text-center">
         <thead>
-            <tr class="text-xs dark:text-lime-500 uppercase bg-gray-50 dark:bg-gray-700">
+            <tr class="text-xs dark:text-lime-500 uppercase bg-green-500 dark:bg-gray-700">
                 <th class="px-4 py-2">Requirement</th>
                 <th class="px-4 py-2">Deadline</th>
                 <th class="px-4 py-2"></th>
@@ -27,7 +27,7 @@
     </table>
 
     <div class="px-4 py-4 mt-4">
-        <button type="button" wire:click="addRow" class="px-4 py-2 dark:bg-lime-600 text-white rounded hover:bg-lime-700">
+        <button type="button" wire:click="addRow" class="px-4 py-2 bg-lime-600 text-white rounded hover:bg-lime-700">
             Add more requirement
         </button>
     </div>

@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('iplan_checklists', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('userId');
+            $table->unsignedBigInteger('subprojectId');
             $table->string('explanation')->nullable();
             $table->string('justificationFile')->nullable();
             $table->string('linkedVca');
@@ -21,6 +23,7 @@ return new class extends Migration
             $table->string('specificIntervention')->nullable();
             $table->string('pageMatrixVca')->nullable();
             $table->string('pcip')->nullable();
+            $table->string('page')->nullable();
             $table->string('pageMatrixPcip')->nullable();
             $table->string('sensitivity');
             $table->string('exposure');
@@ -28,7 +31,11 @@ return new class extends Migration
             $table->string('overallVulnerability');
             $table->string('recommendation');
             $table->string('generalRecommendation')->nullable();
+            $table->date('reviewDate');
             $table->timestamps();
+
+            $table->foreign('subprojectId')->references('id')->on('subprojects')->onDelete('cascade');
+            $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

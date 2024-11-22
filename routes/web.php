@@ -56,6 +56,10 @@ Route::middleware(['auth', 'userType:ECON'])->group(function () {
     Route::get('/econ/subprojects', [EconController::class, 'show'])->name('econ.subprojects');
     Route::get('/econ/clearances', [EconController::class, 'showClearances'])->name('econ.clearances');
     Route::get('/econ/view-subproject/{id}', [EconController::class, 'view'])->name('econ.view-subproject');
+    Route::get('/econ/edit-subproject/{id}', [EconController::class, 'edit'])->name('econ.edit-subproject');
+    Route::post('/econ/update-subproject/{id}', [EconController::class, 'update'])->name('econ.update-subproject');
+    Route::get('/econ/validate-subprojects/{id}', [EconController::class, 'validateSubproject'])->name('econ.validate-subprojects');
+    Route::post('/econ/store-subproject', [EconController::class, 'store'])->name('econ.store-subproject');
 });
 
 Route::middleware(['auth', 'userType:SES'])->group(function () {

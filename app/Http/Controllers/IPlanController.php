@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreIplanChecklistRequest;
 use App\Http\Requests\UpdateIPlanChecklistRequest;
+use App\Models\EconChecklist;
 use App\Models\GGUChecklist;
 use App\Models\IplanChecklist;
 use App\Models\IplanCommodity;
@@ -28,7 +29,12 @@ class IPlanController extends Controller
 
     public function view($id)
     {
-        $subprojects = Subproject::join('provinces', 'subprojects.province', '=', 'provinces.id')->join('municipalities', 'subprojects.municipality', '=', 'municipalities.id')->join('barangays', 'subprojects.barangay', '=', 'barangays.id')->where('subprojects.id', $id)->firstOrFail();
+        $subprojects = Subproject::join('provinces', 'subprojects.province', '=', 'provinces.id')
+            ->join('municipalities', 'subprojects.municipality', '=', 'municipalities.id')
+            ->join('barangays', 'subprojects.barangay', '=', 'barangays.id')
+            ->select('subprojects.*', 'subprojects.letterOfRequest', 'subprojects.letterOfEndorsement', 'provinces.province_name', 'municipalities.municipality_name', 'barangays.barangay_name')
+            ->where('subprojects.id', $id)
+            ->first();
 
         $iPlanChecklists = IplanChecklist::where('iplan_checklists.subprojectId', $id)->first();
         $commodities = [];
@@ -50,6 +56,34 @@ class IPlanController extends Controller
 
         $gguReport = $gguChecklists ? $gguChecklists->report : null;
 
+        $econChecklists = EconChecklist::where('econ_checklists.subprojectId', $id)->first();
+
+        // Query each checklist independently
+        $vcriChecklists = DB::table('ibuild_vcri_checklists')
+            ->where('subprojectId', $id)
+            ->first();
+
+        $fmrBridgeChecklists = DB::table('ibuild_fmr_bridge_checklists')
+            ->where('subprojectId', $id)
+            ->first();
+
+        $pwsCisChecklists = DB::table('ibuild_pws_cis_checklists')
+            ->where('subprojectId', $id)
+            ->first();
+
+        // Determine if any checklist exists
+        $hasRecords = $vcriChecklists || $fmrBridgeChecklists || $pwsCisChecklists;
+
+        // Determine the subproject type
+        $subprojectType = null;
+        if ($vcriChecklists) {
+            $subprojectType = 'VCRI';
+        } elseif ($fmrBridgeChecklists) {
+            $subprojectType = 'Bridge';
+        } elseif ($pwsCisChecklists) {
+            $subprojectType = 'PWS';
+        }
+
         $formattedReviewDateIPlan = null;
         if ($iPlanChecklists && $iPlanChecklists->reviewDate) {
             $formattedReviewDateIPlan = Carbon::parse($iPlanChecklists->reviewDate)->format('F j, Y');
@@ -65,6 +99,26 @@ class IPlanController extends Controller
             $formattedReviewDateGgu = Carbon::parse($gguChecklists->reviewDate)->format('F j, Y');
         }
 
+        $formattedReviewDateIBuildVcri = null;
+        if ($vcriChecklists && $vcriChecklists->reviewDate) {
+            $formattedReviewDateIBuildVcri = Carbon::parse($vcriChecklists->reviewDate)->format('F j, Y');
+        }
+
+        $formattedReviewDateIBuildFmrBridge = null;
+        if ($fmrBridgeChecklists && $fmrBridgeChecklists->reviewDate) {
+            $formattedReviewDateIBuildFmrBridge = Carbon::parse($fmrBridgeChecklists->reviewDate)->format('F j, Y');
+        }
+
+        $formattedReviewDateIBuildPwsCis = null;
+        if ($pwsCisChecklists && $pwsCisChecklists->reviewDate) {
+            $formattedReviewDateIBuildPwsCis = Carbon::parse($pwsCisChecklists->reviewDate)->format('F j, Y');
+        }
+
+        $formattedReviewDateEcon = null;
+        if ($econChecklists && $econChecklists->reviewDate) {
+            $formattedReviewDateEcon = Carbon::parse($econChecklists->reviewDate)->format('F j, Y');
+        }
+
         return view('iplan.view-subprojects.view-subproject', [
             'subprojects' => $subprojects,
             'iPlanChecklists' => $iPlanChecklists,
@@ -74,10 +128,20 @@ class IPlanController extends Controller
             'sesRequirements' => $sesRequirements,
             'gguChecklists' => $gguChecklists,
             'gguReport' => $gguReport,
+            'vcriChecklists' => $vcriChecklists,
+            'fmrBridgeChecklists' => $fmrBridgeChecklists,
+            'pwsCisChecklists' => $pwsCisChecklists,
+            'subprojectType' => $subprojectType,
+            'hasRecords' => $hasRecords,
+            'econChecklists' => $econChecklists,
 
             'formattedReviewDateIPlan' => $formattedReviewDateIPlan,
             'formattedReviewDateSes' => $formattedReviewDateSes,
             'formattedReviewDateGgu' => $formattedReviewDateGgu,
+            'formattedReviewDateIBuildVcri' => $formattedReviewDateIBuildVcri,
+            'formattedReviewDateIBuildFmrBridge' => $formattedReviewDateIBuildFmrBridge,
+            'formattedReviewDateIBuildPwsCis' => $formattedReviewDateIBuildPwsCis,
+            'formattedReviewDateEcon' => $formattedReviewDateEcon,
         ]);
     }
 

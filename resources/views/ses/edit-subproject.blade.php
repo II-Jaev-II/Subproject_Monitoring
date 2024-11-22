@@ -7,7 +7,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-white border border-gray-300 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <form action="{{ route('ses.update-subproject', $subproject->id) }}" method="POST">
                         @csrf
@@ -15,11 +15,11 @@
                         <input type="text" name="subprojectId" value="{{ $subproject->id }}" hidden>
                         <div class="mb-4">
                             <h1 for="iplanChecklist" class="dark:text-lime-500 text-2xl">Edit SES Checklist</h1>
-                            <hr class="border-2 dark:border-lime-500 mb-2">
+                            <hr class="border-2 border-green-500 dark:border-lime-500 mb-2">
                         </div>
 
                         <div class="flex items-center space-x-4 mb-6">
-                            <label for="reviewDate" class="dark:text-lime-500">Date of Review <span class="dark:text-red-500">*</span></label>
+                            <label for="reviewDate" class="dark:text-lime-500">Date of Review <span class="text-red-500">*</span></label>
                             <input type="date" name="reviewDate" id="reviewDate" value="{{ old('reviewDate') }}" class="dark:bg-gray-900 rounded-md dark:[color-scheme:dark]">
                             @if ($errors->has('reviewDate'))
                             <div class="text-red-600 mt-2 mb-2">
@@ -45,7 +45,7 @@
                                 </label>
                             </div>
                             <div x-show="selectedCheckbox || '{{ $sesChecklist->reason }}' !== ''" x-transition class="mt-2 mb-2">
-                                <textarea x-ref="reasonTextarea" class="block border border-gray-700 rounded-md bg-gray-900 w-full mt-1 p-2" name="reason" id="reason" rows="6" :required="selectedCheckbox">{{ $sesChecklist->reason }}</textarea>
+                                <textarea x-ref="reasonTextarea" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1" name="reason" id="reason" rows="6" :required="selectedCheckbox">{{ $sesChecklist->reason }}</textarea>
                             </div>
                         </div>
                         @endif
@@ -63,7 +63,7 @@
                                 </label>
                             </div>
                             <div x-show="selectedCheckbox || '{{ $sesChecklist->requirementCompliance }}' !== ''" x-transition class="mt-2 mb-2">
-                                <textarea x-ref="requirementsTextArea" class="block border border-gray-700 rounded-md bg-gray-900 w-full mt-1 p-2" name="requirementCompliance" id="requirementCompliance" rows="6" :required="selectedCheckbox">{{ $sesChecklist->requirementCompliance }}</textarea>
+                                <textarea x-ref="requirementsTextArea" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1" name="requirementCompliance" id="requirementCompliance" rows="6" :required="selectedCheckbox">{{ $sesChecklist->requirementCompliance }}</textarea>
                             </div>
                         </div>
                         @endif
@@ -86,7 +86,7 @@
                                 @if($sesRequirements->isNotEmpty())
                                 <table class="w-full text-sm text-center">
                                     <thead>
-                                        <tr class="text-xs dark:text-lime-500 uppercase bg-gray-50 dark:bg-gray-700">
+                                        <tr class="text-xs dark:text-lime-500 uppercase bg-green-500 dark:bg-gray-700">
                                             <th class="px-4 py-2">Requirement</th>
                                             <th class="px-4 py-2">Deadline</th>
                                         </tr>
@@ -121,17 +121,17 @@
                                 </label>
                             </div>
                             <div x-show="selectedCheckbox || '{{ $sesChecklist->cleared }}' !== ''" x-transition class="mt-2 mb-2">
-                                <textarea x-ref="clearedTextArea" class="block border border-gray-700 rounded-md bg-gray-900 w-full mt-1 p-2" name="cleared" id="cleared" rows="6" :required="selectedCheckbox">{{ $sesChecklist->cleared }}</textarea>
+                                <textarea x-ref="clearedTextArea" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1" name="cleared" id="cleared" rows="6" :required="selectedCheckbox">{{ $sesChecklist->cleared }}</textarea>
                             </div>
                         </div>
                         @endif
 
                         <div class="mb-6">
                             <label for="socialAssesment" class="dark:text-lime-500 text-2xl leading-tight flex-1">
-                                Social Assesment <span class="dark:text-red-500">*</span>
+                                Social Assesment <span class="text-red-500">*</span>
                             </label>
                             <div class="mt-2 mb-2">
-                                <textarea class="block border border-gray-700 rounded-md bg-gray-900 w-full mt-1 p-2" name="socialAssesment" id="socialAssesment" rows="6">{{ $sesChecklist->socialAssesment }}</textarea>
+                                <textarea class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1" name="socialAssesment" id="socialAssesment" rows="6">{{ $sesChecklist->socialAssesment }}</textarea>
                             </div>
                             @if ($errors->has('socialAssesment'))
                             <div class="text-red-600 mt-2 mb-2">
@@ -142,10 +142,10 @@
 
                         <div class="mb-6">
                             <label for="environmentalAssesment" class="dark:text-lime-500 text-2xl leading-tight flex-1">
-                                Environmental Assesment <span class="dark:text-red-500">*</span>
+                                Environmental Assesment <span class="text-red-500">*</span>
                             </label>
                             <div class="mt-2 mb-2">
-                                <textarea class="block border border-gray-700 rounded-md bg-gray-900 w-full mt-1 p-2" name="environmentalAssesment" id="environmentalAssesment" rows="6">{{ $sesChecklist->environmentalAssesment }}</textarea>
+                                <textarea class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1" name="environmentalAssesment" id="environmentalAssesment" rows="6">{{ $sesChecklist->environmentalAssesment }}</textarea>
                             </div>
                             @if ($errors->has('environmentalAssesment'))
                             <div class="text-red-600 mt-2 mb-2">
@@ -156,7 +156,7 @@
 
                         <div class="flex justify-end">
                             <button type="submit"
-                                class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray dark:text-white bg-gray-400 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2">
+                                class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray text-white bg-green-500 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2">
                                 <img src="/images/check2-square.svg" alt="Save" width="22" height="22">
                                 Update Subproject
                             </button>
