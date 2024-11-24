@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ChecklistController;
 use App\Http\Controllers\DynamicAddressController;
 use App\Http\Controllers\EconController;
 use App\Http\Controllers\GGUController;
@@ -9,11 +10,14 @@ use App\Http\Controllers\IPlanController;
 use App\Http\Controllers\IReapController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SESController;
+use App\Http\Controllers\WordController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/generate-word/{id}', [WordController::class, 'generateReport'])->name('generate.word');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
