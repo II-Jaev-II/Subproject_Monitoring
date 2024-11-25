@@ -18,7 +18,7 @@
                         <h1 class="dark:text-lime-500 text-xl">Clearances for Validation</h1>
                     </div>
                     <div class="overflow-x-auto rounded-md">
-                        @include('ibuild.view-subprojects.clearances-table')
+                        @include('admin.view-subprojects.clearances-table')
                     </div>
                 </div>
             </div>
@@ -28,7 +28,7 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white border border-gray-300 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100">
-                @include('ibuild.view-subprojects.subproject-profile')
+                @include('admin.view-subprojects.subproject-profile')
             </div>
         </div>
     </div>

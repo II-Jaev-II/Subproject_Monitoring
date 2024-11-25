@@ -34,9 +34,15 @@ class IBuildController extends Controller
 
     public function view($id)
     {
-        $address = Subproject::join('provinces', 'subprojects.province', '=', 'provinces.id')->join('municipalities', 'subprojects.municipality', '=', 'municipalities.id')->join('barangays', 'subprojects.barangay', '=', 'barangays.id')->where('subprojects.id', $id)->firstOrFail();
+        $address = Subproject::join('provinces', 'subprojects.province', '=', 'provinces.id')
+            ->join('municipalities', 'subprojects.municipality', '=', 'municipalities.id')
+            ->join('barangays', 'subprojects.barangay', '=', 'barangays.id')
+            ->where('subprojects.id', $id)
+            ->firstOrFail();
 
-        $subprojects = Subproject::where('subprojects.id', $id)->select('subprojects.*', 'subprojects.letterOfRequest', 'subprojects.letterOfEndorsement')->first();
+        $subprojects = Subproject::where('subprojects.id', $id)
+            ->select('subprojects.*', 'subprojects.letterOfRequest', 'subprojects.letterOfEndorsement')
+            ->first();
 
         $iPlanChecklists = IplanChecklist::where('iplan_checklists.subprojectId', $id)->first();
         $commodities = [];
@@ -246,20 +252,28 @@ class IBuildController extends Controller
             $lotDescription = $request->get('lotDescription', null);
             $maximumFloodLevel = $request->get('maximumFloodLevel', null);
             $vcriAccreditedDistance = $paths['vcriAccreditedDistance'] ?? null;
-
             $subprojectId = $request->get('subprojectId', null);
 
-            if (
-                $accessibility === null ||
-                $lotDescription === null ||
-                $maximumFloodLevel === null ||
-                $vcriAccreditedDistance === null
-            ) {
+            $status = $request->get('status');
+
+            if ($status === 'OK') {
+                if (
+                    $accessibility !== null &&
+                    $lotDescription !== null &&
+                    $maximumFloodLevel !== null &&
+                    $vcriAccreditedDistance !== null
+                ) {
+                    Subproject::where('id', $subprojectId)->update(['iBUILD' => 'OK']);
+                    Subproject::where('id', $subprojectId)->increment('total');
+                } else {
+                    Subproject::where('id', $subprojectId)->update(['iBUILD' => 'Pending']);
+                }
+            } elseif ($status === 'Pending') {
                 Subproject::where('id', $subprojectId)->update(['iBUILD' => 'Pending']);
-            } else {
-                Subproject::where('id', $subprojectId)->update(['iBUILD' => 'OK']);
-                Subproject::where('id', $subprojectId)->increment('total');
+            } elseif ($status === 'Failed') {
+                Subproject::where('id', $subprojectId)->update(['iBUILD' => 'Failed']);
             }
+
             IbuildVcriChecklist::create([
                 'userId' => $user->id,
                 'subprojectId' => $subprojectId,
@@ -318,16 +332,24 @@ class IBuildController extends Controller
 
             $subprojectId = $request->get('subprojectId', null);
 
-            if (
-                $waterSource === null ||
-                $waterSourceElevation === null ||
-                $serviceArea === null ||
-                $pwsCisAccreditedDistance === null
-            ) {
+            $status = $request->get('status');
+
+            if ($status === 'OK') {
+                if (
+                    $waterSource !== null &&
+                    $waterSourceElevation !== null &&
+                    $serviceArea !== null &&
+                    $pwsCisAccreditedDistance !== null
+                ) {
+                    Subproject::where('id', $subprojectId)->update(['iBUILD' => 'OK']);
+                    Subproject::where('id', $subprojectId)->increment('total');
+                } else {
+                    Subproject::where('id', $subprojectId)->update(['iBUILD' => 'Pending']);
+                }
+            } elseif ($status === 'Pending') {
                 Subproject::where('id', $subprojectId)->update(['iBUILD' => 'Pending']);
-            } else {
-                Subproject::where('id', $subprojectId)->update(['iBUILD' => 'OK']);
-                Subproject::where('id', $subprojectId)->increment('total');
+            } elseif ($status === 'Failed') {
+                Subproject::where('id', $subprojectId)->update(['iBUILD' => 'Failed']);
             }
 
             IbuildPwsCisChecklist::create([
@@ -467,6 +489,7 @@ class IBuildController extends Controller
             $vcriAccreditedDistance = $paths['vcriAccreditedDistance'] ?? ($checklist ? $checklist->vcriAccreditedDistance : null);
 
             $subproject = Subproject::where('id', $subprojectId)->first();
+            $status = $request->get('status');
 
             if (
                 $accessibility === null ||
@@ -480,6 +503,11 @@ class IBuildController extends Controller
                 }
 
                 Subproject::where('id', $subprojectId)->update(['iBUILD' => 'Pending']);
+            } elseif ($status === 'OK') {
+                Subproject::where('id', $subprojectId)->update(['iBUILD' => 'OK']);
+                Subproject::where('id', $subprojectId)->increment('total');
+            } elseif ($status === 'Failed') {
+                Subproject::where('id', $subprojectId)->update(['iBUILD' => 'Failed']);
             } else {
                 if ($subproject && $subproject->iBUILD === 'Pending') {
                     // Increment total if transitioning from Pending to OK

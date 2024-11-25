@@ -50,6 +50,22 @@
             </div>
             @endif
         </div>
+
+        <div>
+            <label for="status" class="dark:text-green-600">Status <span
+                    class="dark:text-red-500">*</span></label>
+            <select name="status" id="status" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-1/4 mt-1 py-1 px-2">
+                <option value="" disabled selected></option>
+                <option value="OK" {{ old('status') == 'OK' ? 'selected' : '' }}>OK</option>
+                <option value="Failed" {{ old('status') == 'Failed' ? 'selected' : '' }}>Failed</option>
+                <option value="Pending" {{ old('status') == 'Pending' ? 'selected' : '' }}>Pending</option>
+            </select>
+            @if ($errors->has('status'))
+            <div class="text-red-600 mt-2 mb-2">
+                {{ $errors->first('status') }}
+            </div>
+            @endif
+        </div>
     </div>
 
     <div class="flex justify-end">

@@ -37,15 +37,40 @@ const lightModeOptions = {
 // Function to get Project Types chart options based on the theme
 function getProjectTypeOptions(isDarkMode) {
     const theme = isDarkMode ? 'dark' : 'light';
+    const projectTypeColors = {
+        FMR: '#FF5733',
+        FMB: '#33FF57',
+        Bridge: '#3357FF',
+        CIS: '#FFC300',
+        PWS: '#DAF7A6',
+        VCRI: '#C70039'
+    };
+
     return {
         series: projectTypeData,
-        chart: { type: 'polarArea', height: 200, background: colors[theme].background },
-        fill: { opacity: 0.6 },
-        labels: ['FMR', 'FMB', 'Bridge', 'CIS', 'PWS', 'VCI'],
-        legend: { labels: { colors: colors[theme].text } },
-        stroke: { colors: [colors[theme].stroke] },
-        tooltip: { theme: isDarkMode ? 'dark' : 'light' },
-        dataLabels: { style: { colors: [colors[theme].text] } }
+        chart: {
+            type: 'polarArea',
+            height: 200,
+            background: colors[theme].background
+        },
+        fill: {
+            opacity: 0.6
+        },
+        labels: ['FMR', 'FMB', 'Bridge', 'CIS', 'PWS', 'VCRI'],
+        legend: {
+            labels: { colors: colors[theme].text }
+        },
+        stroke: {
+            colors: [colors[theme].stroke]
+        },
+        tooltip: {
+            theme: isDarkMode ? 'dark' : 'light'
+        },
+        dataLabels: {
+            style: { colors: [colors[theme].text] }
+        },
+        // Assign specific colors to each project type
+        colors: Object.values(projectTypeColors)
     };
 }
 

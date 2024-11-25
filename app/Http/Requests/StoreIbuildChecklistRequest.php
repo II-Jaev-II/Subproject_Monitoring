@@ -25,7 +25,7 @@ class StoreIbuildChecklistRequest extends FormRequest
             'subprojectId' => 'required|integer',
             'projectType' => 'required|string',
         ];
-    
+
         if ($this->get('projectType') === 'VCRI') {
             $rules += [
                 'vcriReviewDate' => 'required|date',
@@ -44,7 +44,7 @@ class StoreIbuildChecklistRequest extends FormRequest
                 'pwsCisAccreditedDistance' => 'nullable|file|mimes:pdf,jpg,docx,png',
             ];
         }
-    
+
         return $rules;
     }
 

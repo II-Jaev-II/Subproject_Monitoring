@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'userType:ADMIN'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/subprojects', [AdminController::class, 'show'])->name('admin.subprojects');
+    Route::get('/admin/view-subproject/{id}', [AdminController::class, 'view'])->name('admin.view-subproject');
 });
 
 Route::middleware(['auth', 'userType:IBUILD'])->group(function () {
