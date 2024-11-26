@@ -1,5 +1,5 @@
 <div>
-    <label for="sensitivity" class="dark:text-green-600 text-sm">Sensitivity <span class="text-red-500">*</span></label>
+    <label for="sensitivity" class="dark:text-green-600 text-sm md:text-base">Sensitivity <span class="text-red-500">*</span></label>
     <select name="sensitivity" id="sensitivity"
         class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1">
         <option value="" disabled {{ old('sensitivity') ? '' : 'selected' }}></option>
@@ -25,7 +25,7 @@
     @endif
 </div>
 <div>
-    <label for="exposure" class="dark:text-green-600 text-sm">Exposure <span class="text-red-500">*</span></label>
+    <label for="exposure" class="dark:text-green-600 text-sm md:text-base">Exposure <span class="text-red-500">*</span></label>
     <select name="exposure" id="exposure"
         class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1">
         <option value="" disabled {{ old('exposure') ? '' : 'selected' }}></option>
@@ -47,7 +47,7 @@
     @endif
 </div>
 <div>
-    <label for="adaptiveCapacity" class="dark:text-green-600 text-sm">Adaptive Capacity <span
+    <label for="adaptiveCapacity" class="dark:text-green-600 text-sm md:text-base">Adaptive Capacity <span
             class="text-red-500">*</span></label>
     <select name="adaptiveCapacity" id="adaptiveCapacity"
         class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1">
@@ -70,7 +70,7 @@
     @endif
 </div>
 <div>
-    <label for="overallVulnerability" class="dark:text-green-600 text-sm">Overall Vulnerability <span
+    <label for="overallVulnerability" class="dark:text-green-600 text-sm md:text-base">Overall Vulnerability <span
             class="text-red-500">*</span></label>
     <select name="overallVulnerability" id="overallVulnerability"
         class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1">
@@ -94,7 +94,7 @@
     @endif
 </div>
 <div>
-    <label for="recommendation" class="dark:text-green-600 text-sm">Recommendation <span class="text-red-500">*</span></label>
+    <label for="recommendation" class="dark:text-green-600 text-sm md:text-base">Recommendation <span class="text-red-500">*</span></label>
     <textarea name="recommendation" id="recommendation" rows="4"
         class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1">{{ old('recommendation') }}</textarea>
     @if ($errors->has('recommendation'))
@@ -104,7 +104,7 @@
     @endif
 </div>
 <div>
-    <label for="generalRecommendation" class="dark:text-green-600 text-sm">General Recommendations <span
+    <label for="generalRecommendation" class="dark:text-green-600 text-sm md:text-base">General Recommendations <span
             class="text-red-500">*</span></label>
     <textarea name="generalRecommendation" id="generalRecommendation" rows="4"
         class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1">{{ old('generalRecommendation') }}</textarea>

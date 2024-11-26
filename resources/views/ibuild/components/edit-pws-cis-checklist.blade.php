@@ -3,7 +3,7 @@
     <input type="text" name="projectType" value="{{ $subproject->projectType }}" hidden>
 
     <div class="flex items-center space-x-4 mb-6">
-        <label for="pwsCisReviewDate" class="dark:text-green-600 text-black">Date of Review <span
+        <label for="pwsCisReviewDate" class="dark:text-green-600 text-black text-sm md:text-base">Date of Review <span
                 class="text-red-500">*</span></label>
         <input type="date" name="pwsCisReviewDate" id="pwsCisReviewDate" value="{{ old('pwsCisReviewDate') }}"
             class="dark:bg-gray-900 rounded-md dark:[color-scheme:dark]">
@@ -16,7 +16,7 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3 mb-4">
         <div>
-            <label for="waterSource" class="dark:text-green-600">Water Source</label>
+            <label for="waterSource" class="dark:text-green-600 text-sm md:text-base">Water Source</label>
             <select name="waterSource" id="waterSource"
                 class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 py-1 px-2">
                 <option {{ old('waterSource') ? '' : 'selected' }}>{{ $subproject->waterSource }}</option>
@@ -32,7 +32,7 @@
         </div>
 
         <div>
-            <label for="waterSourceElevation" class="dark:text-green-600">Water Source Elevation</label>
+            <label for="waterSourceElevation" class="dark:text-green-600 text-sm md:text-base">Water Source Elevation</label>
             <input
                 class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1"
                 type="text" value="{{ old('waterSourceElevation', $subproject->waterSourceElevation) }}" name="waterSourceElevation"
@@ -40,7 +40,7 @@
         </div>
 
         <div>
-            <label for="serviceArea" class="dark:text-green-600">Service Area Topographic Data</label>
+            <label for="serviceArea" class="dark:text-green-600 text-sm md:text-base">Service Area Topographic Data</label>
             <input
                 class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1"
                 type="text" value="{{ old('serviceArea', $subproject->serviceArea) }}" name="serviceArea" id="serviceArea">
@@ -48,7 +48,7 @@
 
         @if($subproject->pwsCisAccreditedDistance)
         <div x-data="{ showFileInput: false }" class="">
-            <label for="pwsCisAccreditedDistanceInput" class="dark:text-green-600">Distance from accredited DPWH quarry
+            <label for="pwsCisAccreditedDistanceInput" class="dark:text-green-600 text-sm md:text-base">Distance from accredited DPWH quarry
                 site</label>
             <div class="flex items-center mt-1 rounded-md overflow-hidden">
                 <button type="button"
@@ -82,7 +82,7 @@
         </div>
         @else
         <div>
-            <label for="pwsCisAccreditedDistance" class="dark:text-green-600">Distance from accredited DPWH quarry
+            <label for="pwsCisAccreditedDistance" class="dark:text-green-600 text-sm md:text-base">Distance from accredited DPWH quarry
                 site</label>
             <input
                 class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 py-1 px-2"
@@ -97,7 +97,7 @@
 
         @if($subproject->iBUILD === 'Pending')
         <div>
-            <label for="status" class="dark:text-green-600">Status></label>
+            <label for="status" class="dark:text-green-600 text-sm md:text-base">Status></label>
             <select name="status" id="status" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-1/4 mt-1 py-1 px-2">
                 <option value="" disabled selected></option>
                 <option value="OK" {{ old('status') == 'OK' ? 'selected' : '' }}>OK</option>

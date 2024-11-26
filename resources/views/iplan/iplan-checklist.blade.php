@@ -14,7 +14,7 @@
                         <input type="text" name="subprojectId" value="{{ $subproject->id }}" hidden>
 
                         <div class="flex items-center space-x-4 mb-6">
-                            <label for="reviewDate" class="dark:text-lime-500 text-black text-sm">Date of Review <span
+                            <label for="reviewDate" class="dark:text-lime-500 text-black text-sm md:text-base">Date of Review <span
                                     class="text-red-500">*</span></label>
                             <input type="date" name="reviewDate" id="reviewDate" value="{{ old('reviewDate') }}"
                                 class="dark:bg-gray-900 rounded-md dark:[color-scheme:dark]">
@@ -25,7 +25,7 @@
                             @endif
                         </div>
                         <hr class="border-2 dark:border-lime-500 border-green-500 mb-2">
-                        <label for="priorityCommodity" class="dark:text-lime-500 text-black text-sm md:text-lg">Priority commodity
+                        <label for="priorityCommodity" class="dark:text-lime-500 text-black text-sm md:text-base">Priority commodity
                             supported
                             by the
                             SP Proposal <span class="text-red-500">*</span></label>
@@ -41,15 +41,15 @@
                             </div>
                         </div>
 
-                        <label for="justification" class="dark:text-lime-500 text-sm md:text-lg">Justification if rank is higher
+                        <label for="justification" class="dark:text-lime-500 text-sm md:text-base">Justification if rank is higher
                             than 10
                             and if composite index is below 0.4</label>
                         <div>
                             <div class="flex flex-col mb-2">
-                                <label for="explain" class="dark:text-green-600 text-sm">Please explain:</label>
+                                <label for="explain" class="dark:text-green-600 text-sm md:text-base">Please explain:</label>
                                 <textarea name="explanation" id="explanation" rows="4"
                                     class="block border rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1">{{ old('explanation') }}</textarea>
-                                <label for="justificationFile" class="dark:text-green-600 text-sm">Attach a File</label>
+                                <label for="justificationFile" class="dark:text-green-600 text-sm md:text-base">Attach a File</label>
                                 <input
                                     class="block border rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full md:w-1/2 mt-1 py-1 px-2"
                                     type="file" name="justificationFile" id="justificationFile">
@@ -62,7 +62,7 @@
                         </div>
                         <hr class="border-2 dark:border-lime-500 border-green-500 mb-2">
                         <div x-data="{ linkedVca: '{{ old('linkedVca') }}' }" x-cloak class="mb-4">
-                            <label for="linkedVca" class="dark:text-lime-500 text-black text-sm md:text-lg">Linked to VCA? <span
+                            <label for="linkedVca" class="dark:text-lime-500 text-black text-sm md:text-base">Linked to VCA? <span
                                     class="text-red-500">*</span></label>
                             <div class="flex items-center gap-2">
                                 <div class="flex items-center gap-2">
@@ -90,7 +90,7 @@
                         </div>
                         <hr class="border-2 dark:border-lime-500 border-green-500 mb-2">
                         <div x-data="{ pcip: '{{ old('pcip') }}' }" x-cloak class="mt-2 mb-4">
-                            <label for="pcip" class="dark:text-lime-500 text-black text-sm md:text-lg">Aligned with the PCIP?
+                            <label for="pcip" class="dark:text-lime-500 text-black text-sm md:text-base">Aligned with the PCIP?
                                 <span class="text-red-500">*</span></label>
                             <div class="flex items-center gap-2">
                                 <div class="flex items-center gap-2">
@@ -109,7 +109,7 @@
                             <div x-cloak style="display: none !important" x-show="pcip === 'Yes'" x-transition
                                 x-effect="if (!pcip.includes('Yes')) { $refs.page.value = ''; }">
                                 <div>
-                                    <label for="page" class="dark:text-green-600 text-sm">Page <span
+                                    <label for="page" class="dark:text-green-600 text-sm md:text-base">Page <span
                                             class="dark:text-red-500">*</span></label>
                                     <input
                                         class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-32 mt-1 py-1 px-2"
@@ -123,7 +123,7 @@
                                     @endif
                                 </div>
                                 <div>
-                                    <label for="pageMatrixPcip" class="dark:text-green-600">Page of Matrix <span
+                                    <label for="pageMatrixPcip" class="dark:text-green-600 text-sm md:text-base">Page of Matrix <span
                                             class="dark:text-red-500">*</span></label>
                                     <input
                                         class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full md:w-1/2 mt-1 py-1 px-2"
@@ -144,7 +144,7 @@
                         </div>
                         <hr class="border-2 dark:border-lime-500 border-green-500">
                         <div class="mt-2">
-                            <label for="crva" class="dark:text-lime-500 text-sm md:text-lg">CRVA</label>
+                            <label for="crva" class="dark:text-lime-500 text-sm md:text-base">CRVA</label>
                         </div>
                         <div class="grid grid-rows-1 gap-2 mb-2">
                             @include('iplan.components.crva-inputs')

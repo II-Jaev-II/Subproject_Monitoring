@@ -21,7 +21,7 @@
                         <hr class="border-2 dark:border-lime-500 border-green-500 mb-2">
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
                             <div>
-                                <label for="proponent" class="dark:text-green-600">Proponent <span
+                                <label for="proponent" class="dark:text-green-600 text-sm md:text-base">Proponent <span
                                         class="text-red-600">*</span></label>
                                 <select name="proponent" id="proponent"
                                     class="block border-1 rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1">
@@ -39,19 +39,19 @@
                                 @enderror
                             </div>
                             <div>
-                                <label for="cluster" class="dark:text-green-600">Cluster</label>
+                                <label for="cluster" class="dark:text-green-600 text-sm md:text-base">Cluster</label>
                                 <input
                                     class="block border-1 rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1"
                                     type="text" name="cluster" id="cluster" value="Luzon A" readonly>
                             </div>
                             <div>
-                                <label for="region" class="dark:text-green-600">Region</label>
+                                <label for="region" class="dark:text-green-600 text-sm md:text-base">Region</label>
                                 <input
                                     class="block border-1 rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1"
                                     type="text" name="region" id="region" value="Region 1" readonly>
                             </div>
                             <div>
-                                <label for="province" class="dark:text-green-600">Province <span
+                                <label for="province" class="dark:text-green-600 text-sm md:text-base">Province <span
                                         class="text-red-600">*</span></label>
                                 <select name="province" id="province"
                                     class="block border-1 rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1"
@@ -69,7 +69,7 @@
                                 @enderror
                             </div>
                             <div>
-                                <label for="municipality" class="dark:text-green-600">Municipality <span
+                                <label for="municipality" class="dark:text-green-600 text-sm md:text-base">Municipality <span
                                         class="text-red-600">*</span></label>
                                 <select name="municipality" id="municipality"
                                     class="block border-1 rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1"
@@ -80,7 +80,7 @@
                                 @enderror
                             </div>
                             <div>
-                                <label for="barangay" class="dark:text-green-600">Barangay <span
+                                <label for="barangay" class="dark:text-green-600 text-sm md:text-base">Barangay <span
                                         class="text-red-600">*</span></label>
                                 <select name="barangay" id="barangay"
                                     class="block border-1 rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1">
@@ -94,7 +94,7 @@
                         <hr class="border-2 border-green-600 dark:border-lime-500 mb-2">
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
                             <div>
-                                <label for="projectName" class="dark:text-green-600">Project Name <span
+                                <label for="projectName" class="dark:text-green-600 text-sm md:text-base">Project Name <span
                                         class="text-red-600">*</span></label>
                                 <input type="text" name="projectName" id="projectName"
                                     class="block border-1 rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1"
@@ -104,7 +104,7 @@
                                 @enderror
                             </div>
                             <div>
-                                <label for="projectType" class="dark:text-green-600">Project Type <span
+                                <label for="projectType" class="dark:text-green-600 text-sm md:text-base">Project Type <span
                                         class="text-red-600">*</span></label>
                                 <select name="projectType" id="projectType"
                                     class="block border-1 rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1">
@@ -128,7 +128,7 @@
                                 @enderror
                             </div>
                             <div>
-                                <label for="projectCategory" class="dark:text-green-600">Project Category
+                                <label for="projectCategory" class="dark:text-green-600 text-sm md:text-base">Project Category
                                     <span class="text-red-600">*</span></label>
                                 <select name="projectCategory" id="projectCategory"
                                     class="block border-1 rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1">
@@ -148,7 +148,7 @@
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3">
                             <div>
-                                <label for="fundSource" class="dark:text-green-600">Fund Source</label>
+                                <label for="fundSource" class="dark:text-green-600 text-sm md:text-base">Fund Source</label>
                                 <input
                                     class="block border-1 rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1"
                                     type="text" name="fundSource" id="fundSource" value="PRDP Scale-Up" readonly>
@@ -166,7 +166,7 @@
                                     }
                                 }
                             }">
-                                <label for="indicativeCost" class="dark:text-green-600">Indicative
+                                <label for="indicativeCost" class="dark:text-green-600 text-sm md:text-base">Indicative
                                     Cost</label>
                                 <input type="text" id="indicativeCost"
                                     class="block border-1 rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1"
@@ -180,7 +180,7 @@
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
                             <div>
-                                <label for="letterOfInterest" class="dark:text-green-600">Letter of
+                                <label for="letterOfInterest" class="dark:text-green-600 text-sm md:text-base">Letter of
                                     Interest</label>
                                 <input type="file" name="letterOfInterest" id="letterOfInterest"
                                     class="block border rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1 py-1 px-2">
@@ -189,7 +189,7 @@
                                 @enderror
                             </div>
                             <div>
-                                <label for="letterOfRequest" class="dark:text-green-600">Letter of
+                                <label for="letterOfRequest" class="dark:text-green-600 text-sm md:text-base">Letter of
                                     Request</label>
                                 <input type="file" name="letterOfRequest" id="letterOfRequest"
                                     class="block border rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1 py-1 px-2">
@@ -198,7 +198,7 @@
                                 @enderror
                             </div>
                             <div>
-                                <label for="letterOfEndorsement" class="dark:text-green-600">Letter of
+                                <label for="letterOfEndorsement" class="dark:text-green-600 text-sm md:text-base">Letter of
                                     Endorsement</label>
                                 <input type="file" name="letterOfEndorsement" id="letterOfEndorsement"
                                     class="block border rounded-md border-gray-400 dark:border-gray-700 dark:bg-gray-900 bg-white w-full mt-1 py-1 px-2">

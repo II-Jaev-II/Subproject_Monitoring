@@ -1,6 +1,6 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
     <div>
-        <label for="valueChainSegment" class="dark:text-green-600 text-sm">Value Chain Segment <span
+        <label for="valueChainSegment" class="dark:text-green-600 text-sm md:text-base">Value Chain Segment <span
                 class="text-red-500">*</span></label>
         <input
             class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1"
@@ -8,7 +8,7 @@
             id="valueChainSegment" :required="linkedVca.includes('Yes')">
     </div>
     <div>
-        <label for="opportunity" class="dark:text-green-600 text-sm">Opportunity or Constraint Being Addressed <span
+        <label for="opportunity" class="dark:text-green-600 text-sm md:text-base">Opportunity or Constraint Being Addressed <span
                 class="text-red-500">*</span></label>
         <input
             class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1"
@@ -16,7 +16,7 @@
             :required="linkedVca.includes('Yes')">
     </div>
     <div>
-        <label for="specificIntervention" class="dark:text-green-600 text-sm">Specific Intervention <span
+        <label for="specificIntervention" class="dark:text-green-600 text-sm md:text-base">Specific Intervention <span
                 class="text-red-500">*</span></label>
         <input
             class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1"
@@ -24,7 +24,7 @@
             name="specificIntervention" id="specificIntervention" :required="linkedVca.includes('Yes')">
     </div>
     <div>
-        <label for="pageMatrixVca" class="dark:text-green-600 text-sm">Page of VCA <span class="text-red-500">*</span></label>
+        <label for="pageMatrixVca" class="dark:text-green-600 text-sm md:text-base">Page of VCA <span class="text-red-500">*</span></label>
         <input
             class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 py-1 px-2"
             type="file" name="pageMatrixVca" id="pageMatrixVca" :required="linkedVca.includes('Yes')">

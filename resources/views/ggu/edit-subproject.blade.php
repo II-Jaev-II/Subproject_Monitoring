@@ -19,7 +19,7 @@
                         </div>
 
                         <div class="flex items-center space-x-4 mb-6">
-                            <label for="reviewDate" class="dark:text-lime-500 text-sm">Date of Review <span class="text-red-500">*</span></label>
+                            <label for="reviewDate" class="dark:text-lime-500 text-sm md:text-base">Date of Review <span class="text-red-500">*</span></label>
                             <input type="date" name="reviewDate" id="reviewDate" value="{{ old('reviewDate') }}" class="dark:bg-gray-900 rounded-md dark:[color-scheme:dark]">
                             @if ($errors->has('reviewDate'))
                             <div class="text-red-600 mt-2 mb-2">
@@ -31,7 +31,7 @@
                         <div class="grid grid-cols-1 md:flex items-center md:space-x-6">
                             <!-- KMZ File Section -->
                             <div x-data="{ showFileInput: false }" class="">
-                                <label for="kmzFileInput" class="dark:text-green-600 text-sm">KMZ File</label>
+                                <label for="kmzFileInput" class="dark:text-green-600 text-sm md:text-base">KMZ File</label>
                                 <div class="flex items-center mt-1 rounded-md overflow-hidden">
                                     <button type="button"
                                         @click="showFileInput = !showFileInput"
@@ -60,7 +60,7 @@
 
                             <!-- Report Section -->
                             <div x-data="{ showFileInput: false }" class="">
-                                <label for="gguReportInput" class="dark:text-green-600 text-sm">Report</label>
+                                <label for="gguReportInput" class="dark:text-green-600 text-sm md:text-base">Report</label>
                                 <div class="flex items-center mt-1 rounded-md overflow-hidden">
                                     <button type="button"
                                         @click="showFileInput = !showFileInput"
@@ -89,7 +89,7 @@
 
                             <!-- Status Section -->
                             <div class="flex-1">
-                                <label for="status" class="dark:text-green-600 text-sm">Status</label>
+                                <label for="status" class="dark:text-green-600 text-sm md:text-base">Status</label>
                                 <select name="status" id="status" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-32 mt-1 py-1 px-2">
                                     <option {{ old('status') ? '' : 'selected' }}>{{ $gguChecklist->ggu }}</option>
                                     @if ($gguChecklist->ggu === 'Passed')
@@ -103,7 +103,7 @@
                         </div>
 
                         <div class="mb-4 mt-4">
-                            <label for="remarks" class="dark:text-green-600 text-sm">Remarks</label>
+                            <label for="remarks" class="dark:text-green-600 text-sm md:text-base">Remarks</label>
                             <textarea name="remarks" id="remarks" rows="4"
                                 class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1">{{ old('remarks',$gguChecklist->remarks) }}</textarea>
                         </div>
