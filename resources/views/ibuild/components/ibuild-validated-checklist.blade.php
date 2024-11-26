@@ -1,11 +1,11 @@
 @if ($subprojectType === 'Bridge' || $subprojectType === 'FMR')
 <div>
     <div class="flex items-center space-x-4 mb-2">
-        <label for="reviewDate" class="dark:text-green-600">Date of Review</label>
+        <label for="reviewDate" class="dark:text-lime-500 text-sm md:text-lg">Date of Review</label>
         <input type="text" value="{{ $formattedReviewDateIBuildFmrBridge }}" class="dark:bg-gray-900 rounded-md dark:[color-scheme:dark]" readonly>
     </div>
 
-    <label for="connectedAllWeatherLabel" class="dark:text-green-600 text-black text-lg">Connected
+    <label for="connectedAllWeatherLabel" class="dark:text-green-600 text-black text-sm">Connected
         to an
         All-Weather Road?</label>
     <div class="flex items-center gap-2">
@@ -25,14 +25,14 @@
 
         @if($fmrBridgeChecklists->accessibility)
         <div>
-            <label for="accessibility" class="dark:text-green-600">Accesibility</label>
+            <label for="accessibility" class="dark:text-green-600 text-sm">Accesibility</label>
             <input
                 class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1"
                 type="text" value="{{ $fmrBridgeChecklists->accessibility }}" readonly>
         </div>
         @else
         <div>
-            <label for="accessibility" class="dark:text-green-600">Accesibility</label>
+            <label for="accessibility" class="dark:text-green-600 text-sm">Accesibility</label>
             <div
                 class="relative flex items-center gap-2 text-md rounded-md border font-bold bg-red-600 text-white dark:bg-red-800 border-red-400 px-2 py-2 mt-2 w-fit">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-question-diamond-fill" viewBox="0 0 16 16">
@@ -49,7 +49,7 @@
 
         @if($fmrBridgeChecklists->maximumFloodLevel)
         <div>
-            <label for="maximumFloodLevel" class="dark:text-green-600">Maximum flood level for the
+            <label for="maximumFloodLevel" class="dark:text-green-600 text-sm">Maximum flood level for the
                 past 20 years</label>
             <input
                 class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1"
@@ -57,7 +57,7 @@
         </div>
         @else
         <div>
-            <label for="maximumFloodLevel" class="dark:text-green-600">Maximum flood level for the past 20 years</label>
+            <label for="maximumFloodLevel" class="dark:text-green-600 text-sm">Maximum flood level for the past 20 years</label>
             <div
                 class="relative flex items-center gap-2 text-md rounded-md border font-bold bg-red-600 text-white dark:bg-red-800 border-red-400 px-2 py-2 mt-2 w-fit">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-question-diamond-fill" viewBox="0 0 16 16">
@@ -74,14 +74,14 @@
 
         @if($fmrBridgeChecklists->existingRow)
         <div>
-            <label for="existingRow" class="dark:text-green-600">Existing ROW</label>
+            <label for="existingRow" class="dark:text-green-600 text-sm">Existing ROW</label>
             <input
                 class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1"
                 type="text" value="{{ $fmrBridgeChecklists->existingRow }}" readonly>
         </div>
         @else
         <div>
-            <label for="existingRow" class="dark:text-green-600">Existing Row</label>
+            <label for="existingRow" class="dark:text-green-600 text-sm">Existing Row</label>
             <div
                 class="relative flex items-center gap-2 text-md rounded-md border font-bold bg-red-600 text-white dark:bg-red-800 border-red-400 px-2 py-2 mt-2 w-fit">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-question-diamond-fill" viewBox="0 0 16 16">
@@ -98,7 +98,7 @@
 
         @if($fmrBridgeChecklists->fmrBridgeAccreditedDistance)
         <div>
-            <label for="fmrBridgeAccreditedDistance" class="dark:text-green-600">Distance from accredited DPWH quarry
+            <label for="fmrBridgeAccreditedDistance" class="dark:text-green-600 text-sm">Distance from accredited DPWH quarry
                 site</label>
             <a class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-green-500 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2 w-fit mt-1"
                 href="{{ asset($fmrBridgeChecklists->fmrBridgeAccreditedDistance) }}" target="_blank">
@@ -106,7 +106,7 @@
         </div>
         @else
         <div>
-            <label for="fmrBridgeAccreditedDistance" class="dark:text-green-600">Distance from accredited DPWN quarry site</label>
+            <label for="fmrBridgeAccreditedDistance" class="dark:text-green-600 text-sm">Distance from accredited DPWN quarry site</label>
             <div
                 class="relative flex items-center gap-2 text-md rounded-md border font-bold bg-red-600 text-white dark:bg-red-800 border-red-400 px-2 py-2 mt-2 w-fit">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-question-diamond-fill" viewBox="0 0 16 16">
@@ -123,7 +123,7 @@
 
         @if($fmrBridgeChecklists->trafficCount)
         <div>
-            <label for="trafficCount" class="dark:text-green-600">Average daily traffic
+            <label for="trafficCount" class="dark:text-green-600 text-sm">Average daily traffic
                 count</label>
             <a class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-green-500 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2 w-fit mt-1"
                 href="{{ asset($fmrBridgeChecklists->trafficCount) }}" target="_blank">
@@ -131,7 +131,7 @@
         </div>
         @else
         <div>
-            <label for="trafficCount" class="dark:text-green-600">Average daily traffic count</label>
+            <label for="trafficCount" class="dark:text-green-600 text-sm">Average daily traffic count</label>
             <div
                 class="relative flex items-center gap-2 text-md rounded-md border font-bold bg-red-600 text-white dark:bg-red-800 border-red-400 px-2 py-2 mt-2 w-fit">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-question-diamond-fill" viewBox="0 0 16 16">
@@ -148,14 +148,14 @@
 
         @if($fmrBridgeChecklists->roadCategory)
         <div>
-            <label for="roadCategory" class="dark:text-green-600">Road Category</label>
+            <label for="roadCategory" class="dark:text-green-600 text-sm">Road Category</label>
             <input
                 class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1"
                 type="text" value="{{ $fmrBridgeChecklists->roadCategory }}" readonly>
         </div>
         @else
         <div>
-            <label for="roadCategory" class="dark:text-green-600">Road Category</label>
+            <label for="roadCategory" class="dark:text-green-600 text-sm">Road Category</label>
             <div
                 class="relative flex items-center gap-2 text-md rounded-md border font-bold bg-red-600 text-white dark:bg-red-800 border-red-400 px-2 py-2 mt-2 w-fit">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-question-diamond-fill" viewBox="0 0 16 16">

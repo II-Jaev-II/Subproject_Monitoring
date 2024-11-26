@@ -16,14 +16,14 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    
+
     <script src="//unpkg.com/alpinejs" defer></script>
 
     <script src="{{ asset('js/darkMode.js') }}"></script>
 </head>
 
-<body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+<body class="font-sans antialiased bg-gray-100 dark:bg-gray-900">
+    <div class="min-h-screen">
         @include('layouts.navigation')
 
         <!-- Page Content -->

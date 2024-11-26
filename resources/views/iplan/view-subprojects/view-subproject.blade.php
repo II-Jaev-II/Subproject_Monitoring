@@ -6,13 +6,13 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
             <div class="bg-white border border-gray-300 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="flex justify-between items-center mb-4">
-                        <h1 class="dark:text-lime-500 text-xl">Clearances for Validation</h1>
+                        <h1 class="dark:text-lime-500 text-md md:text-lg">Clearances for Validation</h1>
                         <a href="{{ route('iplan.subprojects') }}"
-                            class="border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-green-500 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2">
+                            class="border border-transparent text-xs leading-4 font-medium rounded-md text-white bg-green-500 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-2 py-2 md:px-3 md:py-2">
                             Show Subprojects
                         </a>
                     </div>
@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div class="bg-white border border-gray-300 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100">
                 @include('iplan.view-subprojects.subproject-profile')
@@ -34,8 +34,8 @@
 
     <div x-data="{ selectedComponent: '' }" x-cloak>
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 relative">
-                <div class="flex space-x-2 absolute -top-5">
+            <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 relative">
+                <div class="flex md:space-x-2 absolute -top-5">
                     <a href="#" @click.prevent="selectedComponent = 'IPLAN'"
                         :class="{
                             'dark:bg-lime-500 bg-green-500': selectedComponent === 'IPLAN',

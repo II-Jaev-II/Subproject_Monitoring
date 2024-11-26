@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
             @if (session()->has('success'))
             <div class="bg-green-500 text-white dark:bg-green-900 rounded-md px-3 py-2 mb-2 w-full">
                 {{ session('success') }}
@@ -16,6 +16,10 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="flex justify-between items-center mb-4">
                         <h1 class="dark:text-lime-500 text-xl">Clearances for Validation</h1>
+                        <a href="{{ route('admin.subprojects') }}"
+                            class="border border-transparent text-xs leading-4 font-medium rounded-md text-white bg-green-500 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-2 py-2 md:px-3 md:py-2">
+                            Show Subprojects
+                        </a>
                     </div>
                     <div class="overflow-x-auto rounded-md">
                         @include('admin.view-subprojects.clearances-table')
@@ -25,7 +29,7 @@
         </div>
     </div>
 
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div class="bg-white border border-gray-300 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100">
                 @include('admin.view-subprojects.subproject-profile')
@@ -35,14 +39,14 @@
 
     <div x-data="{ selectedComponent: '' }" x-cloak>
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 relative">
-                @if($subprojects->total === 5)
+            <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 relative">
+                <!-- @if($subprojects->total === 5)
                 <div>
                     <a href="{{ route('generate.word', $subprojects->id) }}"
                         class="flex space-x-2 absolute -top-8 right-0 justify-end text-white bg-lime-500 rounded-md px-2 py-2 text-md">Generate Validation Report</a>
                 </div>
-                @endif
-                <div class="flex space-x-2 absolute -top-5">
+                @endif -->
+                <div class="flex md:space-x-2 absolute -top-5">
                     <a href="#" @click.prevent="selectedComponent = 'IPLAN'"
                         :class="{
                             'dark:bg-lime-500 bg-green-500': selectedComponent === 'IPLAN',
@@ -89,7 +93,7 @@
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         <div x-cloak style="display: none !important" x-show="selectedComponent === 'IPLAN'">
                             @if ($iPlanChecklists)
-                            <h1 class="dark:text-lime-500 text-xl mt-4 mb-4">IPLAN Validation</h1>
+                            <h1 class="dark:text-lime-500 text-lg md:text-xl mt-4 mb-4">IPLAN Validation</h1>
                             <hr class="border-2 border-green-500 dark:border-lime-500 mb-2">
                             @include('iplan.components.iplan-validated-checklist')
                             @else
@@ -114,7 +118,7 @@
                         </div>
                         <div x-cloak style="display: none !important" x-show="selectedComponent === 'ECON'">
                             @if ($econChecklists)
-                            <h1 class="dark:text-lime-500 text-xl mt-4 mb-4">ECON Validation</h1>
+                            <h1 class="dark:text-lime-500 text-lg md:text-xl mt-4 mb-4">ECON Validation</h1>
                             <hr class="border-2 border-green-500 dark:border-lime-500 mb-2">
                             @include('econ.components.econ-validated-checklist')
                             @else
@@ -139,7 +143,7 @@
                         </div>
                         <div x-cloak style="display: none !important" x-show="selectedComponent === 'SES'">
                             @if ($sesChecklists)
-                            <h1 class="dark:text-lime-500 text-xl mt-4 mb-4">SES Validation</h1>
+                            <h1 class="dark:text-lime-500 text-lg md:text-xl mt-4 mb-4">SES Validation</h1>
                             <hr class="border-2 border-green-500 dark:border-lime-500 mb-2">
                             @include('ses.components.ses-validated-checklist')
                             @else
@@ -164,7 +168,7 @@
                         </div>
                         <div x-cloak style="display: none !important" x-show="selectedComponent === 'GGU'">
                             @if ($gguChecklists)
-                            <h1 class="dark:text-lime-500 text-xl mt-4 mb-4">GGU Validation</h1>
+                            <h1 class="dark:text-lime-500 text-lg md:text-xl mt-4 mb-4">GGU Validation</h1>
                             <hr class="border-2 border-green-500 dark:border-lime-500 mb-2">
                             @include('ggu.components.ggu-validated-checklist')
                             @else
@@ -189,7 +193,7 @@
                         </div>
                         <div x-cloak style="display: none !important" x-show="selectedComponent === 'IBUILD'">
                             @if ($hasRecords)
-                            <h1 class="dark:text-lime-500 text-xl mt-4 mb-4">IBUILD Validation</h1>
+                            <h1 class="dark:text-lime-500 text-lg md:text-xl mt-4 mb-4">IBUILD Validation</h1>
                             <hr class="border-2 border-green-500 dark:border-lime-500 mb-2">
                             @include('ibuild.components.ibuild-validated-checklist', ['subprojectType' => $subprojectType])
                             @else

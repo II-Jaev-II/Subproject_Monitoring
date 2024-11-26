@@ -6,13 +6,13 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
             <div class="bg-white border border-gray-300 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="flex justify-between items-center mb-4">
                         <h1 class="dark:text-lime-500 text-xl">Clearances for Validation</h1>
                         <a href="{{ route('ses.subprojects') }}"
-                            class="border border-transparent text-sm leading-4 font-medium rounded-md text-gray text-white bg-green-500 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2">
+                            class="border border-transparent text-xs leading-4 font-medium rounded-md text-white bg-green-500 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-2 py-2 md:px-3 md:py-2">
                             Show Subprojects
                         </a>
                     </div>
@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div class="bg-white border border-gray-300 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900 dark:text-gray-100">
                 @include('ses.view-subprojects.subproject-profile')
@@ -34,8 +34,8 @@
 
     <div x-data="{ selectedComponent: '' }" x-cloak>
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 relative">
-                <div class="flex space-x-2 absolute -top-5">
+            <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 relative">
+                <div class="flex md:space-x-2 absolute -top-5">
                     <a href="#" @click.prevent="selectedComponent = 'IPLAN'"
                         :class="{
                             'dark:bg-lime-500 bg-green-500': selectedComponent === 'IPLAN',
@@ -77,7 +77,8 @@
                         GGU
                     </a>
                 </div>
-                <div class="bg-white border border-gray-300 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mt-6">
+                <div
+                    class="bg-white border border-gray-300 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg mt-6">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         <div x-cloak style="display: none !important" x-show="selectedComponent === 'IPLAN'">
                             @if ($iPlanChecklists)
@@ -85,8 +86,8 @@
                             <hr class="border-2 border-green-500 dark:border-lime-500 mb-2">
                             @include('iplan.components.iplan-validated-checklist')
                             @else
-                            <p
-                                class="relative flex items-center gap-2 text-md rounded-md border font-bold dark:bg-red-800 border-red-400 w-fit px-2 py-3">
+                            <div
+                                class="relative flex items-center gap-2 text-md rounded-md border font-bold bg-red-600 text-white dark:bg-red-800 border-red-400 w-fit px-2 py-3">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="text-white" width="20"
                                     height="20" fill="currentColor" class="bi bi-clipboard-x-fill"
                                     viewBox="0 0 16 16">
@@ -101,7 +102,7 @@
                                         class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                                     <span class="relative inline-flex rounded-full h-4 w-4 bg-red-500"></span>
                                 </span>
-                            </p>
+                            </div>
                             @endif
                         </div>
                         <div x-cloak style="display: none !important" x-show="selectedComponent === 'ECON'">
@@ -136,7 +137,7 @@
                             @include('ses.components.ses-validated-checklist')
                             @else
                             <p
-                                class="relative flex items-center gap-2 text-md rounded-md border font-bold dark:bg-red-800 border-red-400 w-fit px-2 py-3">
+                                class="relative flex items-center gap-2 text-md rounded-md border font-bold bg-red-600 dark:bg-red-800 text-white border-red-400 w-fit px-2 py-3">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="text-white" width="20"
                                     height="20" fill="currentColor" class="bi bi-clipboard-x-fill"
                                     viewBox="0 0 16 16">

@@ -14,7 +14,7 @@
                         <input type="text" name="subprojectId" value="{{ $subproject->id }}" hidden>
 
                         <div class="flex items-center space-x-4 mb-6">
-                            <label for="reviewDate" class="dark:text-green-600 text-black">Date of Review <span
+                            <label for="reviewDate" class="dark:text-green-600 text-black text-sm">Date of Review <span
                                     class="text-red-500">*</span></label>
                             <input type="date" name="reviewDate" id="reviewDate" value="{{ old('reviewDate') }}"
                                 class="dark:bg-gray-900 rounded-md dark:[color-scheme:dark]">
@@ -28,7 +28,7 @@
 
 
                         <div class="mb-4">
-                            <label for="summary" class="dark:text-green-600 text-2xl">Summary <span
+                            <label for="summary" class="dark:text-green-600 text-sm">Summary <span
                                     class="dark:text-red-500">*</span></label>
                             <textarea name="summary" id="summary" rows="4"
                                 class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1">{{ old('summary') }}</textarea>
@@ -40,7 +40,7 @@
                         </div>
 
                         <div>
-                            <label for="status" class="dark:text-green-600">Status <span
+                            <label for="status" class="dark:text-green-600 text-sm">Status <span
                                     class="dark:text-red-500">*</span></label>
                             <select name="status" id="status" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-36 mt-1 py-1 px-2">
                                 <option value="" disabled selected></option>

@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
             <div class="bg-white border border-gray-300 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <form action="{{ route('iplan.update-subproject', $subproject->id) }}" method="POST"
@@ -16,7 +16,7 @@
                         <input type="text" name="subprojectId" value="{{ $subproject->id }}" hidden>
 
                         <div class="flex items-center space-x-4 mb-6">
-                            <label for="reviewDate" class="dark:text-lime-500 text-black">Date of Review <span
+                            <label for="reviewDate" class="dark:text-lime-500 text-black text-sm">Date of Review <span
                                     class="text-red-500">*</span></label>
                             <input type="date" name="reviewDate" id="reviewDate" value="{{ old('reviewDate') }}"
                                 class="dark:bg-gray-900 rounded-md dark:[color-scheme:dark]">
@@ -28,11 +28,11 @@
                         </div>
 
                         <div class="mb-4">
-                            <h1 for="iplanChecklist" class="dark:text-lime-500 text-2xl">Edit I-PLAN Checklist</h1>
+                            <h1 for="iplanChecklist" class="dark:text-lime-500 text-sm md:text-lg">Edit I-PLAN Checklist</h1>
                             <hr class="border-2 dark:border-lime-500 border-green-500 mb-2">
                         </div>
 
-                        <label for="priorityCommodity" class="dark:text-green-600">Priority commodity supported by the
+                        <label for="priorityCommodity" class="dark:text-green-600 text-sm">Priority commodity supported by the
                             SP
                             Proposal</label>
                         <div class="flex items-center gap-4 mt-2 mb-2">
@@ -50,7 +50,7 @@
                             <div class="mt-2 mb-2">
                                 <div class="grid grid-cols-2 gap-2">
                                     <div>
-                                        <label for="evsaRank{{ $commodity }}" class="dark:text-green-600">E-VSA
+                                        <label for="evsaRank{{ $commodity }}" class="dark:text-green-600 text-xs md:text-sm">E-VSA
                                             Rank ({{ $commodity }})</label>
                                         <input type="text" name="evsaRank{{ $commodity }}"
                                             id="evsaRank{{ $commodity }}"
@@ -61,7 +61,7 @@
                                     </div>
                                     <div>
                                         <label for="compositeIndex{{ $commodity }}"
-                                            class="dark:text-green-600">Composite Index
+                                            class="dark:text-green-600 text-xs md:text-sm">Composite Index
                                             ({{ $commodity }})
                                         </label>
                                         <input type="text" name="compositeIndex{{ $commodity }}"
@@ -77,9 +77,9 @@
                             @endforeach
 
                             <div x-data="{ selectedCommodities: [] }" x-cloak>
-                                <label for="additionalCommodity" class="dark:text-green-600">Add additional
+                                <label for="additionalCommodity" class="dark:text-green-600 text-sm">Add additional
                                     commodity</label>
-                                <div class="flex items-center gap-4 mt-2 mb-2">
+                                <div class="grid grid-cols-2 md:flex items-center gap-4 mt-2 mb-2">
                                     @foreach ($unselectedCommodities as $commodity)
                                     <div class="flex items-center gap-2">
                                         <input class="dark:bg-gray-800 rounded-sm" type="checkbox"
@@ -96,7 +96,7 @@
                                         class="mt-2 mb-2">
                                         <div class="grid grid-cols-2 gap-2">
                                             <div>
-                                                <label :for="'evsaRank' + commodity" class="dark:text-green-600">E-VSA
+                                                <label :for="'evsaRank' + commodity" class="dark:text-green-600 text-xs md:text-sm">E-VSA
                                                     Rank <span x-text="commodity"></span></label>
                                                 <input type="text" :name="'evsaRank' + commodity"
                                                     :id="'evsaRank' + commodity" x-ref="evsaRank" + commodity
@@ -107,7 +107,7 @@
                                             </div>
                                             <div>
                                                 <label :for="'compositeIndex' + commodity"
-                                                    class="dark:text-green-600">Composite Index <span
+                                                    class="dark:text-green-600 text-xs md:text-sm">Composite Index <span
                                                         x-text="commodity"></span></label>
                                                 <input type="text" :name="'compositeIndex' + commodity"
                                                     :id="'compositeIndex' + commodity" x-ref="compositeIndex" +
@@ -122,22 +122,22 @@
                                 </template>
                             </div>
 
-                            <label for="justification" class="dark:text-lime-500 text-2xl">Justification if rank is
+                            <label for="justification" class="dark:text-lime-500  text-sm md:text-lg">Justification if rank is
                                 higher
                                 than
                                 10 and
                                 if composite index is below 0.4</label>
                             <div>
                                 <div class="flex flex-col mt-2 mb-2">
-                                    <label for="explanation" class="dark:text-green-600">Please explain:</label>
+                                    <label for="explanation" class="dark:text-green-600 text-sm">Please explain:</label>
                                     <textarea name="explanation" id="explanation" rows="4"
                                         class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1">{{ $checklist->explanation ?? '' }}</textarea>
                                     @if (!$checklist->justificationFile)
                                     <div>
-                                        <label for="justificationFile" class="dark:text-green-600">Attach a
+                                        <label for="justificationFile" class="dark:text-green-600 text-sm">Attach a
                                             File</label>
                                         <input
-                                            class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-1/2 mt-1 py-1 px-2"
+                                            class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full md:w-1/2 mt-1 py-1 px-2"
                                             type="file" name="justificationFile" id="justificationFile">
                                         @if ($errors->has('justificationFile'))
                                         <div class="text-red-600 mt-2 mb-2">
@@ -183,7 +183,7 @@
                             </div>
                             <hr class="border-2 dark:border-lime-500 border-green-500 mb-2">
                             <div class="mb-2">
-                                <label for="linkedVca" class="dark:text-lime-500 text-2xl">Linked to VCA?</label>
+                                <label for="linkedVca" class="dark:text-lime-500 text-sm md:text-lg">Linked to VCA?</label>
                                 <div class="flex items-center gap-2">
                                     @foreach (['Yes', 'No'] as $option)
                                     <div class="flex items-center gap-2">
@@ -201,11 +201,11 @@
                                 $checklist->opportunity ||
                                 $checklist->specificIntervention ||
                                 $checklist->pageMatrixVca))
-                                <div class="grid grid-cols-2 gap-2 mt-2">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
                                     @foreach (['valueChainSegment' => 'Value Chain Segment', 'opportunity' => 'Opportunity or Constraint Being Addressed', 'specificIntervention' => 'Specific Intervention'] as $field => $label)
                                     <div>
                                         <label for="{{ $field }}"
-                                            class="dark:text-green-600">{{ $label }}</label>
+                                            class="dark:text-green-600 text-sm">{{ $label }}</label>
                                         <input type="text"
                                             class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1"
                                             name="{{ $field }}" value="{{ $checklist->$field }}"
@@ -213,7 +213,7 @@
                                     </div>
                                     @endforeach
                                     <div x-data="{ showFileInput: false }" class="">
-                                        <label for="pageMatrixVcaInput" class="dark:text-green-600">Page of VCA</label>
+                                        <label for="pageMatrixVcaInput" class="dark:text-green-600 text-sm">Page of VCA</label>
                                         <div class="flex items-center mt-1 rounded-md overflow-hidden">
                                             <button type="button"
                                                 @click="showFileInput = !showFileInput"
@@ -226,7 +226,7 @@
                                                 type="file"
                                                 name="pageMatrixVca"
                                                 x-show="showFileInput"
-                                                class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded-md"
+                                                class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded-md w-full"
                                                 style="display: none;">
 
                                             <a
@@ -249,7 +249,7 @@
                             </div>
                             <hr class="border-2 dark:border-lime-500 border-green-500 mb-2">
                             <div x-data="{ pcip: '{{ $checklist->pcip ?? old('pcip', '') }}' }" x-cloak class="mb-2 mt-4">
-                                <label for="pcip" class="dark:text-lime-500 text-2xl">Aligned with the
+                                <label for="pcip" class="dark:text-lime-500 text-sm md:text-lg">Aligned with the
                                     PCIP?</label>
                                 <div class="flex items-center gap-2 mb-2">
                                     @foreach (['Yes', 'No'] as $pcipOption)
@@ -266,7 +266,7 @@
                                 <div x-cloak x-show="pcip === 'Yes'" x-transition
                                     x-effect="if (!pcip.includes('Yes')) { $refs.page.value = ''; }">
                                     <div class="mb-2">
-                                        <label for="page" class="dark:text-green-600">Page</label>
+                                        <label for="page" class="dark:text-green-600 text-sm">Page</label>
                                         <input type="text" name="page" id="page"
                                             class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-32 mt-1 py-1 px-2"
                                             value="{{ $checklist->page ?? old('page') }}" x-ref="page"
@@ -280,8 +280,8 @@
                                         @endif
                                     </div>
                                     @if ($checklist->pageMatrixPcip)
-                                    <div x-data="{ showFileInput: false }" class="">
-                                        <label for="pageMatrixPcipInput" class="dark:text-green-600">Page of VCA</label>
+                                    <div x-data="{ showFileInput: false }">
+                                        <label for="pageMatrixPcipInput" class="dark:text-green-600 text-sm">Page of VCA</label>
                                         <div class="flex items-center mt-1 rounded-md overflow-hidden">
                                             <button type="button"
                                                 @click="showFileInput = !showFileInput"
@@ -294,7 +294,7 @@
                                                 type="file"
                                                 name="pageMatrixPcip"
                                                 x-show="showFileInput"
-                                                class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded-md"
+                                                class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded-md w-full md:w-1/2"
                                                 style="display: none;">
 
                                             <a
@@ -326,10 +326,10 @@
                                 @endif
                             </div>
                             <hr class="border-2 dark:border-lime-500 border-green-500 mb-2">
-                            <label for="crva" class="dark:text-lime-500 text-2xl">CRVA</label>
+                            <label for="crva" class="dark:text-lime-500 text-sm md:text-lg">CRVA</label>
 
                             <div>
-                                <label for="sensitivity" class="dark:text-green-600">Sensitivity <span
+                                <label for="sensitivity" class="dark:text-green-600 text-sm">Sensitivity <span
                                         class="text-red-500">*</span></label>
                                 <select name="sensitivity" id="sensitivity"
                                     class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1">
@@ -364,7 +364,7 @@
                                 @endif
                             </div>
                             <div>
-                                <label for="exposure" class="dark:text-green-600">Exposure <span
+                                <label for="exposure" class="dark:text-green-600 text-sm">Exposure <span
                                         class="text-red-500">*</span></label>
                                 <select name="exposure" id="exposure"
                                     class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1">
@@ -393,7 +393,7 @@
                                 @endif
                             </div>
                             <div>
-                                <label for="adaptiveCapacity" class="dark:text-green-600">Adaptive Capacity <span
+                                <label for="adaptiveCapacity" class="dark:text-green-600 text-sm">Adaptive Capacity <span
                                         class="text-red-500">*</span></label>
                                 <select name="adaptiveCapacity" id="adaptiveCapacity"
                                     class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1">
@@ -423,7 +423,7 @@
                                 @endif
                             </div>
                             <div>
-                                <label for="overallVulnerability" class="dark:text-green-600">Overall Vulnerability
+                                <label for="overallVulnerability" class="dark:text-green-600 text-sm">Overall Vulnerability
                                     <span class="text-red-500">*</span></label>
                                 <select name="overallVulnerability" id="overallVulnerability"
                                     class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1">
@@ -453,7 +453,7 @@
                                 @endif
                             </div>
                             <div>
-                                <label for="recommendation" class="dark:text-green-600">Recommendation <span
+                                <label for="recommendation" class="dark:text-green-600 text-sm">Recommendation <span
                                         class="text-red-500">*</span></label>
                                 <textarea name="recommendation" id="recommendation" rows="4"
                                     class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1">{{ old('recommendation', $checklist->recommendation) }}</textarea>
@@ -464,7 +464,7 @@
                                 @endif
                             </div>
                             <div>
-                                <label for="generalRecommendation" class="dark:text-green-600 text-2xl">General
+                                <label for="generalRecommendation" class="dark:text-green-600 text-sm md:text-lg">General
                                     Recommendations <span class="text-red-500">*</span></label>
                                 <textarea name="generalRecommendation" id="generalRecommendation" rows="4"
                                     class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1">{{ old('generalRecommendation', $checklist->generalRecommendation) }}</textarea>
