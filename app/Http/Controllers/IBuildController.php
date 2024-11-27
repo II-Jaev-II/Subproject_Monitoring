@@ -16,6 +16,7 @@ use App\Models\Province;
 use App\Models\SesChecklist;
 use App\Models\SesRequirements;
 use App\Models\Subproject;
+use App\Models\SubprojectCommodity;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -43,6 +44,12 @@ class IBuildController extends Controller
         $subprojects = Subproject::where('subprojects.id', $id)
             ->select('subprojects.*', 'subprojects.letterOfRequest', 'subprojects.letterOfEndorsement')
             ->first();
+
+        $subprojectCommodities = SubprojectCommodity::where('subprojectId', $id)
+            ->pluck('commodity')
+            ->toArray();
+
+        $allCommodities = ['Mango', 'Onion', 'Goat', 'Peanut', 'Tomato', 'Mungbean', 'Bangus', 'Garlic', 'Coffee', 'Hogs'];
 
         $iPlanChecklists = IplanChecklist::where('iplan_checklists.subprojectId', $id)->first();
         $commodities = [];
@@ -143,6 +150,8 @@ class IBuildController extends Controller
             'subprojectType' => $subprojectType,
             'hasRecords' => $hasRecords,
             'econChecklists' => $econChecklists,
+            'subprojectCommodities' => $subprojectCommodities,
+            'allCommodities' => $allCommodities,
 
             'formattedReviewDateIPlan' => $formattedReviewDateIPlan,
             'formattedReviewDateSes' => $formattedReviewDateSes,
@@ -656,6 +665,23 @@ class IBuildController extends Controller
 
         // Retrieve subproject or fail
         $subproject = Subproject::findOrFail($id);
+
+        $subprojectId = $request->get('subprojectId');
+        $commodities = $request->input('commodities', []);
+
+        // Begin a database transaction
+        DB::transaction(function () use ($subprojectId, $commodities) {
+            // Step 1: Delete all existing commodities for this subproject
+            SubprojectCommodity::where('subprojectId', $subprojectId)->delete();
+
+            // Step 2: Insert the updated commodities
+            foreach ($commodities as $commodity) {
+                SubprojectCommodity::create([
+                    'subprojectId' => $subprojectId,
+                    'commodity' => $commodity,
+                ]);
+            }
+        });
 
         // Parse and sanitize the indicativeCost
         $indicativeCost = $request->input('indicativeCost', null);

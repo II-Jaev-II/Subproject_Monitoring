@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('subprojects', function (Blueprint $table) {
-            $table->integer('inactiveDays')->nullable();
+            $table->integer('inactiveDays')->default(0);
         });
     }
 
