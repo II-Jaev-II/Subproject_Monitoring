@@ -36,12 +36,12 @@
     <div x-data="{ selectedComponent: '' }" x-cloak>
         <div class="py-12">
             <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 relative">
-                <!-- @if($subprojects->total === 5)
+                @if($subprojects->total === 5)
                 <div>
                     <a href="{{ route('generate.word', $subprojects->id) }}"
                         class="flex space-x-2 absolute -top-8 right-0 justify-end text-white bg-lime-500 rounded-md px-2 py-2 text-md">Generate Validation Report</a>
                 </div>
-                @endif -->
+                @endif
                 <div class="flex md:space-x-2 absolute -top-5">
                     <a href="#" @click.prevent="selectedComponent = 'IPLAN'"
                         :class="{
