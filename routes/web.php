@@ -91,6 +91,11 @@ Route::middleware(['auth', 'userType:GGU'])->group(function () {
 
 Route::middleware(['auth', 'userType:IREAP'])->group(function () {
     Route::get('/ireap/dashboard', [IReapController::class, 'index'])->name('ireap.dashboard');
+    Route::get('/ireap/subprojects', [IReapController::class, 'show'])->name('ireap.subprojects');
+    Route::get('/ireap/clearances', [IReapController::class, 'showClearances'])->name('ireap.clearances');
+    Route::get('/ireap/view-subproject/{id}', [IReapController::class, 'view'])->name('ireap.view-subproject');
+    Route::get('/ireap/validate-subprojects/{id}', [IReapController::class, 'validateSubproject'])->name('ireap.validate-subprojects');
+    Route::post('/ireap/store-subproject', [IReapController::class, 'store'])->name('ireap.store-subproject');
 });
 
 Route::get('/municipalities/{province}', [DynamicAddressController::class, 'getMunicipalities']);

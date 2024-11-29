@@ -57,7 +57,7 @@
                                         class="dark:text-red-500">*</span></label>
                                 <select name="status" id="status" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 py-1 px-2">
                                     <option value="" disabled selected></option>
-                                    <option value="Passed" {{ old('status') == 'Passed' ? 'selected' : '' }}>Passed</option>
+                                    <option value="OK" {{ old('status') == 'OK' ? 'selected' : '' }}>OK</option>
                                     <option value="Failed" {{ old('status') == 'Failed' ? 'selected' : '' }}>Failed</option>
                                     <option value="Pending" {{ old('status') == 'Pending' ? 'selected' : '' }}>Pending</option>
                                 </select>

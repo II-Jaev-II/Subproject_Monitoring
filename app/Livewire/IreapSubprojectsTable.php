@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class SubprojectsTable extends Component
+class IReapSubprojectsTable extends Component
 {
     use WithPagination;
 
@@ -24,17 +24,14 @@ class SubprojectsTable extends Component
     {
         $subprojects = Subproject::search($this->search)
             ->orderBy('created_at', 'desc')
+            ->where('projectType', 'VCRI')
             ->paginate($this->perPage);
 
         foreach ($subprojects as $subproject) {
-            $subproject->iBuildStatus = in_array($subproject->iBUILD, ['OK', 'Pending', 'Failed']);
-            $subproject->iPlanStatus = in_array($subproject->iPLAN, ['OK', 'Pending', 'Failed']);
-            $subproject->sesStatus = in_array($subproject->ses, ['OK', 'Pending', 'Failed']);
-            $subproject->gguStatus = in_array($subproject->ggu, ['OK', 'Pending', 'Failed']);
-            $subproject->econStatus = in_array($subproject->econ, ['OK', 'Pending', 'Failed']);
+            $subproject->iReapStatus = in_array($subproject->iREAP, ['OK', 'Pending', 'Failed']);
         }
 
-        return view('livewire.subprojects-table', [
+        return view('livewire.ireap-subprojects-table', [
             'subprojects' => $subprojects,
             'userType' => $this->userType,
         ]);

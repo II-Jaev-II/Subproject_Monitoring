@@ -6,6 +6,9 @@
             <th scope="col" class="px-4 py-3">ECON</th>
             <th scope="col" class="px-4 py-3">SES</th>
             <th scope="col" class="px-4 py-3">GGU</th>
+            @if($subprojects->projectType === 'VCRI')
+            <th scope="col" class="px-4 py-3">IREAP</th>
+            @endif
         </tr>
     </thead>
     <tbody>
@@ -15,6 +18,9 @@
             <td class="px-4 py-3 dark:text-white">{{ $subprojects->econ }}</td>
             <td class="px-4 py-3 dark:text-white">{{ $subprojects->ses }}</td>
             <td class="px-4 py-3 dark:text-white">{{ $subprojects->ggu }}</td>
+            @if($subprojects->projectType === 'VCRI')
+            <td class="px-4 py-3 dark:text-white">{{ $subprojects->iREAP }}</td>
+            @endif
         </tr>
     </tbody>
 </table>

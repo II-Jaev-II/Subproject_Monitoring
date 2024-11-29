@@ -8,7 +8,7 @@
         <div class="py-12">
             <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
                 <div class="bg-gray-50 border border-gray-300 shadow-2xl dark:bg-gray-800 sm:rounded-lg">
-                    @include('iplan.clearances.clearances-table')
+                    @include('ireap.clearances.clearances-table')
                 </div>
             </div>
         </div>

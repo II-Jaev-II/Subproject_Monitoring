@@ -32,6 +32,9 @@
                         <div x-cloak style="display: none !important" x-show="selectedComponent === 'GGU'">
                             <livewire:ggu-clearance />
                         </div>
+                        <div x-cloak style="display: none !important" x-show="selectedComponent === 'IREAP'">
+                            <livewire:ireap-clearance />
+                        </div>
                     </div>
                 </div>
             </div>

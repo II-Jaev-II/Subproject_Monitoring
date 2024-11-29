@@ -31,6 +31,7 @@ class Subproject extends Model
         'ggu',
         'inactiveDays',
         'userId',
+        'iREAP',
     ];
 
     public function scopeSearch($query, $value)

@@ -48,15 +48,18 @@
                      </td>
                      <td class="px-4 py-3 flex items-center gap-3">
                          <div class="relative group inline-block">
-                             <a href="{{ $userType === 'IBUILD'
-                                                ? route('ibuild.view-subproject', $econRecord->id)
-                                                : ($userType === 'IPLAN'
-                                                    ? route('iplan.view-subproject', $econRecord->id)
-                                                    : ($userType === 'ECON'
-                                                        ? route('econ.view-subproject', $econRecord->id)
-                                                        : ($userType === 'SES'
-                                                            ? route('ses.view-subproject', $econRecord->id)
-                                                            : route('ggu.view-subproject', $econRecord->id)))) }}"
+                             <?php
+                                $route = match ($userType) {
+                                    'IBUILD' => route('ibuild.view-subproject', $econRecord->id),
+                                    'IPLAN' => route('iplan.view-subproject', $econRecord->id),
+                                    'ECON' => route('econ.view-subproject', $econRecord->id),
+                                    'SES' => route('ses.view-subproject', $econRecord->id),
+                                    'GGU' => route('ggu.view-subproject', $econRecord->id),
+                                    'IREAP' => route('ireap.view-subproject', $econRecord->id),
+                                    default => '#',
+                                };
+                                ?>
+                             <a href="{{ $route }}"
                                  class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-700 dark:text-white bg-green-500 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2">
                                  <img src="/images/eye.svg" alt="View" width="15" height="15">
                              </a>

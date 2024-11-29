@@ -48,15 +48,18 @@
                     </td>
                     <td class="px-4 py-3">
                         <div class="relative group inline-block">
-                            <a href="{{ $userType === 'IBUILD'
-                                                ? route('ibuild.view-subproject', $gguRecord->id)
-                                                : ($userType === 'IPLAN'
-                                                    ? route('iplan.view-subproject', $gguRecord->id)
-                                                    : ($userType === 'ECON'
-                                                        ? route('econ.view-subproject', $gguRecord->id)
-                                                        : ($userType === 'SES'
-                                                            ? route('ses.view-subproject', $gguRecord->id)
-                                                            : route('ggu.view-subproject', $gguRecord->id)))) }}"
+                            <?php
+                            $route = match ($userType) {
+                                'IBUILD' => route('ibuild.view-subproject', $gguRecord->id),
+                                'IPLAN' => route('iplan.view-subproject', $gguRecord->id),
+                                'ECON' => route('econ.view-subproject', $gguRecord->id),
+                                'SES' => route('ses.view-subproject', $gguRecord->id),
+                                'GGU' => route('ggu.view-subproject', $gguRecord->id),
+                                'IREAP' => route('ireap.view-subproject', $gguRecord->id),
+                                default => '#',
+                            };
+                            ?>
+                            <a href="{{ $route }}"
                                 class="flex items-center justify-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-700 dark:text-white bg-green-500 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2">
                                 <img src="/images/eye.svg" alt="View" width="15" height="15">
                             </a>

@@ -45,7 +45,18 @@
                     </td>
                     <td class="px-4 py-3 flex items-center gap-3">
                         <div class="relative group inline-block">
-                            <a href="{{ $userType === 'IBUILD' ? route('ibuild.view-subproject', $iPlanRecord->id) : ($userType === 'IPLAN' ? route('iplan.view-subproject', $iPlanRecord->id) : ($userType === 'ECON' ? route('econ.view-subproject', $iPlanRecord->id) : ($userType === 'SES' ? route('ses.view-subproject', $iPlanRecord->id) : route('ggu.view-subproject', $iPlanRecord->id)))) }}" class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-700 dark:text-white bg-green-500 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2">
+                            <?php
+                            $route = match ($userType) {
+                                'IBUILD' => route('ibuild.view-subproject', $iPlanRecord->id),
+                                'IPLAN' => route('iplan.view-subproject', $iPlanRecord->id),
+                                'ECON' => route('econ.view-subproject', $iPlanRecord->id),
+                                'SES' => route('ses.view-subproject', $iPlanRecord->id),
+                                'GGU' => route('ggu.view-subproject', $iPlanRecord->id),
+                                'IREAP' => route('ireap.view-subproject', $iPlanRecord->id),
+                                default => '#',
+                            };
+                            ?>
+                            <a href="{{ $route }}" class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-700 dark:text-white bg-green-500 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2">
                                 <img src="/images/eye.svg" alt="View" width="15" height="15">
                             </a>
                             <span class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden text-xs text-white bg-gray-800 rounded py-1 px-2 group-hover:block">

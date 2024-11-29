@@ -6,99 +6,105 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     @if (auth()->user()->userType === 'IBUILD')
-                        <a href="{{ route('ibuild.dashboard') }}">
-                            <img src="{{ asset('images/prdp_logo.png') }}" alt="PRDP Logo" class="h-16">
-                        </a>
+                    <a href="{{ route('ibuild.dashboard') }}">
+                        <img src="{{ asset('images/prdp_logo.png') }}" alt="PRDP Logo" class="h-16">
+                    </a>
                     @elseif(auth()->user()->userType === 'IREAP')
-                        <a href="{{ route('ireap.dashboard') }}">
-                            <img src="{{ asset('images/prdp_logo.png') }}" alt="PRDP Logo" class="h-16">
-                        </a>
+                    <a href="{{ route('ireap.dashboard') }}">
+                        <img src="{{ asset('images/prdp_logo.png') }}" alt="PRDP Logo" class="h-16">
+                    </a>
                     @elseif(auth()->user()->userType === 'ADMIN')
-                        <a href="{{ route('admin.dashboard') }}">
-                            <img src="{{ asset('images/prdp_logo.png') }}" alt="PRDP Logo" class="h-16">
-                        </a>
+                    <a href="{{ route('admin.dashboard') }}">
+                        <img src="{{ asset('images/prdp_logo.png') }}" alt="PRDP Logo" class="h-16">
+                    </a>
                     @elseif(auth()->user()->userType === 'GGU')
-                        <a href="{{ route('ggu.dashboard') }}">
-                            <img src="{{ asset('images/prdp_logo.png') }}" alt="PRDP Logo" class="h-16">
-                        </a>
+                    <a href="{{ route('ggu.dashboard') }}">
+                        <img src="{{ asset('images/prdp_logo.png') }}" alt="PRDP Logo" class="h-16">
+                    </a>
                     @elseif(auth()->user()->userType === 'IPLAN')
-                        <a href="{{ route('iplan.dashboard') }}">
-                            <img src="{{ asset('images/prdp_logo.png') }}" alt="PRDP Logo" class="h-16">
-                        </a>
+                    <a href="{{ route('iplan.dashboard') }}">
+                        <img src="{{ asset('images/prdp_logo.png') }}" alt="PRDP Logo" class="h-16">
+                    </a>
                     @elseif(auth()->user()->userType === 'ECON')
-                        <a href="{{ route('iplan.dashboard') }}">
-                            <img src="{{ asset('images/prdp_logo.png') }}" alt="PRDP Logo" class="h-16">
-                        </a>
+                    <a href="{{ route('iplan.dashboard') }}">
+                        <img src="{{ asset('images/prdp_logo.png') }}" alt="PRDP Logo" class="h-16">
+                    </a>
                     @elseif(auth()->user()->userType === 'SES')
-                        <a href="{{ route('ses.dashboard') }}">
-                            <img src="{{ asset('images/prdp_logo.png') }}" alt="PRDP Logo" class="h-16">
-                        </a>
+                    <a href="{{ route('ses.dashboard') }}">
+                        <img src="{{ asset('images/prdp_logo.png') }}" alt="PRDP Logo" class="h-16">
+                    </a>
                     @endif
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     @if (auth()->user()->userType === 'IBUILD')
-                        <x-nav-link :href="route('ibuild.dashboard')" :active="request()->routeIs('ibuild.dashboard')">
-                            {{ __('Dashboard') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('ibuild.clearances')" :active="request()->routeIs('ibuild.clearances')">
-                            {{ __('Clearances') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('ibuild.subprojects')" :active="request()->routeIs('ibuild.subprojects')">
-                            {{ __('Subprojects') }}
-                        </x-nav-link>
+                    <x-nav-link :href="route('ibuild.dashboard')" :active="request()->routeIs('ibuild.dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('ibuild.clearances')" :active="request()->routeIs('ibuild.clearances')">
+                        {{ __('Clearances') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('ibuild.subprojects')" :active="request()->routeIs('ibuild.subprojects')">
+                        {{ __('Subprojects') }}
+                    </x-nav-link>
                     @elseif(auth()->user()->userType === 'IREAP')
-                        <x-nav-link :href="route('ireap.dashboard')" :active="request()->routeIs('ireap.dashboard')">
-                            {{ __('Dashboard') }}
-                        </x-nav-link>
+                    <x-nav-link :href="route('ireap.dashboard')" :active="request()->routeIs('ireap.dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('ireap.clearances')" :active="request()->routeIs('ireap.clearances')">
+                        {{ __('Clearances') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('ireap.subprojects')" :active="request()->routeIs('ireap.subprojects')">
+                        {{ __('Subprojects') }}
+                    </x-nav-link>
                     @elseif(auth()->user()->userType === 'ADMIN')
-                        <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
-                            {{ __('Dashboard') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('admin.subprojects')" :active="request()->routeIs('admin.subprojects')">
-                            {{ __('Subprojects') }}
-                        </x-nav-link>
+                    <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('admin.subprojects')" :active="request()->routeIs('admin.subprojects')">
+                        {{ __('Subprojects') }}
+                    </x-nav-link>
                     @elseif(auth()->user()->userType === 'GGU')
-                        <x-nav-link :href="route('ggu.dashboard')" :active="request()->routeIs('ggu.dashboard')">
-                            {{ __('Dashboard') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('ggu.clearances')" :active="request()->routeIs('ggu.clearances')">
-                            {{ __('Clearances') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('ggu.subprojects')" :active="request()->routeIs('ggu.subprojects')">
-                            {{ __('Subprojects') }}
-                        </x-nav-link>
+                    <x-nav-link :href="route('ggu.dashboard')" :active="request()->routeIs('ggu.dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('ggu.clearances')" :active="request()->routeIs('ggu.clearances')">
+                        {{ __('Clearances') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('ggu.subprojects')" :active="request()->routeIs('ggu.subprojects')">
+                        {{ __('Subprojects') }}
+                    </x-nav-link>
                     @elseif(auth()->user()->userType === 'IPLAN')
-                        <x-nav-link :href="route('iplan.dashboard')" :active="request()->routeIs('iplan.dashboard')">
-                            {{ __('Dashboard') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('iplan.clearances')" :active="request()->routeIs('iplan.clearances')">
-                            {{ __('Clearances') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('iplan.subprojects')" :active="request()->routeIs('iplan.subprojects')">
-                            {{ __('Subprojects') }}
-                        </x-nav-link>
+                    <x-nav-link :href="route('iplan.dashboard')" :active="request()->routeIs('iplan.dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('iplan.clearances')" :active="request()->routeIs('iplan.clearances')">
+                        {{ __('Clearances') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('iplan.subprojects')" :active="request()->routeIs('iplan.subprojects')">
+                        {{ __('Subprojects') }}
+                    </x-nav-link>
                     @elseif(auth()->user()->userType === 'ECON')
-                        <x-nav-link :href="route('econ.dashboard')" :active="request()->routeIs('econ.dashboard')">
-                            {{ __('Dashboard') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('econ.clearances')" :active="request()->routeIs('econ.clearances')">
-                            {{ __('Clearances') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('econ.subprojects')" :active="request()->routeIs('econ.subprojects')">
-                            {{ __('Subprojects') }}
-                        </x-nav-link>
+                    <x-nav-link :href="route('econ.dashboard')" :active="request()->routeIs('econ.dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('econ.clearances')" :active="request()->routeIs('econ.clearances')">
+                        {{ __('Clearances') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('econ.subprojects')" :active="request()->routeIs('econ.subprojects')">
+                        {{ __('Subprojects') }}
+                    </x-nav-link>
                     @elseif(auth()->user()->userType === 'SES')
-                        <x-nav-link :href="route('ses.dashboard')" :active="request()->routeIs('ses.dashboard')">
-                            {{ __('Dashboard') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('ses.clearances')" :active="request()->routeIs('ses.clearances')">
-                            {{ __('Clearances') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('ses.subprojects')" :active="request()->routeIs('ses.subprojects')">
-                            {{ __('Subprojects') }}
-                        </x-nav-link>
+                    <x-nav-link :href="route('ses.dashboard')" :active="request()->routeIs('ses.dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('ses.clearances')" :active="request()->routeIs('ses.clearances')">
+                        {{ __('Clearances') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('ses.subprojects')" :active="request()->routeIs('ses.subprojects')">
+                        {{ __('Subprojects') }}
+                    </x-nav-link>
                     @endif
                 </div>
 
@@ -175,66 +181,72 @@
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             @if (auth()->user()->userType === 'IBUILD')
-                <x-responsive-nav-link :href="route('ibuild.dashboard')" :active="request()->routeIs('ibuild.dashboard')">
-                    {{ __('Dashboard') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('ibuild.clearances')" :active="request()->routeIs('ibuild.clearances')">
-                    {{ __('Clearances') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('ibuild.subprojects')" :active="request()->routeIs('ibuild.subprojects')">
-                    {{ __('Subprojects') }}
-                </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('ibuild.dashboard')" :active="request()->routeIs('ibuild.dashboard')">
+                {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('ibuild.clearances')" :active="request()->routeIs('ibuild.clearances')">
+                {{ __('Clearances') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('ibuild.subprojects')" :active="request()->routeIs('ibuild.subprojects')">
+                {{ __('Subprojects') }}
+            </x-responsive-nav-link>
             @elseif(auth()->user()->userType === 'IREAP')
-                <x-responsive-nav-link :href="route('ireap.dashboard')" :active="request()->routeIs('ireap.dashboard')">
-                    {{ __('Dashboard') }}
-                </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('ireap.dashboard')" :active="request()->routeIs('ireap.dashboard')">
+                {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('ireap.clearances')" :active="request()->routeIs('ireap.clearances')">
+                {{ __('Clearances') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('ireap.subprojects')" :active="request()->routeIs('ireap.subprojects')">
+                {{ __('Subprojects') }}
+            </x-responsive-nav-link>
             @elseif(auth()->user()->userType === 'ADMIN')
-                <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
-                    {{ __('Dashboard') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('admin.subprojects')" :active="request()->routeIs('admin.subprojects')">
-                    {{ __('Subprojects') }}
-                </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.subprojects')" :active="request()->routeIs('admin.subprojects')">
+                {{ __('Subprojects') }}
+            </x-responsive-nav-link>
             @elseif(auth()->user()->userType === 'GGU')
-                <x-responsive-nav-link :href="route('ggu.dashboard')" :active="request()->routeIs('ggu.dashboard')">
-                    {{ __('Dashboard') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('ggu.clearances')" :active="request()->routeIs('ggu.clearances')">
-                    {{ __('Clearance') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('ggu.subprojects')" :active="request()->routeIs('ggu.subprojects')">
-                    {{ __('Subprojects') }}
-                </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('ggu.dashboard')" :active="request()->routeIs('ggu.dashboard')">
+                {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('ggu.clearances')" :active="request()->routeIs('ggu.clearances')">
+                {{ __('Clearance') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('ggu.subprojects')" :active="request()->routeIs('ggu.subprojects')">
+                {{ __('Subprojects') }}
+            </x-responsive-nav-link>
             @elseif(auth()->user()->userType === 'IPLAN')
-                <x-responsive-nav-link :href="route('iplan.dashboard')" :active="request()->routeIs('iplan.dashboard')">
-                    {{ __('Dashboard') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('iplan.clearances')" :active="request()->routeIs('iplan.clearances')">
-                    {{ __('Clearance') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('iplan.subprojects')" :active="request()->routeIs('iplan.subprojects')">
-                    {{ __('Subprojects') }}
-                </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('iplan.dashboard')" :active="request()->routeIs('iplan.dashboard')">
+                {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('iplan.clearances')" :active="request()->routeIs('iplan.clearances')">
+                {{ __('Clearance') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('iplan.subprojects')" :active="request()->routeIs('iplan.subprojects')">
+                {{ __('Subprojects') }}
+            </x-responsive-nav-link>
             @elseif(auth()->user()->userType === 'ECON')
-                <x-responsive-nav-link :href="route('econ.dashboard')" :active="request()->routeIs('econ.dashboard')">
-                    {{ __('Dashboard') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('econ.clearances')" :active="request()->routeIs('econ.clearances')">
-                    {{ __('Clearance') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('econ.subprojects')" :active="request()->routeIs('econ.subprojects')">
-                    {{ __('Subprojects') }}
-                </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('econ.dashboard')" :active="request()->routeIs('econ.dashboard')">
+                {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('econ.clearances')" :active="request()->routeIs('econ.clearances')">
+                {{ __('Clearance') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('econ.subprojects')" :active="request()->routeIs('econ.subprojects')">
+                {{ __('Subprojects') }}
+            </x-responsive-nav-link>
             @elseif(auth()->user()->userType === 'SES')
-                <x-responsive-nav-link :href="route('ses.dashboard')" :active="request()->routeIs('ses.dashboard')">
-                    {{ __('Dashboard') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('ses.clearances')" :active="request()->routeIs('ses.clearances')">
-                    {{ __('Clearance') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('ses.subprojects')" :active="request()->routeIs('ses.subprojects')">
-                    {{ __('Subprojects') }}
-                </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('ses.dashboard')" :active="request()->routeIs('ses.dashboard')">
+                {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('ses.clearances')" :active="request()->routeIs('ses.clearances')">
+                {{ __('Clearance') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('ses.subprojects')" :active="request()->routeIs('ses.subprojects')">
+                {{ __('Subprojects') }}
+            </x-responsive-nav-link>
             @endif
         </div>
 
