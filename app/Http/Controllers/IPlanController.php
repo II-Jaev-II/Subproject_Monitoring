@@ -372,6 +372,8 @@ class IPlanController extends Controller
             'pageMatrixPcip' => 'uploadedFiles/pageMatrixPcip',
         ];
 
+        $paths = [];
+
         foreach ($fileFields as $field => $basePath) {
             if (!file_exists($basePath)) {
                 mkdir($basePath, 0755, true);

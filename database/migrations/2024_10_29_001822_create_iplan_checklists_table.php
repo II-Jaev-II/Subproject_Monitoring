@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -29,8 +28,8 @@ return new class extends Migration
             $table->string('exposure');
             $table->string('adaptiveCapacity');
             $table->string('overallVulnerability');
-            $table->string('recommendation');
-            $table->string('generalRecommendation')->nullable();
+            $table->text('recommendation');
+            $table->text('generalRecommendation');
             $table->date('reviewDate');
             $table->timestamps();
 

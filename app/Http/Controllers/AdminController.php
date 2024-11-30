@@ -7,6 +7,7 @@ use App\Models\GGUChecklist;
 use App\Models\IplanChecklist;
 use App\Models\IplanCommodity;
 use App\Models\IplanRankAndComposite;
+use App\Models\IreapChecklist;
 use App\Models\SesChecklist;
 use App\Models\SesRequirements;
 use App\Models\Subproject;
@@ -23,27 +24,29 @@ class AdminController extends Controller
     {
         $subprojects = Subproject::all();
         $subprojectsCount = $subprojects->count();
-        $clearedSubprojectsCount = $subprojects->where('total', 5)->count();
-        $onGoingSubprojectsCount = $subprojects->where('total', '<', 5)->count();
+        $clearedSubprojectsCount = $subprojects->where('total', '>', 5)->count();
+        $onGoingSubprojectsCount = $subprojects->where('total', '<', 6)->count();
 
         $failedSubprojectsCount = Subproject::where(function ($query) {
             $query->where('iPLAN', 'Failed')
                 ->orWhere('iBUILD', 'Failed')
                 ->orWhere('econ', 'Failed')
                 ->orWhere('ses', 'Failed')
-                ->orWhere('ggu', 'Failed');
+                ->orWhere('ggu', 'Failed')
+                ->orWhere('iREAP', 'Failed');
         })->count();
 
-        $ongoingSubprojects = Subproject::where('total', '<', 5)->get();
+        $ongoingSubprojects = Subproject::where('total', '<', 6)->get();
         $onGoingSubprojectsCount = $ongoingSubprojects->filter(function ($subproject) {
             return $subproject->iPLAN !== 'Failed' &&
                 $subproject->iBUILD !== 'Failed' &&
                 $subproject->econ !== 'Failed' &&
                 $subproject->ses !== 'Failed' &&
-                $subproject->ggu !== 'Failed';
+                $subproject->ggu !== 'Failed' &&
+                $subproject->iREAP !== 'Failed';
         })->count();
 
-        $records = Subproject::select('iPLAN', 'iBUILD', 'econ', 'ses', 'ggu')->get();
+        $records = Subproject::select('iPLAN', 'iBUILD', 'econ', 'ses', 'ggu', 'iREAP')->get();
 
         $okCount = [];
 
@@ -63,6 +66,9 @@ class AdminController extends Controller
                 $countOK++;
             }
             if ($record->ggu === 'OK') {
+                $countOK++;
+            }
+            if ($record->iREAP === 'OK') {
                 $countOK++;
             }
 
@@ -161,6 +167,8 @@ class AdminController extends Controller
 
         $econChecklists = EconChecklist::where('econ_checklists.subprojectId', $id)->first();
 
+        $iReapChecklists = IreapChecklist::where('ireap_checklists.subprojectId', $id)->first();
+
         // Query each checklist independently
         $vcriChecklists = DB::table('ibuild_vcri_checklists')
             ->where('subprojectId', $id)
@@ -222,6 +230,11 @@ class AdminController extends Controller
             $formattedReviewDateEcon = Carbon::parse($econChecklists->reviewDate)->format('F j, Y');
         }
 
+        $formattedReviewDateIReap = null;
+        if ($iReapChecklists && $iReapChecklists->reviewDate) {
+            $formattedReviewDateIReap = Carbon::parse($iReapChecklists->reviewDate)->format('F j, Y');
+        }
+
         return view('admin.view-subprojects.view-subproject', [
             'subprojects' => $subprojects,
             'address' => $address,
@@ -238,6 +251,7 @@ class AdminController extends Controller
             'subprojectType' => $subprojectType,
             'hasRecords' => $hasRecords,
             'econChecklists' => $econChecklists,
+            'iReapChecklists' => $iReapChecklists,
 
             'formattedReviewDateIPlan' => $formattedReviewDateIPlan,
             'formattedReviewDateSes' => $formattedReviewDateSes,
@@ -246,6 +260,7 @@ class AdminController extends Controller
             'formattedReviewDateIBuildFmrBridge' => $formattedReviewDateIBuildFmrBridge,
             'formattedReviewDateIBuildPwsCis' => $formattedReviewDateIBuildPwsCis,
             'formattedReviewDateEcon' => $formattedReviewDateEcon,
+            'formattedReviewDateIReap' => $formattedReviewDateIReap,
         ]);
     }
 
@@ -290,6 +305,14 @@ class AdminController extends Controller
                 'pending' => DB::table('subprojects')
                     ->where('ggu', 'Pending')
                     ->orWhereNull('ggu')
+                    ->count(),
+            ],
+            'iREAP' => [
+                'cleared' => DB::table('subprojects')->whereIn('iREAP', ['OK', 'Passed'])->count(),
+                'failed' => DB::table('subprojects')->where('iREAP', 'Failed')->count(),
+                'pending' => DB::table('subprojects')
+                    ->where('iREAP', 'Pending')
+                    ->orWhereNull('iREAP')
                     ->count(),
             ],
         ];

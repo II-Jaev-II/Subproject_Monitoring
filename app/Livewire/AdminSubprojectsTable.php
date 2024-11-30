@@ -41,10 +41,15 @@ class AdminSubprojectsTable extends Component
 
         // Component filter
         if ($this->component && $this->component !== 'All') {
-            // Include all records for the selected component, even if the value is NULL
+            // Filter by component
             $query->where(function ($q) {
                 $q->whereNotNull($this->component)->orWhereNull($this->component);
             });
+
+            // Additional condition for iREAP to filter by projectType
+            if ($this->component === 'iREAP') {
+                $query->where('projectType', 'VCRI');
+            }
 
             // Filter by clearances for specific component
             if ($this->clearances === 'OK') {
@@ -59,14 +64,24 @@ class AdminSubprojectsTable extends Component
         // Clearance filter for "All" components
         if ($this->component === 'All') {
             if ($this->clearances === 'OK') {
-                $query->where('total', '=', 5);
+                $query->where('total', '>=', 5);
             } elseif ($this->clearances === 'Pending') {
                 $query->where('total', '<', 5)->where(function ($q) {
-                    $q->where('iPLAN', '!=', 'Failed')->where('iBUILD', '!=', 'Failed')->where('econ', '!=', 'Failed')->where('SES', '!=', 'Failed')->where('GGU', '!=', 'Failed');
+                    $q->where('iPLAN', '!=', 'Failed')
+                        ->where('iBUILD', '!=', 'Failed')
+                        ->where('econ', '!=', 'Failed')
+                        ->where('SES', '!=', 'Failed')
+                        ->where('GGU', '!=', 'Failed')
+                        ->where('iREAP', '!=', 'Failed');
                 });
             } elseif ($this->clearances === 'Failed') {
                 $query->where(function ($q) {
-                    $q->where('iPLAN', 'Failed')->orWhere('iBUILD', 'Failed')->orWhere('econ', 'Failed')->orWhere('SES', 'Failed')->orWhere('GGU', 'Failed');
+                    $q->where('iPLAN', 'Failed')
+                        ->orWhere('iBUILD', 'Failed')
+                        ->orWhere('econ', 'Failed')
+                        ->orWhere('SES', 'Failed')
+                        ->orWhere('GGU', 'Failed')
+                        ->orWhere('iREAP', 'Failed');
                 });
             }
         }
@@ -82,7 +97,7 @@ class AdminSubprojectsTable extends Component
         // Add "status" calculation to each paginated item
         $subprojects->getCollection()->transform(function ($subproject) {
             if ($this->component === 'All') {
-                $components = ['iPLAN', 'iBUILD', 'econ', 'SES', 'GGU'];
+                $components = ['iPLAN', 'iBUILD', 'econ', 'SES', 'GGU', 'iREAP'];
 
                 // Check for "Failed" in components
                 foreach ($components as $component) {
@@ -93,7 +108,7 @@ class AdminSubprojectsTable extends Component
                 }
 
                 // Check the total column
-                if ($subproject->total == 5) {
+                if ($subproject->total >= 5) {
                     $subproject->status = 'OK';
                 } elseif ($subproject->total < 5) {
                     $subproject->status = 'Pending';

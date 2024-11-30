@@ -35,6 +35,7 @@
                                         'GGU' => '/ggu/dashboard',
                                         'SES' => '/ses/dashboard',
                                         'IREAP' => '/ireap/dashboard',
+                                        'ADMIN' => '/admin/dashboard',
                                     ];
                                     $userType = Auth::user()->userType ?? null;
                                     $dashboardUrl =

@@ -152,9 +152,18 @@ function getClearanceChartOptions(isDarkMode, data) {
     const theme = isDarkMode ? 'dark' : 'light';
     return {
         series: [
-            { name: 'Cleared', data: [data.iPLAN.cleared, data.iBUILD.cleared, data.econ.cleared, data.ses.cleared, data.ggu.cleared] },
-            { name: 'Failed', data: [data.iPLAN.failed, data.iBUILD.failed, data.econ.failed, data.ses.failed, data.ggu.failed] },
-            { name: 'Pending', data: [data.iPLAN.pending, data.iBUILD.pending, data.econ.pending, data.ses.pending, data.ggu.pending] },
+            {
+                name: 'Cleared', data: [data.iPLAN.cleared, data.iBUILD.cleared, data.econ.cleared, data.ses.cleared,
+                data.ggu.cleared, data.iREAP.cleared]
+            },
+            {
+                name: 'Failed', data: [data.iPLAN.failed, data.iBUILD.failed, data.econ.failed, data.ses.failed, data.ggu.failed,
+                data.iREAP.failed]
+            },
+            {
+                name: 'Pending', data: [data.iPLAN.pending, data.iBUILD.pending, data.econ.pending, data.ses.pending,
+                data.ggu.pending, data.iREAP.pending]
+            },
         ],
         chart: {
             type: 'bar',
@@ -169,7 +178,7 @@ function getClearanceChartOptions(isDarkMode, data) {
             }
         },
         colors: clearancesColors[theme].barColors,
-        xaxis: { categories: ['iPLAN', 'iBUILD', 'Econ', 'SES', 'GGU'] },
+        xaxis: { categories: ['iPLAN', 'iBUILD', 'Econ', 'SES', 'GGU', 'iREAP'] },
     };
 }
 
