@@ -19,15 +19,9 @@ use Illuminate\Support\Facades\DB;
 
 class IReapController extends Controller
 {
-
     public function view($id)
     {
-        $subprojects = Subproject::join('provinces', 'subprojects.province', '=', 'provinces.id')
-            ->join('municipalities', 'subprojects.municipality', '=', 'municipalities.id')
-            ->join('barangays', 'subprojects.barangay', '=', 'barangays.id')
-            ->select('subprojects.*', 'subprojects.letterOfRequest', 'subprojects.letterOfEndorsement', 'provinces.province_name', 'municipalities.municipality_name', 'barangays.barangay_name')
-            ->where('subprojects.id', $id)
-            ->first();
+        $subprojects = Subproject::join('provinces', 'subprojects.province', '=', 'provinces.id')->join('municipalities', 'subprojects.municipality', '=', 'municipalities.id')->join('barangays', 'subprojects.barangay', '=', 'barangays.id')->select('subprojects.*', 'subprojects.letterOfRequest', 'subprojects.letterOfEndorsement', 'provinces.province_name', 'municipalities.municipality_name', 'barangays.barangay_name')->where('subprojects.id', $id)->first();
 
         $iPlanChecklists = IplanChecklist::where('iplan_checklists.subprojectId', $id)->first();
         $commodities = [];
@@ -51,18 +45,14 @@ class IReapController extends Controller
 
         $econChecklists = EconChecklist::where('econ_checklists.subprojectId', $id)->first();
 
+        $iReapChecklists = IreapChecklist::where('ireap_checklists.subprojectId', $id)->first();
+
         // Query each checklist independently
-        $vcriChecklists = DB::table('ibuild_vcri_checklists')
-            ->where('subprojectId', $id)
-            ->first();
+        $vcriChecklists = DB::table('ibuild_vcri_checklists')->where('subprojectId', $id)->first();
 
-        $fmrBridgeChecklists = DB::table('ibuild_fmr_bridge_checklists')
-            ->where('subprojectId', $id)
-            ->first();
+        $fmrBridgeChecklists = DB::table('ibuild_fmr_bridge_checklists')->where('subprojectId', $id)->first();
 
-        $pwsCisChecklists = DB::table('ibuild_pws_cis_checklists')
-            ->where('subprojectId', $id)
-            ->first();
+        $pwsCisChecklists = DB::table('ibuild_pws_cis_checklists')->where('subprojectId', $id)->first();
 
         // Determine if any checklist exists
         $hasRecords = $vcriChecklists || $fmrBridgeChecklists || $pwsCisChecklists;
@@ -112,6 +102,11 @@ class IReapController extends Controller
             $formattedReviewDateEcon = Carbon::parse($econChecklists->reviewDate)->format('F j, Y');
         }
 
+        $formattedReviewDateIReap = null;
+        if ($iReapChecklists && $iReapChecklists->reviewDate) {
+            $formattedReviewDateIReap = Carbon::parse($iReapChecklists->reviewDate)->format('F j, Y');
+        }
+
         return view('ireap.view-subprojects.view-subproject', [
             'subprojects' => $subprojects,
             'iPlanChecklists' => $iPlanChecklists,
@@ -127,6 +122,7 @@ class IReapController extends Controller
             'subprojectType' => $subprojectType,
             'hasRecords' => $hasRecords,
             'econChecklists' => $econChecklists,
+            'iReapChecklists' => $iReapChecklists,
 
             'formattedReviewDateIPlan' => $formattedReviewDateIPlan,
             'formattedReviewDateSes' => $formattedReviewDateSes,
@@ -135,6 +131,7 @@ class IReapController extends Controller
             'formattedReviewDateIBuildFmrBridge' => $formattedReviewDateIBuildFmrBridge,
             'formattedReviewDateIBuildPwsCis' => $formattedReviewDateIBuildPwsCis,
             'formattedReviewDateEcon' => $formattedReviewDateEcon,
+            'formattedReviewDateIReap' => $formattedReviewDateIReap,
         ]);
     }
 
@@ -303,17 +300,133 @@ class IReapController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $subproject = Subproject::findOrFail($id);
+        $iReapChecklist = IreapChecklist::where('subprojectId', $id)->join('subprojects', 'ireap_checklists.subprojectId', '=', 'subprojects.id')->first();
+
+        return view('ireap.edit-subproject', compact('subproject', 'iReapChecklist'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StoreIReapChecklistRequest $request)
     {
-        //
+        $user = Auth::user();
+        $request->validated();
+
+        $fileFields = [
+            'authenticatedCopy' => 'uploadedFiles/authenticatedCopy',
+            'byLaws' => 'uploadedFiles/byLaws',
+            'certificateOfRegistration' => 'uploadedFiles/certificateOfRegistration',
+            'certificateRegistry' => 'uploadedFiles/certificateRegistry',
+            'certificates' => 'uploadedFiles/certificates',
+            'existingOrganizationalStructure' => 'uploadedFiles/existingOrganizationalStructure',
+            'secretaryCertificate' => 'uploadedFiles/secretaryCertificate',
+            'photocopyReceipt' => 'uploadedFiles/photocopyReceipt',
+            'latestFinancialReport' => 'uploadedFiles/latestFinancialReport',
+            'swornAffidavit' => 'uploadedFiles/swornAffidavit',
+            'moa' => 'uploadedFiles/moa',
+            'releaseOfFunds' => 'uploadedFiles/releaseOfFunds',
+        ];
+
+        $multipleFileFields = [
+            'accomplishmentReports' => 'uploadedFiles/accomplishmentReports',
+            'photographs' => 'uploadedFiles/photographs',
+            'fcaMembersProfile' => 'uploadedFiles/fcaMembersProfile',
+        ];
+
+        $paths = [];
+
+        $iReapChecklist = IreapChecklist::where('subprojectId', $request->get('subprojectId'))->first();
+
+        // Handle single file uploads
+        foreach ($fileFields as $field => $basePath) {
+            if ($request->hasFile($field)) {
+                if (!file_exists($basePath)) {
+                    mkdir($basePath, 0755, true);
+                }
+
+                // Delete old file
+                if ($iReapChecklist->$field && file_exists(public_path($iReapChecklist->$field))) {
+                    unlink(public_path($iReapChecklist->$field));
+                }
+
+                // Upload new file
+                $file = $request->file($field);
+                $extension = $file->getClientOriginalExtension();
+                $filename = time() . '_' . $field . '.' . $extension;
+                $file->move($basePath, $filename);
+                $paths[$field] = $basePath . '/' . $filename;
+            } else {
+                // Keep existing file if no new file is uploaded
+                $paths[$field] = $iReapChecklist->$field;
+            }
+        }
+
+        // Handle multiple file uploads
+        foreach ($multipleFileFields as $field => $basePath) {
+            if ($request->hasFile($field)) {
+                if (!file_exists($basePath)) {
+                    mkdir($basePath, 0755, true);
+                }
+
+                // Delete old files
+                $existingFiles = json_decode($iReapChecklist->$field, true) ?? [];
+                foreach ($existingFiles as $oldFile) {
+                    if (file_exists(public_path($oldFile))) {
+                        unlink(public_path($oldFile));
+                    }
+                }
+
+                // Upload new files
+                $files = $request->file($field);
+                $uploadedPaths = [];
+                foreach ($files as $file) {
+                    $extension = $file->getClientOriginalExtension();
+                    $filename = time() . '_' . uniqid() . '.' . $extension;
+                    $file->move($basePath, $filename);
+                    $uploadedPaths[] = $basePath . '/' . $filename;
+                }
+                $paths[$field] = json_encode($uploadedPaths);
+            } else {
+                // Keep existing files if no new files are uploaded
+                $paths[$field] = $iReapChecklist->$field;
+            }
+        }
+
+        // Prepare update data
+        $iReapChecklistUpdateData = [
+            'reviewDate' => $request->get('reviewDate'),
+            'registeredAgency' => $request->get('registeredAgency'),
+            'priorityCommodity' => $request->get('priorityCommodity'),
+        ];
+
+        // Merge file paths into update data
+        foreach (array_merge($fileFields, $multipleFileFields) as $field => $basePath) {
+            $iReapChecklistUpdateData[$field] = $paths[$field];
+        }
+
+        // Update checklist
+        $iReapChecklist->update($iReapChecklistUpdateData);
+
+        // Update subproject status
+        $status = $request->get('status');
+        $subproject = Subproject::find($request->get('subprojectId'));
+
+        if ($subproject->iREAP === 'Pending' && $status === 'OK') {
+            $subproject->iREAP = 'OK';
+            $subproject->total += 1;
+        } elseif ($subproject->iREAP === 'Pending' && $status === 'Failed') {
+            $subproject->iREAP = 'Failed';
+        }
+
+        $subproject->save();
+
+        return redirect()
+            ->route('ireap.view-subproject', ['id' => $request->get('subprojectId')])
+            ->with('success', 'Subproject has been validated successfully!');
     }
 
     /**

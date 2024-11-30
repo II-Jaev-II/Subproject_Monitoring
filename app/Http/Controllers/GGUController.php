@@ -8,6 +8,7 @@ use App\Models\GGUChecklist;
 use App\Models\IplanChecklist;
 use App\Models\IplanCommodity;
 use App\Models\IplanRankAndComposite;
+use App\Models\IreapChecklist;
 use App\Models\SesChecklist;
 use App\Models\SesRequirements;
 use App\Models\Subproject;
@@ -28,12 +29,7 @@ class GGUController extends Controller
 
     public function view($id)
     {
-        $subprojects = Subproject::join('provinces', 'subprojects.province', '=', 'provinces.id')
-            ->join('municipalities', 'subprojects.municipality', '=', 'municipalities.id')
-            ->join('barangays', 'subprojects.barangay', '=', 'barangays.id')
-            ->select('subprojects.*', 'subprojects.letterOfRequest', 'subprojects.letterOfEndorsement', 'provinces.province_name', 'municipalities.municipality_name', 'barangays.barangay_name')
-            ->where('subprojects.id', $id)
-            ->first();
+        $subprojects = Subproject::join('provinces', 'subprojects.province', '=', 'provinces.id')->join('municipalities', 'subprojects.municipality', '=', 'municipalities.id')->join('barangays', 'subprojects.barangay', '=', 'barangays.id')->select('subprojects.*', 'subprojects.letterOfRequest', 'subprojects.letterOfEndorsement', 'provinces.province_name', 'municipalities.municipality_name', 'barangays.barangay_name')->where('subprojects.id', $id)->first();
 
         $iPlanChecklists = IplanChecklist::where('iplan_checklists.subprojectId', $id)->first();
         $commodities = [];
@@ -57,18 +53,14 @@ class GGUController extends Controller
 
         $econChecklists = EconChecklist::where('econ_checklists.subprojectId', $id)->first();
 
+        $iReapChecklists = IreapChecklist::where('ireap_checklists.subprojectId', $id)->first();
+
         // Query each checklist independently
-        $vcriChecklists = DB::table('ibuild_vcri_checklists')
-            ->where('subprojectId', $id)
-            ->first();
+        $vcriChecklists = DB::table('ibuild_vcri_checklists')->where('subprojectId', $id)->first();
 
-        $fmrBridgeChecklists = DB::table('ibuild_fmr_bridge_checklists')
-            ->where('subprojectId', $id)
-            ->first();
+        $fmrBridgeChecklists = DB::table('ibuild_fmr_bridge_checklists')->where('subprojectId', $id)->first();
 
-        $pwsCisChecklists = DB::table('ibuild_pws_cis_checklists')
-            ->where('subprojectId', $id)
-            ->first();
+        $pwsCisChecklists = DB::table('ibuild_pws_cis_checklists')->where('subprojectId', $id)->first();
 
         // Determine if any checklist exists
         $hasRecords = $vcriChecklists || $fmrBridgeChecklists || $pwsCisChecklists;
@@ -118,6 +110,11 @@ class GGUController extends Controller
             $formattedReviewDateEcon = Carbon::parse($econChecklists->reviewDate)->format('F j, Y');
         }
 
+        $formattedReviewDateIReap = null;
+        if ($iReapChecklists && $iReapChecklists->reviewDate) {
+            $formattedReviewDateIReap = Carbon::parse($iReapChecklists->reviewDate)->format('F j, Y');
+        }
+
         return view('ggu.view-subprojects.view-subproject', [
             'subprojects' => $subprojects,
             'iPlanChecklists' => $iPlanChecklists,
@@ -133,6 +130,7 @@ class GGUController extends Controller
             'subprojectType' => $subprojectType,
             'hasRecords' => $hasRecords,
             'econChecklists' => $econChecklists,
+            'iReapChecklists' => $iReapChecklists,
 
             'formattedReviewDateIPlan' => $formattedReviewDateIPlan,
             'formattedReviewDateSes' => $formattedReviewDateSes,
@@ -141,6 +139,7 @@ class GGUController extends Controller
             'formattedReviewDateIBuildFmrBridge' => $formattedReviewDateIBuildFmrBridge,
             'formattedReviewDateIBuildPwsCis' => $formattedReviewDateIBuildPwsCis,
             'formattedReviewDateEcon' => $formattedReviewDateEcon,
+            'formattedReviewDateIReap' => $formattedReviewDateIReap,
         ]);
     }
 
@@ -175,9 +174,7 @@ class GGUController extends Controller
     public function edit($id)
     {
         $subproject = Subproject::findOrFail($id);
-        $gguChecklist = GGUChecklist::where('subprojectId', $id)
-            ->join('subprojects', 'ggu_checklists.subprojectId', '=', 'subprojects.id')
-            ->first();
+        $gguChecklist = GGUChecklist::where('subprojectId', $id)->join('subprojects', 'ggu_checklists.subprojectId', '=', 'subprojects.id')->first();
 
         return view('ggu.edit-subproject', compact('subproject', 'gguChecklist'));
     }
@@ -225,8 +222,8 @@ class GGUController extends Controller
 
             if ($subproject) {
                 switch ($status) {
-                    case 'Passed':
-                        $subproject->ggu = 'Passed';
+                    case 'OK':
+                        $subproject->ggu = 'OK';
                         $subproject->total += 1;
                         break;
                     case 'Failed':
@@ -302,7 +299,7 @@ class GGUController extends Controller
         if ($subproject->ggu === 'Pending' && $status === 'Passed') {
             $subproject->ggu = 'Passed';
             $subproject->total += 1;
-        } elseif ($subproject->ggu === 'Pending' &&  $status === 'Failed') {
+        } elseif ($subproject->ggu === 'Pending' && $status === 'Failed') {
             $subproject->ggu = 'Failed';
         }
 

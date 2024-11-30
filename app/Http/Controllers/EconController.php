@@ -8,6 +8,7 @@ use App\Models\GGUChecklist;
 use App\Models\IplanChecklist;
 use App\Models\IplanCommodity;
 use App\Models\IplanRankAndComposite;
+use App\Models\IreapChecklist;
 use App\Models\SesChecklist;
 use App\Models\SesRequirements;
 use App\Models\Subproject;
@@ -28,12 +29,7 @@ class EconController extends Controller
 
     public function view($id)
     {
-        $subprojects = Subproject::join('provinces', 'subprojects.province', '=', 'provinces.id')
-            ->join('municipalities', 'subprojects.municipality', '=', 'municipalities.id')
-            ->join('barangays', 'subprojects.barangay', '=', 'barangays.id')
-            ->select('subprojects.*', 'subprojects.letterOfRequest', 'subprojects.letterOfEndorsement', 'provinces.province_name', 'municipalities.municipality_name', 'barangays.barangay_name')
-            ->where('subprojects.id', $id)
-            ->first();
+        $subprojects = Subproject::join('provinces', 'subprojects.province', '=', 'provinces.id')->join('municipalities', 'subprojects.municipality', '=', 'municipalities.id')->join('barangays', 'subprojects.barangay', '=', 'barangays.id')->select('subprojects.*', 'subprojects.letterOfRequest', 'subprojects.letterOfEndorsement', 'provinces.province_name', 'municipalities.municipality_name', 'barangays.barangay_name')->where('subprojects.id', $id)->first();
 
         $iPlanChecklists = IplanChecklist::where('iplan_checklists.subprojectId', $id)->first();
         $commodities = [];
@@ -57,17 +53,13 @@ class EconController extends Controller
 
         $econChecklists = EconChecklist::where('econ_checklists.subprojectId', $id)->first();
 
-        $vcriChecklists = DB::table('ibuild_vcri_checklists')
-            ->where('subprojectId', $id)
-            ->first();
+        $iReapChecklists = IreapChecklist::where('ireap_checklists.subprojectId', $id)->first();
 
-        $fmrBridgeChecklists = DB::table('ibuild_fmr_bridge_checklists')
-            ->where('subprojectId', $id)
-            ->first();
+        $vcriChecklists = DB::table('ibuild_vcri_checklists')->where('subprojectId', $id)->first();
 
-        $pwsCisChecklists = DB::table('ibuild_pws_cis_checklists')
-            ->where('subprojectId', $id)
-            ->first();
+        $fmrBridgeChecklists = DB::table('ibuild_fmr_bridge_checklists')->where('subprojectId', $id)->first();
+
+        $pwsCisChecklists = DB::table('ibuild_pws_cis_checklists')->where('subprojectId', $id)->first();
 
         $hasRecords = $vcriChecklists || $fmrBridgeChecklists || $pwsCisChecklists;
 
@@ -115,6 +107,11 @@ class EconController extends Controller
             $formattedReviewDateEcon = Carbon::parse($econChecklists->reviewDate)->format('F j, Y');
         }
 
+        $formattedReviewDateIReap = null;
+        if ($iReapChecklists && $iReapChecklists->reviewDate) {
+            $formattedReviewDateIReap = Carbon::parse($iReapChecklists->reviewDate)->format('F j, Y');
+        }
+
         return view('econ.view-subprojects.view-subproject', [
             'subprojects' => $subprojects,
             'iPlanChecklists' => $iPlanChecklists,
@@ -130,6 +127,7 @@ class EconController extends Controller
             'subprojectType' => $subprojectType,
             'hasRecords' => $hasRecords,
             'econChecklists' => $econChecklists,
+            'iReapChecklists' => $iReapChecklists,
 
             'formattedReviewDateIPlan' => $formattedReviewDateIPlan,
             'formattedReviewDateSes' => $formattedReviewDateSes,
@@ -138,6 +136,7 @@ class EconController extends Controller
             'formattedReviewDateIBuildFmrBridge' => $formattedReviewDateIBuildFmrBridge,
             'formattedReviewDateIBuildPwsCis' => $formattedReviewDateIBuildPwsCis,
             'formattedReviewDateEcon' => $formattedReviewDateEcon,
+            'formattedReviewDateIReap' => $formattedReviewDateIReap,
         ]);
     }
 
@@ -174,9 +173,7 @@ class EconController extends Controller
     public function edit($id)
     {
         $subproject = Subproject::findOrFail($id);
-        $econChecklist = EconChecklist::where('subprojectId', $id)
-            ->join('subprojects', 'econ_checklists.subprojectId', '=', 'subprojects.id')
-            ->first();
+        $econChecklist = EconChecklist::where('subprojectId', $id)->join('subprojects', 'econ_checklists.subprojectId', '=', 'subprojects.id')->first();
 
         return view('econ.edit-subproject', compact('subproject', 'econChecklist'));
     }
@@ -197,8 +194,8 @@ class EconController extends Controller
             'userId' => $user->id,
             'subprojectId' => $subprojectId,
             'reviewDate' => $validated['reviewDate'],
-            'summary' =>  $validated['summary'],
-            'status' =>  $validated['status'],
+            'summary' => $validated['summary'],
+            'status' => $validated['status'],
         ];
 
         EconChecklist::where('subprojectId', $subprojectId)->update($econChecklistUpdateData);
@@ -209,7 +206,7 @@ class EconController extends Controller
         if ($subproject->econ === 'Pending' && $status === 'OK') {
             $subproject->econ = 'OK';
             $subproject->total += 1;
-        } elseif ($subproject->econ === 'Pending' &&  $status === 'Failed') {
+        } elseif ($subproject->econ === 'Pending' && $status === 'Failed') {
             $subproject->econ = 'Failed';
         }
 

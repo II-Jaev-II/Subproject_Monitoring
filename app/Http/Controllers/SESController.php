@@ -8,6 +8,7 @@ use App\Models\GGUChecklist;
 use App\Models\IplanChecklist;
 use App\Models\IplanCommodity;
 use App\Models\IplanRankAndComposite;
+use App\Models\IreapChecklist;
 use App\Models\SesChecklist;
 use App\Models\SesRequirements;
 use App\Models\Subproject;
@@ -28,12 +29,7 @@ class SESController extends Controller
 
     public function view($id)
     {
-        $subprojects = Subproject::join('provinces', 'subprojects.province', '=', 'provinces.id')
-            ->join('municipalities', 'subprojects.municipality', '=', 'municipalities.id')
-            ->join('barangays', 'subprojects.barangay', '=', 'barangays.id')
-            ->select('subprojects.*', 'subprojects.letterOfRequest', 'subprojects.letterOfEndorsement', 'provinces.province_name', 'municipalities.municipality_name', 'barangays.barangay_name')
-            ->where('subprojects.id', $id)
-            ->first();
+        $subprojects = Subproject::join('provinces', 'subprojects.province', '=', 'provinces.id')->join('municipalities', 'subprojects.municipality', '=', 'municipalities.id')->join('barangays', 'subprojects.barangay', '=', 'barangays.id')->select('subprojects.*', 'subprojects.letterOfRequest', 'subprojects.letterOfEndorsement', 'provinces.province_name', 'municipalities.municipality_name', 'barangays.barangay_name')->where('subprojects.id', $id)->first();
 
         $iPlanChecklists = IplanChecklist::where('iplan_checklists.subprojectId', $id)->first();
         $commodities = [];
@@ -57,18 +53,14 @@ class SESController extends Controller
 
         $econChecklists = EconChecklist::where('econ_checklists.subprojectId', $id)->first();
 
+        $iReapChecklists = IreapChecklist::where('ireap_checklists.subprojectId', $id)->first();
+
         // Query each checklist independently
-        $vcriChecklists = DB::table('ibuild_vcri_checklists')
-            ->where('subprojectId', $id)
-            ->first();
+        $vcriChecklists = DB::table('ibuild_vcri_checklists')->where('subprojectId', $id)->first();
 
-        $fmrBridgeChecklists = DB::table('ibuild_fmr_bridge_checklists')
-            ->where('subprojectId', $id)
-            ->first();
+        $fmrBridgeChecklists = DB::table('ibuild_fmr_bridge_checklists')->where('subprojectId', $id)->first();
 
-        $pwsCisChecklists = DB::table('ibuild_pws_cis_checklists')
-            ->where('subprojectId', $id)
-            ->first();
+        $pwsCisChecklists = DB::table('ibuild_pws_cis_checklists')->where('subprojectId', $id)->first();
 
         // Determine if any checklist exists
         $hasRecords = $vcriChecklists || $fmrBridgeChecklists || $pwsCisChecklists;
@@ -118,6 +110,11 @@ class SESController extends Controller
             $formattedReviewDateEcon = Carbon::parse($econChecklists->reviewDate)->format('F j, Y');
         }
 
+        $formattedReviewDateIReap = null;
+        if ($iReapChecklists && $iReapChecklists->reviewDate) {
+            $formattedReviewDateIReap = Carbon::parse($iReapChecklists->reviewDate)->format('F j, Y');
+        }
+
         return view('ses.view-subprojects.view-subproject', [
             'subprojects' => $subprojects,
             'iPlanChecklists' => $iPlanChecklists,
@@ -133,6 +130,7 @@ class SESController extends Controller
             'subprojectType' => $subprojectType,
             'hasRecords' => $hasRecords,
             'econChecklists' => $econChecklists,
+            'iReapChecklists' => $iReapChecklists,
 
             'formattedReviewDateIPlan' => $formattedReviewDateIPlan,
             'formattedReviewDateSes' => $formattedReviewDateSes,
@@ -141,6 +139,7 @@ class SESController extends Controller
             'formattedReviewDateIBuildFmrBridge' => $formattedReviewDateIBuildFmrBridge,
             'formattedReviewDateIBuildPwsCis' => $formattedReviewDateIBuildPwsCis,
             'formattedReviewDateEcon' => $formattedReviewDateEcon,
+            'formattedReviewDateIReap' => $formattedReviewDateIReap,
         ]);
     }
 

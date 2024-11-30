@@ -12,6 +12,7 @@ use App\Models\IbuildVcriChecklist;
 use App\Models\IplanChecklist;
 use App\Models\IplanCommodity;
 use App\Models\IplanRankAndComposite;
+use App\Models\IreapChecklist;
 use App\Models\Province;
 use App\Models\SesChecklist;
 use App\Models\SesRequirements;
@@ -72,6 +73,8 @@ class IBuildController extends Controller
         $gguReport = $gguChecklists ? $gguChecklists->report : null;
 
         $econChecklists = EconChecklist::where('econ_checklists.subprojectId', $id)->first();
+
+        $iReapChecklists = IreapChecklist::where('ireap_checklists.subprojectId', $id)->first();
 
         // Query each checklist independently
         $vcriChecklists = DB::table('ibuild_vcri_checklists')
@@ -134,6 +137,11 @@ class IBuildController extends Controller
             $formattedReviewDateEcon = Carbon::parse($econChecklists->reviewDate)->format('F j, Y');
         }
 
+        $formattedReviewDateIReap = null;
+        if ($iReapChecklists && $iReapChecklists->reviewDate) {
+            $formattedReviewDateIReap = Carbon::parse($iReapChecklists->reviewDate)->format('F j, Y');
+        }
+
         return view('ibuild.view-subprojects.view-subproject', [
             'subprojects' => $subprojects,
             'address' => $address,
@@ -152,6 +160,7 @@ class IBuildController extends Controller
             'econChecklists' => $econChecklists,
             'subprojectCommodities' => $subprojectCommodities,
             'allCommodities' => $allCommodities,
+            'iReapChecklists' => $iReapChecklists,
 
             'formattedReviewDateIPlan' => $formattedReviewDateIPlan,
             'formattedReviewDateSes' => $formattedReviewDateSes,
@@ -160,6 +169,7 @@ class IBuildController extends Controller
             'formattedReviewDateIBuildFmrBridge' => $formattedReviewDateIBuildFmrBridge,
             'formattedReviewDateIBuildPwsCis' => $formattedReviewDateIBuildPwsCis,
             'formattedReviewDateEcon' => $formattedReviewDateEcon,
+            'formattedReviewDateIReap' => $formattedReviewDateIReap,
         ]);
     }
 

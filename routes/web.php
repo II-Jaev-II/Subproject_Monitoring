@@ -94,6 +94,8 @@ Route::middleware(['auth', 'userType:IREAP'])->group(function () {
     Route::get('/ireap/subprojects', [IReapController::class, 'show'])->name('ireap.subprojects');
     Route::get('/ireap/clearances', [IReapController::class, 'showClearances'])->name('ireap.clearances');
     Route::get('/ireap/view-subproject/{id}', [IReapController::class, 'view'])->name('ireap.view-subproject');
+    Route::get('/ireap/edit-subproject/{id}', [IReapController::class, 'edit'])->name('ireap.edit-subproject');
+    Route::post('/ireap/update-subproject/{id}', [IReapController::class, 'update'])->name('ireap.update-subproject');
     Route::get('/ireap/validate-subprojects/{id}', [IReapController::class, 'validateSubproject'])->name('ireap.validate-subprojects');
     Route::post('/ireap/store-subproject', [IReapController::class, 'store'])->name('ireap.store-subproject');
 });
@@ -101,6 +103,5 @@ Route::middleware(['auth', 'userType:IREAP'])->group(function () {
 Route::get('/municipalities/{province}', [DynamicAddressController::class, 'getMunicipalities']);
 Route::get('/barangays/{municipality}', [DynamicAddressController::class, 'getBarangays']);
 Route::get('/get-subproject-data', [AdminController::class, 'getSubprojectData']);
-
 
 require __DIR__ . '/auth.php';

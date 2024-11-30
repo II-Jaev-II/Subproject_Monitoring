@@ -26,23 +26,38 @@
                     </div>
                     <div class="flex items-center space-x-2 sm:space-x-4">
                         @if (Route::has('login'))
-                        @auth
-                        <a href="{{ url('/ibuild/dashboard') }}"
-                            class="text-sm sm:text-base px-2 py-1 sm:px-4 sm:py-2 text-white rounded-md bg-lime-700 hover:bg-lime-800">
-                            Dashboard
-                        </a>
-                        @else
-                        <a href="{{ route('login') }}"
-                            class="text-sm sm:text-base px-2 py-1 sm:px-4 sm:py-2 text-white rounded-md bg-lime-700 hover:bg-lime-800">
-                            Log in
-                        </a>
-                        @if (Route::has('register'))
-                        <a href="{{ route('register') }}"
-                            class="text-sm sm:text-base px-2 py-1 sm:px-4 sm:py-2 text-white rounded-md bg-lime-700 hover:bg-lime-800">
-                            Register
-                        </a>
-                        @endif
-                        @endauth
+                            @auth
+                                @php
+                                    $dashboardRoutes = [
+                                        'IBUILD' => '/ibuild/dashboard',
+                                        'IPLAN' => '/iplan/dashboard',
+                                        'ECON' => '/econ/dashboard',
+                                        'GGU' => '/ggu/dashboard',
+                                        'SES' => '/ses/dashboard',
+                                        'IREAP' => '/ireap/dashboard',
+                                    ];
+                                    $userType = Auth::user()->userType ?? null;
+                                    $dashboardUrl =
+                                        $userType && isset($dashboardRoutes[$userType])
+                                            ? $dashboardRoutes[$userType]
+                                            : '/default/dashboard';
+                                @endphp
+                                <a href="{{ url($dashboardUrl) }}"
+                                    class="text-sm sm:text-base px-2 py-1 sm:px-4 sm:py-2 text-white rounded-md bg-lime-700 hover:bg-lime-800">
+                                    Dashboard
+                                </a>
+                            @else
+                                <a href="{{ route('login') }}"
+                                    class="text-sm sm:text-base px-2 py-1 sm:px-4 sm:py-2 text-white rounded-md bg-lime-700 hover:bg-lime-800">
+                                    Log in
+                                </a>
+                                @if (Route::has('register'))
+                                    <a href="{{ route('register') }}"
+                                        class="text-sm sm:text-base px-2 py-1 sm:px-4 sm:py-2 text-white rounded-md bg-lime-700 hover:bg-lime-800">
+                                        Register
+                                    </a>
+                                @endif
+                            @endauth
                         @endif
                         <button id="theme-toggle" type="button"
                             class="text-gray-300 dark:text-yellow-300 hover:text-gray-100 hover:dark:text-yellow-200 focus:outline-none rounded-lg text-sm p-2.5">
