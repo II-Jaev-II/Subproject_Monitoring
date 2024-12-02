@@ -95,11 +95,6 @@
                 <option value="OK" {{ old('status') == 'OK' ? 'selected' : '' }}>OK</option>
                 <option value="Failed" {{ old('status') == 'Failed' ? 'selected' : '' }}>Failed</option>
             </select>
-            @if ($errors->has('status'))
-            <div class="text-red-600 mt-2 mb-2">
-                {{ $errors->first('status') }}
-            </div>
-            @endif
         </div>
         @endif
     </div>
