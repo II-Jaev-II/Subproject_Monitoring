@@ -225,50 +225,5 @@
                     value="{{ $address->barangay_name }}" readonly>
             </div>
         </div>
-
-        <div x-show="!isEditing">
-            <div class="flex justify-between items-center mb-4 mt-4">
-                <h1 class="dark:text-lime-500 text-xl">Subproject Commodities</h1>
-            </div>
-            <hr class="border-2 border-green-500 dark:border-lime-500 mb-2">
-
-            <div class="grid grid-cols-2 md:flex items-center gap-2">
-                @foreach($allCommodities as $allCommodity)
-                @php
-                $isChecked = in_array($allCommodity, $subprojectCommodities);
-                @endphp
-                <label>
-                    <input type="checkbox"
-                        class="dark:bg-gray-800 rounded-sm"
-                        {{ $isChecked ? 'checked' : '' }}
-                        name="commodities[]"
-                        value="{{ $allCommodity }}" disabled>
-                    {{ $allCommodity }}
-                </label>
-                @endforeach
-            </div>
-
-        </div>
-
-        <div x-show="isEditing">
-            <div class="flex justify-between items-center mb-4 mt-4">
-                <h1 class="dark:text-lime-500 text-xl">Subproject Commodities</h1>
-            </div>
-            <hr class="border-2 border-green-500 dark:border-lime-500 mb-2">
-            @foreach($allCommodities as $allCommodity)
-            @php
-            $isChecked = in_array($allCommodity, $subprojectCommodities);
-            @endphp
-            <label>
-                <input type="checkbox"
-                    class="dark:bg-gray-800 rounded-sm"
-                    {{ $isChecked ? 'checked' : '' }}
-                    name="commodities[]"
-                    value="{{ $allCommodity }}">
-                {{ $allCommodity }}
-            </label>
-            @endforeach
-        </div>
-
     </form>
 </div>

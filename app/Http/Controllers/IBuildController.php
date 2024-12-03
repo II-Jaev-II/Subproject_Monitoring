@@ -46,12 +46,6 @@ class IBuildController extends Controller
             ->select('subprojects.*', 'subprojects.letterOfRequest', 'subprojects.letterOfEndorsement')
             ->first();
 
-        $subprojectCommodities = SubprojectCommodity::where('subprojectId', $id)
-            ->pluck('commodity')
-            ->toArray();
-
-        $allCommodities = ['Mango', 'Onion', 'Goat', 'Peanut', 'Tomato', 'Mungbean', 'Bangus', 'Garlic', 'Coffee', 'Hogs'];
-
         $iPlanChecklists = IplanChecklist::where('iplan_checklists.subprojectId', $id)->first();
         $commodities = [];
         if ($iPlanChecklists) {
@@ -158,8 +152,6 @@ class IBuildController extends Controller
             'subprojectType' => $subprojectType,
             'hasRecords' => $hasRecords,
             'econChecklists' => $econChecklists,
-            'subprojectCommodities' => $subprojectCommodities,
-            'allCommodities' => $allCommodities,
             'iReapChecklists' => $iReapChecklists,
 
             'formattedReviewDateIPlan' => $formattedReviewDateIPlan,
@@ -675,23 +667,6 @@ class IBuildController extends Controller
 
         // Retrieve subproject or fail
         $subproject = Subproject::findOrFail($id);
-
-        $subprojectId = $request->get('subprojectId');
-        $commodities = $request->input('commodities', []);
-
-        // Begin a database transaction
-        DB::transaction(function () use ($subprojectId, $commodities) {
-            // Step 1: Delete all existing commodities for this subproject
-            SubprojectCommodity::where('subprojectId', $subprojectId)->delete();
-
-            // Step 2: Insert the updated commodities
-            foreach ($commodities as $commodity) {
-                SubprojectCommodity::create([
-                    'subprojectId' => $subprojectId,
-                    'commodity' => $commodity,
-                ]);
-            }
-        });
 
         // Parse and sanitize the indicativeCost
         $indicativeCost = $request->input('indicativeCost', null);

@@ -31,7 +31,7 @@
                                         class="dark:text-red-500">*</span></label>
                                 <input
                                     class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 py-1 px-2"
-                                    type="file" name="kmzFile" id="kmzFile">
+                                    type="file" name="kmzFile" id="fileInput" accept=".kmz">
                                 @if ($errors->has('kmzFile'))
                                 <div class="text-red-600 mt-2 mb-2">
                                     {{ $errors->first('kmzFile') }}
@@ -68,6 +68,8 @@
                                 @endif
                             </div>
                         </div>
+
+                        <div id="map" style="width: 100%; height: 500px; margin-top: 20px; border: 1px solid #ccc;"></div>
 
                         <div class="mb-4">
                             <label for="remarks" class="dark:text-green-600 text-sm md:text-base">Remarks</label>
