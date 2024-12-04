@@ -17,12 +17,10 @@ use App\Models\Province;
 use App\Models\SesChecklist;
 use App\Models\SesRequirements;
 use App\Models\Subproject;
-use App\Models\SubprojectCommodity;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class IBuildController extends Controller
 {
@@ -294,7 +292,7 @@ class IBuildController extends Controller
                 'maximumFloodLevel' => $maximumFloodLevel,
                 'vcriAccreditedDistance' => $vcriAccreditedDistance,
             ]);
-        } elseif (in_array($projectType, ['FMR', 'Bridge'])) {
+        } elseif (in_array($projectType, ['FMR', 'Bridge', 'FMB'])) {
             $connectedAllWeather = $request->get('connectedAllWeather', null);
             $accessibility = $request->get('accessibility', null);
             $maximumFloodLevel = $request->get('maximumFloodLevel', null);
@@ -527,7 +525,7 @@ class IBuildController extends Controller
 
                 Subproject::where('id', $subprojectId)->update(['iBUILD' => 'OK']);
             }
-        } elseif (in_array($projectType, ['FMR', 'Bridge'])) {
+        } elseif (in_array($projectType, ['FMR', 'Bridge', 'FMB'])) {
             $checklist = IbuildFmrBridgeChecklist::where('subprojectId', $subprojectId)->first();
 
             $connectedAllWeather = $request->get('connectedAllWeather', null);

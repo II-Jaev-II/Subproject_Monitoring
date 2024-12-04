@@ -34,6 +34,8 @@ return new class extends Migration
             $table->string('compositeIndexCoffee')->nullable();
             $table->string('evsaRankHogs')->nullable();
             $table->string('compositeIndexHogs')->nullable();
+            $table->integer('evsaRankOthers')->default(0);
+            $table->decimal('compositeIndexOthers', 8, 4)->default(0.0000);
             $table->integer('userId');
             $table->timestamps();
         });

@@ -46,7 +46,9 @@ optional($rankAndComposite)->compositeIndexGarlic ||
 optional($rankAndComposite)->evsaRankCoffee ||
 optional($rankAndComposite)->compositeIndexCoffee ||
 optional($rankAndComposite)->evsaRankHogs ||
-optional($rankAndComposite)->compositeIndexHogs))
+optional($rankAndComposite)->compositeIndexHogs || 
+optional($rankAndComposite)->evsaRankOthers ||
+optional($rankAndComposite)->compositeIndexOthers))
 <div class="mb-4">
     <div class="grid grid-cols-2 gap-2">
         @if (!empty($rankAndComposite->evsaRankMango))

@@ -13,7 +13,7 @@
                         enctype="multipart/form-data">
                         @csrf
 
-                        @if ($subprojectType === 'Bridge' || $subprojectType === 'FMR')
+                        @if ($subprojectType === 'Bridge' || $subprojectType === 'FMR' || $subprojectType === 'FMB')
                         @include('ibuild.components.edit-bridge-fmr-checklist')
                         @elseif ($subprojectType === 'VCRI')
                         @include('ibuild.components.edit-vcri-checklist')

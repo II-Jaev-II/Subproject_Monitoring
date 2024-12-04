@@ -1,4 +1,4 @@
-@if ($subprojectType === 'Bridge' || $subprojectType === 'FMR')
+@if ($subprojectType === 'Bridge' || $subprojectType === 'FMR' || $subprojectType === 'FMB')
     <div class="flex items-center space-x-4 mb-2">
         <label for="reviewDate" class="dark:text-lime-500 text-sm md:text-base">Date of Review</label>
         <input type="text" value="{{ $formattedReviewDateIBuildFmrBridge }}"

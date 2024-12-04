@@ -33,6 +33,8 @@ class IplanRankAndComposite extends Model
         'compositeIndexCoffee',
         'evsaRankHogs',
         'compositeIndexHogs',
+        'evsaRankOthers',
+        'compositeIndexOthers',
         'userId',
     ];
 

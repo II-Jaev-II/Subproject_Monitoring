@@ -112,7 +112,7 @@
                                         selected>Select a project type</option>
                                     <option value="FMR" {{ old('projectType') == 'FMR' ? 'selected' : '' }}>FMR
                                     </option>
-                                    <option value="FMB" {{ old('projectType') == 'FMB' ? 'selected' : '' }}>FMB
+                                    <option value="FMB" {{ old('projectType') == 'FMB' ? 'selected' : '' }}>FMR with Bridge
                                     </option>
                                     <option value="Bridge" {{ old('projectType') == 'Bridge' ? 'selected' : '' }}>
                                         Bridge</option>

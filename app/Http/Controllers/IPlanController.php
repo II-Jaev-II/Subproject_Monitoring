@@ -177,7 +177,7 @@ class IPlanController extends Controller
 
         $selectedCommodities = IplanCommodity::where('checklistId', $checklistId)->pluck('commodityName')->toArray();
 
-        $allCommodities = ['Mango', 'Onion', 'Goat', 'Peanut', 'Tomato', 'Mungbean', 'Bangus', 'Garlic', 'Coffee', 'Hogs'];
+        $allCommodities = ['Mango', 'Onion', 'Goat', 'Peanut', 'Tomato', 'Mungbean', 'Bangus', 'Garlic', 'Coffee', 'Hogs', 'Others'];
 
         $commodities = array_filter($allCommodities, function ($commodity) use ($selectedCommodities) {
             return in_array($commodity, $selectedCommodities);
@@ -240,39 +240,49 @@ class IPlanController extends Controller
             }
         }
 
+        // Default iPLAN value
         $iPLANValue = 'OK';
 
-        $linkedVca = $request->get('linkedVca', $subproject->linkedVca);
-        $pcip = $request->get('pcip', $subproject->pcip);
-
-        $checklist = IplanChecklist::where('subprojectId', $subproject->id)->first();
-        if ($checklist && !empty($checklist->justificationFile)) {
-            $iPLANValue = 'OK';
-        } elseif ($linkedVca === 'No') {
-            $iPLANValue = 'Failed';
-        } elseif ($pcip === 'No') {
+        // Check linked VCA and PCIP conditions
+        $linkedVca = $request->get('linkedVca');
+        $pcip = $request->get('pcip');
+        if ($linkedVca === 'No' || $pcip === 'No') {
             $iPLANValue = 'Failed';
         } else {
+            // Check justification
             $hasJustification = $request->filled('explanation') || isset($paths['justificationFile']);
 
             if ($hasJustification) {
                 $iPLANValue = 'OK';
             } else {
-                $rankCompositeData = [['rank' => $request->get('evsaRankMango'), 'index' => $request->get('compositeIndexMango')], ['rank' => $request->get('evsaRankOnion'), 'index' => $request->get('compositeIndexOnion')], ['rank' => $request->get('evsaRankGoat'), 'index' => $request->get('compositeIndexGoat')], ['rank' => $request->get('evsaRankPeanut'), 'index' => $request->get('compositeIndexPeanut')], ['rank' => $request->get('evsaRankTomato'), 'index' => $request->get('compositeIndexTomato')], ['rank' => $request->get('evsaRankMungbean'), 'index' => $request->get('compositeIndexMungbean')], ['rank' => $request->get('evsaRankBangus'), 'index' => $request->get('compositeIndexBangus')], ['rank' => $request->get('evsaRankGarlic'), 'index' => $request->get('compositeIndexGarlic')], ['rank' => $request->get('evsaRankCoffee'), 'index' => $request->get('compositeIndexCoffee')], ['rank' => $request->get('evsaRankHogs'), 'index' => $request->get('compositeIndexHogs')]];
+                // Prepare rank-composite index data
+                $rankCompositeData = [
+                    ['rank' => $request->get('evsaRankMango'), 'index' => $request->get('compositeIndexMango')],
+                    ['rank' => $request->get('evsaRankOnion'), 'index' => $request->get('compositeIndexOnion')],
+                    ['rank' => $request->get('evsaRankGoat'), 'index' => $request->get('compositeIndexGoat')],
+                    ['rank' => $request->get('evsaRankPeanut'), 'index' => $request->get('compositeIndexPeanut')],
+                    ['rank' => $request->get('evsaRankTomato'), 'index' => $request->get('compositeIndexTomato')],
+                    ['rank' => $request->get('evsaRankMungbean'), 'index' => $request->get('compositeIndexMungbean')],
+                    ['rank' => $request->get('evsaRankBangus'), 'index' => $request->get('compositeIndexBangus')],
+                    ['rank' => $request->get('evsaRankGarlic'), 'index' => $request->get('compositeIndexGarlic')],
+                    ['rank' => $request->get('evsaRankCoffee'), 'index' => $request->get('compositeIndexCoffee')],
+                    ['rank' => $request->get('evsaRankHogs'), 'index' => $request->get('compositeIndexHogs')],
+                ];
 
+                // Iterate and check conditions
                 foreach ($rankCompositeData as $data) {
                     $evsaRank = $data['rank'];
                     $compositeIndex = $data['index'];
 
+                    // Skip if either rank or index is null
                     if ($evsaRank === null || $compositeIndex === null) {
                         continue;
                     }
 
-                    if ($evsaRank < 10 && $compositeIndex < 0.4) {
-                        $iPLANValue = 'OK';
-                    } elseif ($evsaRank > 10 && $compositeIndex > 0.4) {
+                    // Check Pending condition
+                    if ($evsaRank > 10 && $compositeIndex > 0.4) {
                         $iPLANValue = 'Pending';
-                        break;
+                        break; // Stop further checks once Pending condition is met
                     }
                 }
             }
@@ -412,6 +422,7 @@ class IPlanController extends Controller
 
         $checklistId = $checklist->id;
 
+        // Handle commodities
         $commodities = $request->input('commodities', []);
         foreach ($commodities as $commodity) {
             IplanCommodity::create([
@@ -421,33 +432,49 @@ class IPlanController extends Controller
             ]);
         }
 
+        // Default iPLAN value
         $iPLANValue = 'OK';
 
+        // Check linked VCA and PCIP conditions
         $linkedVca = $request->get('linkedVca');
         $pcip = $request->get('pcip');
         if ($linkedVca === 'No' || $pcip === 'No') {
             $iPLANValue = 'Failed';
         } else {
+            // Check justification
             $hasJustification = $request->filled('explanation') || isset($paths['justificationFile']);
 
             if ($hasJustification) {
                 $iPLANValue = 'OK';
             } else {
-                $rankCompositeData = [['rank' => $request->get('evsaRankMango'), 'index' => $request->get('compositeIndexMango')], ['rank' => $request->get('evsaRankOnion'), 'index' => $request->get('compositeIndexOnion')], ['rank' => $request->get('evsaRankGoat'), 'index' => $request->get('compositeIndexGoat')], ['rank' => $request->get('evsaRankPeanut'), 'index' => $request->get('compositeIndexPeanut')], ['rank' => $request->get('evsaRankTomato'), 'index' => $request->get('compositeIndexTomato')], ['rank' => $request->get('evsaRankMungbean'), 'index' => $request->get('compositeIndexMungbean')], ['rank' => $request->get('evsaRankBangus'), 'index' => $request->get('compositeIndexBangus')], ['rank' => $request->get('evsaRankGarlic'), 'index' => $request->get('compositeIndexGarlic')], ['rank' => $request->get('evsaRankCoffee'), 'index' => $request->get('compositeIndexCoffee')], ['rank' => $request->get('evsaRankHogs'), 'index' => $request->get('compositeIndexHogs')]];
+                // Prepare rank-composite index data
+                $rankCompositeData = [
+                    ['rank' => $request->get('evsaRankMango'), 'index' => $request->get('compositeIndexMango')],
+                    ['rank' => $request->get('evsaRankOnion'), 'index' => $request->get('compositeIndexOnion')],
+                    ['rank' => $request->get('evsaRankGoat'), 'index' => $request->get('compositeIndexGoat')],
+                    ['rank' => $request->get('evsaRankPeanut'), 'index' => $request->get('compositeIndexPeanut')],
+                    ['rank' => $request->get('evsaRankTomato'), 'index' => $request->get('compositeIndexTomato')],
+                    ['rank' => $request->get('evsaRankMungbean'), 'index' => $request->get('compositeIndexMungbean')],
+                    ['rank' => $request->get('evsaRankBangus'), 'index' => $request->get('compositeIndexBangus')],
+                    ['rank' => $request->get('evsaRankGarlic'), 'index' => $request->get('compositeIndexGarlic')],
+                    ['rank' => $request->get('evsaRankCoffee'), 'index' => $request->get('compositeIndexCoffee')],
+                    ['rank' => $request->get('evsaRankHogs'), 'index' => $request->get('compositeIndexHogs')],
+                ];
 
+                // Iterate and check conditions
                 foreach ($rankCompositeData as $data) {
                     $evsaRank = $data['rank'];
                     $compositeIndex = $data['index'];
 
+                    // Skip if either rank or index is null
                     if ($evsaRank === null || $compositeIndex === null) {
                         continue;
                     }
 
-                    if ($evsaRank < 10 && $compositeIndex < 0.4) {
-                        $iPLANValue = 'OK';
-                    } elseif ($evsaRank > 10 && $compositeIndex > 0.4) {
+                    // Check Pending condition
+                    if ($evsaRank > 10 && $compositeIndex > 0.4) {
                         $iPLANValue = 'Pending';
-                        break;
+                        break; // Stop further checks once Pending condition is met
                     }
                 }
             }

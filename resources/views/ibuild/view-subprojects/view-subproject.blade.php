@@ -15,7 +15,7 @@
             <div class="bg-white border border-gray-300 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="flex justify-between items-center mb-4">
-                        <h1 class="dark:text-lime-500 text-xl">Clearances for Validation</h1>
+                        <h1 class="dark:text-lime-500 text-xl">Validation Results</h1>
                     </div>
                     <div class="overflow-x-auto rounded-md">
                         @include('ibuild.view-subprojects.clearances-table')
