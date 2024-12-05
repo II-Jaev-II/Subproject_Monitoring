@@ -25,7 +25,18 @@
                             @endif
                         </div>
 
-
+                        <div class="mb-4">
+                            <label for="econReport" class="dark:text-green-600 text-sm md:text-base">Report <span
+                                    class="dark:text-red-500">*</span></label>
+                            <input
+                                class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-1/4 mt-1 py-1 px-2"
+                                type="file" name="econReport" id="econReport">
+                            @if ($errors->has('econReport'))
+                            <div class="text-red-600 mt-2 mb-2">
+                                {{ $errors->first('econReport') }}
+                            </div>
+                            @endif
+                        </div>
 
                         <div class="mb-4">
                             <label for="summary" class="dark:text-green-600 text-sm md:text-base">Summary <span

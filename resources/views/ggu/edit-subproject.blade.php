@@ -26,9 +26,9 @@
                             <input type="date" name="reviewDate" id="reviewDate" value="{{ old('reviewDate') }}"
                                 class="dark:bg-gray-900 rounded-md dark:[color-scheme:dark]">
                             @if ($errors->has('reviewDate'))
-                                <div class="text-red-600 mt-2 mb-2">
-                                    {{ $errors->first('reviewDate') }}
-                                </div>
+                            <div class="text-red-600 mt-2 mb-2">
+                                {{ $errors->first('reviewDate') }}
+                            </div>
                             @endif
                         </div>
 
@@ -44,7 +44,7 @@
                                             height="22">
                                     </button>
 
-                                    <input id="kmzFileInput" type="file" name="kmzFile" x-show="showFileInput"
+                                    <input type="file" name="kmzFile" id="fileInput" accept=".kmz" x-show="showFileInput"
                                         class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded-md w-full"
                                         style="display: none;">
 
@@ -92,14 +92,16 @@
                                     @if ($gguChecklist->ggu === 'OK')
                                     @elseif ($gguChecklist->ggu === 'Failed')
                                     @else
-                                        <option value="OK" {{ old('status') == 'OK' ? 'selected' : '' }}>Passed
-                                        </option>
-                                        <option value="Failed" {{ old('status') == 'Failed' ? 'selected' : '' }}>Failed
-                                        </option>
+                                    <option value="OK" {{ old('status') == 'OK' ? 'selected' : '' }}>Passed
+                                    </option>
+                                    <option value="Failed" {{ old('status') == 'Failed' ? 'selected' : '' }}>Failed
+                                    </option>
                                     @endif
                                 </select>
                             </div>
                         </div>
+
+                        <div id="map" style="width: 100%; height: 500px; margin-top: 20px; border: 1px solid #ccc;"></div>
 
                         <div class="mb-4 mt-4">
                             <label for="remarks" class="dark:text-green-600 text-sm md:text-base">Remarks</label>
@@ -118,4 +120,5 @@
                 </div>
             </div>
         </div>
+        <script src="{{ asset('js/leaflet.js') }}"></script>
 </x-app-layout>

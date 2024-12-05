@@ -222,12 +222,33 @@ class EconController extends Controller
         $user = Auth::user();
         $request->validated();
 
+        $fileFields = [
+            'econReport' => 'uploadedFiles/econReport',
+        ];
+
+        $paths = [];
+
+        foreach ($fileFields as $field => $basePath) {
+            if (!file_exists($basePath)) {
+                mkdir($basePath, 0755, true);
+            }
+
+            if ($request->hasFile($field)) {
+                $file = $request->file($field);
+                $extension = $file->getClientOriginalExtension();
+                $filename = time() . '.' . $extension;
+                $file->move($basePath, $filename);
+                $paths[$field] = $basePath . '/' . $filename;
+            }
+        }
+
         EconChecklist::create([
             'userId' => $user->id,
             'subprojectId' => $request->get('subprojectId'),
             'reviewDate' => $request->get('reviewDate'),
             'summary' => $request->get('summary'),
             'status' => $request->get('status'),
+            'econReport' => $paths['econReport'],
         ]);
 
         $subprojectId = $request->get('subprojectId');

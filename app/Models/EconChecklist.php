@@ -16,6 +16,7 @@ class EconChecklist extends Model
         'reviewDate',
         'summary',
         'status',
+        'econReport',
     ];
 
     use HasFactory;

@@ -25,6 +25,7 @@ class StoreEconChecklistRequest extends FormRequest
             'reviewDate' => 'required',
             'summary' => 'required',
             'status' => 'required',
+            'econReport' => 'file|mimes:pdf,docx,jpg,png',
         ];
     }
 
@@ -34,6 +35,7 @@ class StoreEconChecklistRequest extends FormRequest
             'reviewDate.required' => 'Please select the date of review.',
             'summary.required' => 'Please enter an input in summary field.',
             'status.required' => 'Please select a status.',
+            'econReport.mimes' => 'DOCX, PDD, JPG & PNG are the only supported file types.',
         ];
     }
 }
