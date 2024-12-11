@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\IplanChecklist;
 use App\Models\Subproject;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
 
@@ -19,9 +21,41 @@ class WordController extends Controller
             ->join('ses_checklists', 'subprojects.id', '=', 'ses_checklists.subprojectId')
             ->join('econ_checklists', 'subprojects.id', '=', 'econ_checklists.subprojectId')
             ->join('ggu_checklists', 'subprojects.id', '=', 'ggu_checklists.subprojectId')
-            ->select('subprojects.*', 'subprojects.letterOfRequest', 'subprojects.letterOfEndorsement', 'provinces.province_name', 'municipalities.municipality_name', 'barangays.barangay_name', 'iplan_checklists.recommendation', 'iplan_checklists.generalRecommendation', 'econ_checklists.summary', 'ggu_checklists.remarks', 'ses_checklists.reason', 'ses_checklists.requirementCompliance', 'ses_checklists.cleared', 'ses_checklists.socialAssesment', 'ses_checklists.environmentalAssesment')
+            ->select('subprojects.*', 'subprojects.letterOfRequest', 'subprojects.letterOfEndorsement', 'provinces.province_name', 'municipalities.municipality_name', 'barangays.barangay_name', 'iplan_checklists.linkedVca', 'iplan_checklists.opportunity', 'iplan_checklists.specificIntervention', 'iplan_checklists.pageVca', 'iplan_checklists.pcip', 'iplan_checklists.page', 'iplan_checklists.recommendation', 'iplan_checklists.generalRecommendation', 'econ_checklists.summary', 'ggu_checklists.remarks', 'ses_checklists.reason', 'ses_checklists.requirementCompliance', 'ses_checklists.cleared', 'ses_checklists.socialAssesment', 'ses_checklists.environmentalAssesment')
             ->where('subprojects.id', $id)
             ->first();
+
+        $commodities = IplanChecklist::join('iplan_commodities', 'iplan_checklists.id', '=', 'iplan_commodities.checklistId')
+            ->select('iplan_commodities.commodityName')
+            ->where('iplan_checklists.subprojectId', $id)
+            ->get();
+
+        $rankAndCompositeData = [];
+        foreach ($commodities as $commodity) {
+            $commodityName = $commodity->commodityName;
+
+            if (strtolower($commodityName) === 'others') {
+                $rankAndCompositeData[] = [
+                    'commodity' => $commodityName,
+                    'rank' => 'N/A',
+                    'index' => 'N/A'
+                ];
+                continue;
+            }
+
+            $rankColumn = 'evsaRank' . ucfirst($commodityName);
+            $indexColumn = 'compositeIndex' . ucfirst($commodityName);
+
+            $rankAndComposite = DB::table('iplan_rank_and_composites')
+                ->select($rankColumn, $indexColumn)
+                ->first();
+
+            $rankAndCompositeData[] = [
+                'commodity' => $commodityName,
+                'rank' => $rankAndComposite->$rankColumn ?? 'N/A',
+                'index' => $rankAndComposite->$indexColumn ?? 'N/A'
+            ];
+        }
 
         $phpWord = new PhpWord();
 
@@ -238,11 +272,188 @@ class WordController extends Controller
 
         // Add "IPLAN" positioned to the left
         $cell->addText(
-            'IPLAN',
+            'IPLAN Validation',
             [
                 'name' => 'Times New Roman',
                 'size' => 12,
                 'bold' => true,
+            ],
+            [
+                'alignment' => 'left',
+            ]
+        );
+
+        // Create a table below IPLAN
+        $table = $cell->addTable([
+            'borderSize' => 6,
+            'borderColor' => '000000',
+            'alignment' => 'center',
+            'cellMargin' => 50,
+        ]);
+
+        // Add table headers
+        $table->addRow();
+        $table->addCell(4000)->addText(
+            'Commodity',
+            ['name' => 'Times New Roman', 'size' => 12, 'bold' => true],
+            ['alignment' => 'center']
+        );
+        $table->addCell(3000)->addText(
+            'E-VSA Rank',
+            ['name' => 'Times New Roman', 'size' => 12, 'bold' => true],
+            ['alignment' => 'center']
+        );
+        $table->addCell(3000)->addText(
+            'Composite Index',
+            ['name' => 'Times New Roman', 'size' => 12, 'bold' => true],
+            ['alignment' => 'center']
+        );
+
+        foreach ($rankAndCompositeData as $data) {
+            $table->addRow();
+            $table->addCell(4000)->addText($data['commodity'], ['name' => 'Times New Roman', 'size' => 11]);
+            $table->addCell(3000)->addText($data['rank'], ['name' => 'Times New Roman', 'size' => 11]);
+            $table->addCell(3000)->addText($data['index'], ['name' => 'Times New Roman', 'size' => 11]);
+        }
+
+        // Add "Linked to VCA" positioned to the left
+        $cell->addText(
+            'Linked to VCA?',
+            [
+                'name' => 'Times New Roman',
+                'size' => 12,
+                'bold' => true,
+            ],
+            [
+                'alignment' => 'left',
+                'spaceBefore' => 300,
+            ]
+        );
+        $cell->addText(
+            '- ' . $subprojectData->linkedVca,
+            [
+                'name' => 'Times New Roman',
+                'size' => 11
+            ],
+            [
+                'alignment' => 'left',
+            ]
+        );
+
+        // Add "Opportunity or Constraint Being Addressed" positioned to the left
+        $cell->addText(
+            'Opportunity or Constraint Being Addressed',
+            [
+                'name' => 'Times New Roman',
+                'size' => 12,
+                'bold' => true,
+            ],
+            [
+                'alignment' => 'left',
+                'spaceBefore' => 300,
+            ]
+        );
+        $cell->addText(
+            '- ' . $subprojectData->opportunity,
+            [
+                'name' => 'Times New Roman',
+                'size' => 11
+            ],
+            [
+                'alignment' => 'left',
+            ]
+        );
+
+        // Add "Specific Intervention" positioned to the left
+        $cell->addText(
+            'Specific Intervention',
+            [
+                'name' => 'Times New Roman',
+                'size' => 12,
+                'bold' => true,
+            ],
+            [
+                'alignment' => 'left',
+                'spaceBefore' => 300,
+            ]
+        );
+        $cell->addText(
+            '- ' . $subprojectData->specificIntervention,
+            [
+                'name' => 'Times New Roman',
+                'size' => 11
+            ],
+            [
+                'alignment' => 'left',
+            ]
+        );
+
+        // Add "Page of VCA" positioned to the left
+        $cell->addText(
+            'Page of VCA',
+            [
+                'name' => 'Times New Roman',
+                'size' => 12,
+                'bold' => true,
+            ],
+            [
+                'alignment' => 'left',
+                'spaceBefore' => 300,
+            ]
+        );
+        $cell->addText(
+            '- ' . $subprojectData->pageVca,
+            [
+                'name' => 'Times New Roman',
+                'size' => 11
+            ],
+            [
+                'alignment' => 'left',
+            ]
+        );
+
+        // Add "Linked to PCIP" positioned to the left
+        $cell->addText(
+            'Linked to PCIP?',
+            [
+                'name' => 'Times New Roman',
+                'size' => 12,
+                'bold' => true,
+            ],
+            [
+                'alignment' => 'left',
+                'spaceBefore' => 300,
+            ]
+        );
+        $cell->addText(
+            '- ' . $subprojectData->pcip,
+            [
+                'name' => 'Times New Roman',
+                'size' => 11
+            ],
+            [
+                'alignment' => 'left',
+            ]
+        );
+
+        // Add "Page of Matrix" positioned to the left
+        $cell->addText(
+            'Page of Matrix',
+            [
+                'name' => 'Times New Roman',
+                'size' => 12,
+                'bold' => true,
+            ],
+            [
+                'alignment' => 'left',
+                'spaceBefore' => 300,
+            ]
+        );
+        $cell->addText(
+            '- ' . $subprojectData->page,
+            [
+                'name' => 'Times New Roman',
+                'size' => 11
             ],
             [
                 'alignment' => 'left',
@@ -273,6 +484,8 @@ class WordController extends Controller
                 'spaceBefore' => 300,
             ]
         );
+
+        // Add "General Recommendations" positioned to the left
         $cell->addText(
             'General Recommendations',
             [

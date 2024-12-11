@@ -19,6 +19,7 @@ class IplanChecklist extends Model
         'opportunity',
         'specificIntervention',
         'pageMatrixVca',
+        'pageVca',
         'page',
         'pcip',
         'pageMatrixPcip',

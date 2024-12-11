@@ -46,7 +46,7 @@ optional($rankAndComposite)->compositeIndexGarlic ||
 optional($rankAndComposite)->evsaRankCoffee ||
 optional($rankAndComposite)->compositeIndexCoffee ||
 optional($rankAndComposite)->evsaRankHogs ||
-optional($rankAndComposite)->compositeIndexHogs || 
+optional($rankAndComposite)->compositeIndexHogs ||
 optional($rankAndComposite)->evsaRankOthers ||
 optional($rankAndComposite)->compositeIndexOthers))
 <div class="mb-4">
@@ -299,12 +299,20 @@ optional($rankAndComposite)->compositeIndexOthers))
                 class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1"
                 value="{{ $iPlanChecklists->specificIntervention }}" readonly>
         </div>
-        <div>
-            <label for="pageMatrixVca" class="dark:text-green-600 text-sm md:text-base">Page of VCA</label>
-            <a class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-green-500 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2 w-fit mt-1"
-                href="{{ asset($iPlanChecklists->pageMatrixVca) }}" target="_blank">
-                <img src="/images/file-earmark-text.svg" alt="Save" width="22" height="22">View
-                File</a>
+        <div class="flex flex-wrap items-center gap-4 mt-2">
+            <div class="flex flex-col md:flex-row items-center gap-2">
+                <label for="pageMatrixVca" class="dark:text-green-600 text-sm md:text-base">Page of VCA</label>
+                <a class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-green-500 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2 w-fit"
+                    href="{{ asset($iPlanChecklists->pageMatrixVca) }}" target="_blank">
+                    <img src="/images/file-earmark-text.svg" alt="Save" width="22" height="22">View
+                    File</a>
+            </div>
+            <div class="flex flex-col md:flex-row items-center gap-2">
+                <label for="pageVca" class="dark:text-green-600 text-sm md:text-base">Page</label>
+                <input
+                    class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-32 py-1 px-2"
+                    value="{{ $iPlanChecklists->pageVca }}" readonly>
+            </div>
         </div>
         @endif
     </div>
@@ -325,17 +333,19 @@ optional($rankAndComposite)->compositeIndexOthers))
         </div>
     </div>
     @if (isset($iPlanChecklists) && ($iPlanChecklists->page || $iPlanChecklists->pageMatrixPcip))
-    <div class="mb-2">
-        <label for="page" class="dark:text-green-600 text-sm md:text-base">Page</label>
-        <input type="text"
-            class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-32 mt-1"
-            value="{{ $iPlanChecklists->page }}" readonly>
-    </div>
-    <div>
-        <label for="pageMatrixPcip" class="dark:text-green-600 text-sm md:text-base">Page of Matrix</label>
-        <a class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-green-500 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2 w-fit mt-1"
-            href="{{ asset($iPlanChecklists->pageMatrixPcip) }}" target="_blank">
-            <img src="/images/file-earmark-text.svg" alt="Save" width="22" height="22">View File</a>
+    <div class="flex flex-wrap items-center gap-4 mt-2">
+        <div class="flex flex-col md:flex-row items-center gap-2">
+            <label for="pageMatrixPcip" class="dark:text-green-600 text-sm md:text-base">Page of Matrix</label>
+            <a class="flex items-center gap-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-green-500 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-3 py-2 w-fit mt-1"
+                href="{{ asset($iPlanChecklists->pageMatrixPcip) }}" target="_blank">
+                <img src="/images/file-earmark-text.svg" alt="Save" width="22" height="22">View File</a>
+        </div>
+        <div class="flex flex-col md:flex-row items-center gap-2">
+            <label for="page" class="dark:text-green-600 text-sm md:text-base">Page</label>
+            <input type="text"
+                class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-32 mt-1"
+                value="{{ $iPlanChecklists->page }}" readonly>
+        </div>
     </div>
     @endif
 </div>

@@ -210,7 +210,8 @@
                             ($checklist->valueChainSegment ||
                             $checklist->opportunity ||
                             $checklist->specificIntervention ||
-                            $checklist->pageMatrixVca))
+                            $checklist->pageMatrixVca ||
+                            $checklist->pageVca))
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
                                 @foreach (['valueChainSegment' => 'Value Chain Segment', 'opportunity' => 'Opportunity or Constraint Being Addressed', 'specificIntervention' => 'Specific Intervention'] as $field => $label)
                                 <div>
@@ -222,31 +223,43 @@
                                         required>
                                 </div>
                                 @endforeach
-                                <div x-data="{ showFileInput: false }" class="">
-                                    <label for="pageMatrixVcaInput" class="dark:text-green-600 text-sm md:text-base">Page of VCA</label>
-                                    <div class="flex items-center mt-1 rounded-md overflow-hidden">
-                                        <button type="button"
-                                            @click="showFileInput = !showFileInput"
-                                            class="flex items-center justify-center px-3 py-2 bg-blue-400 dark:bg-sky-500 text-gray-700 dark:text-white text-sm font-medium hover:bg-blue-500 dark:hover:bg-sky-600 transition ease-in-out duration-150 h-full">
-                                            <img src="/images/pencil-square.svg" alt="Edit" width="22" height="22">
-                                        </button>
+                                <div class="flex flex-wrap items-center gap-4 mt-2">
+                                    <div x-data="{ showFileInput: false }" class="flex flex-col md:flex-row items-center gap-2">
+                                        <label for="pageMatrixVcaInput" class="dark:text-green-600 text-sm md:text-base">Page of VCA</label>
+                                        <div class="flex items-center mt-1 rounded-md overflow-hidden">
+                                            <button type="button"
+                                                @click="showFileInput = !showFileInput"
+                                                class="flex items-center justify-center px-3 py-2 bg-blue-400 dark:bg-sky-500 text-gray-700 dark:text-white text-sm font-medium hover:bg-blue-500 dark:hover:bg-sky-600 transition ease-in-out duration-150 h-full">
+                                                <img src="/images/pencil-square.svg" alt="Edit" width="22" height="22">
+                                            </button>
 
+                                            <input
+                                                id="pageMatrixVcaInput"
+                                                type="file"
+                                                name="pageMatrixVca"
+                                                x-show="showFileInput"
+                                                class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded-md w-full"
+                                                style="display: none;">
+
+                                            <a
+                                                x-show="!showFileInput"
+                                                class="flex items-center gap-2 border-l px-3 py-2 text-sm font-medium rounded-r-md text-white dark:text-white bg-green-500 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 h-full"
+                                                href="{{ asset($checklist->pageMatrixVca) }}"
+                                                target="_blank">
+                                                <img src="/images/file-earmark-text.svg" alt="Save" width="22" height="22">
+                                                View File
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col md:flex-row items-center gap-2">
+                                        <label for="pageVca" class="dark:text-green-600 text-sm md:text-base">
+                                            Page
+                                        </label>
                                         <input
-                                            id="pageMatrixVcaInput"
-                                            type="file"
-                                            name="pageMatrixVca"
-                                            x-show="showFileInput"
-                                            class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded-md w-full"
-                                            style="display: none;">
-
-                                        <a
-                                            x-show="!showFileInput"
-                                            class="flex items-center gap-2 border-l px-3 py-2 text-sm font-medium rounded-r-md text-white dark:text-white bg-green-500 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 h-full"
-                                            href="{{ asset($checklist->pageMatrixVca) }}"
-                                            target="_blank">
-                                            <img src="/images/file-earmark-text.svg" alt="Save" width="22" height="22">
-                                            View File
-                                        </a>
+                                            class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full md:w-32 mt-1 md:mt-0 py-1 px-2"
+                                            value="{{ $checklist->pageVca ?? old('pageVca') }}" x-ref="pageVca" type="text" name="pageVca"
+                                            id="pageVca" :required="linkedVca.includes('Yes')" step="1" min="0"
+                                            inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                                     </div>
                                     @if ($errors->has('pageMatrixVca'))
                                     <div class="text-red-600 mt-2 mb-2">
@@ -274,24 +287,10 @@
                             </div>
 
                             <div x-cloak x-show="pcip === 'Yes'" x-transition
-                                x-effect="if (!pcip.includes('Yes')) { $refs.page.value = ''; }">
-                                <div class="mb-2">
-                                    <label for="page" class="dark:text-green-600 text-sm md:text-base">Page</label>
-                                    <input type="text" name="page" id="page"
-                                        class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-32 mt-1 py-1 px-2"
-                                        value="{{ $checklist->page ?? old('page') }}" x-ref="page"
-                                        :required="pcip.includes('Yes')" step="1" min="0"
-                                        inputmode="numeric"
-                                        oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-                                    @if ($errors->has('page'))
-                                    <div class="text-red-600 mt-2 mb-2">
-                                        {{ $errors->first('page') }}
-                                    </div>
-                                    @endif
-                                </div>
+                                x-effect="if (!pcip.includes('Yes')) { $refs.page.value = ''; }" class="flex flex-wrap items-center gap-4 mt-2">
                                 @if ($checklist->pageMatrixPcip)
-                                <div x-data="{ showFileInput: false }">
-                                    <label for="pageMatrixPcipInput" class="dark:text-green-600 text-sm md:text-base">Page of VCA</label>
+                                <div x-data="{ showFileInput: false }" class="flex flex-col md:flex-row items-center gap-2">
+                                    <label for="pageMatrixPcipInput" class="dark:text-green-600 text-sm md:text-base">Page of Matrix</label>
                                     <div class="flex items-center mt-1 rounded-md overflow-hidden">
                                         <button type="button"
                                             @click="showFileInput = !showFileInput"
@@ -304,7 +303,7 @@
                                             type="file"
                                             name="pageMatrixPcip"
                                             x-show="showFileInput"
-                                            class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded-md w-full md:w-1/2"
+                                            class="px-2 py-1 bg-gray-200 dark:bg-gray-700 rounded-md w-full"
                                             style="display: none;">
 
                                         <a
@@ -328,6 +327,20 @@
                                     type="file" name="pageMatrixPcip" id="pageMatrixPcip"
                                     x-bind:required="pcip === 'Yes'">
                                 @endif
+                                <div class="flex flex-col md:flex-row items-center gap-2">
+                                    <label for="page" class="dark:text-green-600 text-sm md:text-base">Page</label>
+                                    <input type="text" name="page" id="page"
+                                        class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-32 mt-1 py-1 px-2"
+                                        value="{{ $checklist->page ?? old('page') }}" x-ref="page"
+                                        :required="pcip.includes('Yes')" step="1" min="0"
+                                        inputmode="numeric"
+                                        oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                                    @if ($errors->has('page'))
+                                    <div class="text-red-600 mt-2 mb-2">
+                                        {{ $errors->first('page') }}
+                                    </div>
+                                    @endif
+                                </div>
                             </div>
                             @if ($errors->has('pcip'))
                             <div class="text-red-600 mt-2 mb-2">
