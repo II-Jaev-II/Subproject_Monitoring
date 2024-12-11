@@ -48,6 +48,9 @@
                     <x-nav-link :href="route('ibuild.subprojects')" :active="request()->routeIs('ibuild.subprojects')">
                         {{ __('Subprojects') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('ibuild.rpab')" :active="request()->routeIs('ibuild.rpab')">
+                        {{ __('RPAB') }}
+                    </x-nav-link>
                     @elseif(auth()->user()->userType === 'IREAP')
                     <x-nav-link :href="route('ireap.dashboard')" :active="request()->routeIs('ireap.dashboard')">
                         {{ __('Dashboard') }}
@@ -74,6 +77,9 @@
                     </x-nav-link>
                     <x-nav-link :href="route('ggu.subprojects')" :active="request()->routeIs('ggu.subprojects')">
                         {{ __('Subprojects') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('ggu.rpab')" :active="request()->routeIs('ggu.rpab')">
+                        {{ __('RPAB') }}
                     </x-nav-link>
                     @elseif(auth()->user()->userType === 'IPLAN')
                     <x-nav-link :href="route('iplan.dashboard')" :active="request()->routeIs('iplan.dashboard')">
@@ -190,6 +196,9 @@
             <x-responsive-nav-link :href="route('ibuild.subprojects')" :active="request()->routeIs('ibuild.subprojects')">
                 {{ __('Subprojects') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('ibuild.rpab')" :active="request()->routeIs('ibuild.rpab')">
+                {{ __('RPAB') }}
+            </x-responsive-nav-link>
             @elseif(auth()->user()->userType === 'IREAP')
             <x-responsive-nav-link :href="route('ireap.dashboard')" :active="request()->routeIs('ireap.dashboard')">
                 {{ __('Dashboard') }}
@@ -216,6 +225,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('ggu.subprojects')" :active="request()->routeIs('ggu.subprojects')">
                 {{ __('Subprojects') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('ggu.rpab')" :active="request()->routeIs('ggu.rpab')">
+                {{ __('RPAB') }}
             </x-responsive-nav-link>
             @elseif(auth()->user()->userType === 'IPLAN')
             <x-responsive-nav-link :href="route('iplan.dashboard')" :active="request()->routeIs('iplan.dashboard')">

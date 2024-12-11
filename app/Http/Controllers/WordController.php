@@ -17,7 +17,9 @@ class WordController extends Controller
             ->join('barangays', 'subprojects.barangay', '=', 'barangays.id')
             ->join('iplan_checklists', 'subprojects.id', '=', 'iplan_checklists.subprojectId')
             ->join('ses_checklists', 'subprojects.id', '=', 'ses_checklists.subprojectId')
-            ->select('subprojects.*', 'subprojects.letterOfRequest', 'subprojects.letterOfEndorsement', 'provinces.province_name', 'municipalities.municipality_name', 'barangays.barangay_name', 'iplan_checklists.recommendation', 'iplan_checklists.generalRecommendation', 'ses_checklists.socialAssesment', 'ses_checklists.environmentalAssesment')
+            ->join('econ_checklists', 'subprojects.id', '=', 'econ_checklists.subprojectId')
+            ->join('ggu_checklists', 'subprojects.id', '=', 'ggu_checklists.subprojectId')
+            ->select('subprojects.*', 'subprojects.letterOfRequest', 'subprojects.letterOfEndorsement', 'provinces.province_name', 'municipalities.municipality_name', 'barangays.barangay_name', 'iplan_checklists.recommendation', 'iplan_checklists.generalRecommendation', 'econ_checklists.summary', 'ggu_checklists.remarks', 'ses_checklists.reason', 'ses_checklists.requirementCompliance', 'ses_checklists.cleared', 'ses_checklists.socialAssesment', 'ses_checklists.environmentalAssesment')
             ->where('subprojects.id', $id)
             ->first();
 
@@ -169,22 +171,6 @@ class WordController extends Controller
             'size' => 11
         ]);
 
-        // Physical Target (sqm)
-        $textRunPhysicalTarget = $generalInfoTable->addCell(5000)->addTextRun();
-        $textRunPhysicalTarget->addText('Physical Target (sqm): ', [
-            'name' => 'Times New Roman',
-            'size' => 11,
-            'bold' => true
-        ]);
-        $textRunPhysicalTarget->addTextBreak();
-        $textRunPhysicalTarget->addText('Sample Data', [
-            'name' => 'Times New Roman',
-            'size' => 11
-        ]);
-
-        // Add another row
-        $generalInfoTable->addRow();
-
         // Category
         $textRunCategory = $generalInfoTable->addCell(5000)->addTextRun();
         $textRunCategory->addText('Category: ', [
@@ -197,6 +183,9 @@ class WordController extends Controller
             'name' => 'Times New Roman',
             'size' => 11
         ]);
+
+        // Add another row
+        $generalInfoTable->addRow();
 
         // Estimated Project Cost
         $textRunEstimatedCost = $generalInfoTable->addCell(5000)->addTextRun();
@@ -216,8 +205,6 @@ class WordController extends Controller
             'size' => 11
         ]);
 
-        // Add another row
-        $generalInfoTable->addRow();
         // Location
         $textRunLocation = $generalInfoTable->addCell(5000)->addTextRun();
         $textRunLocation->addText('Location: ', [
@@ -227,65 +214,6 @@ class WordController extends Controller
         ]);
         $textRunLocation->addTextBreak();
         $textRunLocation->addText($subprojectData->barangay_name . ', ' . $subprojectData->municipality_name . ', ' . $subprojectData->province_name, [
-            'name' => 'Times New Roman',
-            'size' => 11
-        ]);
-
-        // No. of Farming Household & IP Farming Household
-        $textRunNumberHousehold = $generalInfoTable->addCell(5000)->addTextRun();
-        // No. of Farming Household
-        $textRunNumberHousehold->addText('No. of Farming Household: ', [
-            'name' => 'Times New Roman',
-            'size' => 11,
-            'bold' => true
-        ]);
-        $textRunNumberHousehold->addTextBreak();
-        $textRunNumberHousehold->addText('Sample Data', [
-            'name' => 'Times New Roman',
-            'size' => 11
-        ]);
-        // Add a line break between the two sections
-        $textRunNumberHousehold->addTextBreak();
-        // No. of IP Farming Household
-        $textRunNumberHousehold->addText('No. of IP Farming Household: ', [
-            'name' => 'Times New Roman',
-            'size' => 11,
-            'bold' => true
-        ]);
-        $textRunNumberHousehold->addTextBreak();
-        $textRunNumberHousehold->addText('Sampe Data', [
-            'name' => 'Times New Roman',
-            'size' => 11
-        ]);
-
-        // Add new row for Service Areas
-        $row = $generalInfoTable->addRow();
-        $cell = $row->addCell(10000);
-        $cell->getStyle()->setGridSpan(2);
-        $textRunServiceAreas = $cell->addTextRun();
-        $textRunServiceAreas->addText('Service Areas: ', [
-            'name' => 'Times New Roman',
-            'size' => 11,
-            'bold' => true
-        ]);
-        $textRunServiceAreas->addTextBreak();
-        $textRunServiceAreas->addText('Sample Data', [
-            'name' => 'Times New Roman',
-            'size' => 11
-        ]);
-
-        // Add new row for Existence of Registered FCAs in line to the commodity
-        $row = $generalInfoTable->addRow();
-        $cell = $row->addCell(10000);
-        $cell->getStyle()->setGridSpan(2);
-        $textRunFCAs = $cell->addTextRun();
-        $textRunFCAs->addText('Existence of Registered FCAs in line to the commodity: ', [
-            'name' => 'Times New Roman',
-            'size' => 11,
-            'bold' => true
-        ]);
-        $textRunFCAs->addTextBreak();
-        $textRunFCAs->addText('Sample Data', [
             'name' => 'Times New Roman',
             'size' => 11
         ]);
@@ -308,9 +236,9 @@ class WordController extends Controller
             ]
         );
 
-        // Add "Project Description" positioned to the left
+        // Add "IPLAN" positioned to the left
         $cell->addText(
-            'Project Description',
+            'IPLAN',
             [
                 'name' => 'Times New Roman',
                 'size' => 12,
@@ -318,57 +246,6 @@ class WordController extends Controller
             ],
             [
                 'alignment' => 'left',
-                'spaceBefore' => 100,
-            ]
-        );
-
-        // Add "Existence of FCA" positioned to the left
-        $cell->addText(
-            'Existence of FCA',
-            [
-                'name' => 'Times New Roman',
-                'size' => 12,
-                'bold' => true,
-            ],
-            [
-                'alignment' => 'left',
-                'spaceBefore' => 300,
-            ]
-        );
-
-        // Add "Comments/Finding" positioned to the left
-        $cell->addText(
-            'Comments/Findings',
-            [
-                'name' => 'Times New Roman',
-                'size' => 12,
-                'bold' => true,
-            ],
-            [
-                'alignment' => 'left',
-                'spaceBefore' => 300,
-            ]
-        );
-        $cell->addText(
-            $subprojectData->socialAssesment,
-            [
-                'name' => 'Times New Roman',
-                'size' => 11
-            ],
-            [
-                'alignment' => 'left',
-                'spaceBefore' => 300,
-            ]
-        );
-        $cell->addText(
-            $subprojectData->environmentalAssesment,
-            [
-                'name' => 'Times New Roman',
-                'size' => 11
-            ],
-            [
-                'alignment' => 'left',
-                'spaceBefore' => 300,
             ]
         );
 
@@ -397,7 +274,181 @@ class WordController extends Controller
             ]
         );
         $cell->addText(
+            'General Recommendations',
+            [
+                'name' => 'Times New Roman',
+                'size' => 12,
+                'bold' => true,
+            ],
+            [
+                'alignment' => 'left',
+                'spaceBefore' => 300,
+            ]
+        );
+        $cell->addText(
             $subprojectData->generalRecommendation,
+            [
+                'name' => 'Times New Roman',
+                'size' => 11
+            ],
+            [
+                'alignment' => 'left',
+                'spaceBefore' => 300,
+            ]
+        );
+
+        // Add "ECON" positioned to the left
+        $cell->addText(
+            'ECON',
+            [
+                'name' => 'Times New Roman',
+                'size' => 12,
+                'bold' => true,
+            ],
+            [
+                'alignment' => 'left',
+            ]
+        );
+
+        $cell->addText(
+            'Summary',
+            [
+                'name' => 'Times New Roman',
+                'size' => 12,
+                'bold' => true,
+            ],
+            [
+                'alignment' => 'left',
+                'spaceBefore' => 300,
+            ]
+        );
+        $cell->addText(
+            $subprojectData->summary,
+            [
+                'name' => 'Times New Roman',
+                'size' => 11
+            ],
+            [
+                'alignment' => 'left',
+                'spaceBefore' => 300,
+            ]
+        );
+
+        // Add "GGU" positioned to the left
+        $cell->addText(
+            'GGU',
+            [
+                'name' => 'Times New Roman',
+                'size' => 12,
+                'bold' => true,
+            ],
+            [
+                'alignment' => 'left',
+            ]
+        );
+
+        $cell->addText(
+            'Remarks',
+            [
+                'name' => 'Times New Roman',
+                'size' => 12,
+                'bold' => true,
+            ],
+            [
+                'alignment' => 'left',
+                'spaceBefore' => 300,
+            ]
+        );
+        $cell->addText(
+            $subprojectData->remarks,
+            [
+                'name' => 'Times New Roman',
+                'size' => 11
+            ],
+            [
+                'alignment' => 'left',
+                'spaceBefore' => 300,
+            ]
+        );
+
+        // Add "SES" positioned to the left
+        $cell->addText(
+            'SES',
+            [
+                'name' => 'Times New Roman',
+                'size' => 12,
+                'bold' => true,
+            ],
+            [
+                'alignment' => 'left',
+            ]
+        );
+
+        // Add "Comments/Finding" positioned to the left
+        $cell->addText(
+            'Comments/Findings',
+            [
+                'name' => 'Times New Roman',
+                'size' => 12,
+                'bold' => true,
+            ],
+            [
+                'alignment' => 'left',
+                'spaceBefore' => 300,
+            ]
+        );
+        $cell->addText(
+            $subprojectData->cleared,
+            [
+                'name' => 'Times New Roman',
+                'size' => 11
+            ],
+            [
+                'alignment' => 'left',
+                'spaceBefore' => 300,
+            ]
+        );
+
+        // Add "Social Assessment" positioned to the left
+        $cell->addText(
+            'Social Assessment',
+            [
+                'name' => 'Times New Roman',
+                'size' => 12,
+                'bold' => true,
+            ],
+            [
+                'alignment' => 'left',
+                'spaceBefore' => 300,
+            ]
+        );
+        $cell->addText(
+            $subprojectData->socialAssesment,
+            [
+                'name' => 'Times New Roman',
+                'size' => 11
+            ],
+            [
+                'alignment' => 'left',
+                'spaceBefore' => 300,
+            ]
+        );
+
+        // Add "Environmental Assessment" positioned to the left
+        $cell->addText(
+            'Environmental Assessment',
+            [
+                'name' => 'Times New Roman',
+                'size' => 12,
+                'bold' => true,
+            ],
+            [
+                'alignment' => 'left',
+                'spaceBefore' => 300,
+            ]
+        );
+        $cell->addText(
+            $subprojectData->environmentalAssesment,
             [
                 'name' => 'Times New Roman',
                 'size' => 11

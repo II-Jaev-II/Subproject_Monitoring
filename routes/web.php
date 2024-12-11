@@ -5,6 +5,7 @@ use App\Http\Controllers\ChecklistController;
 use App\Http\Controllers\DynamicAddressController;
 use App\Http\Controllers\EconController;
 use App\Http\Controllers\GGUController;
+use App\Http\Controllers\GGURpabController;
 use App\Http\Controllers\IBuildController;
 use App\Http\Controllers\IPlanController;
 use App\Http\Controllers\IReapController;
@@ -34,6 +35,7 @@ Route::middleware(['auth', 'userType:ADMIN'])->group(function () {
 Route::middleware(['auth', 'userType:IBUILD'])->group(function () {
     Route::get('/ibuild/dashboard', [IBuildController::class, 'index'])->name('ibuild.dashboard');
     Route::get('/ibuild/subprojects', [IBuildController::class, 'show'])->name('ibuild.subprojects');
+    Route::get('/ibuild/rpab', [IBuildController::class, 'showRpab'])->name('ibuild.rpab');
     Route::get('/ibuild/clearances', [IBuildController::class, 'showClearances'])->name('ibuild.clearances');
     Route::get('/ibuild/view-subproject/{id}', [IBuildController::class, 'view'])->name('ibuild.view-subproject');
     Route::get('/ibuild/edit-subproject/{id}', [IBuildController::class, 'edit'])->name('ibuild.edit-subproject');
@@ -81,12 +83,16 @@ Route::middleware(['auth', 'userType:SES'])->group(function () {
 Route::middleware(['auth', 'userType:GGU'])->group(function () {
     Route::get('/ggu/dashboard', [GGUController::class, 'index'])->name('ggu.dashboard');
     Route::get('/ggu/subprojects', [GGUController::class, 'show'])->name('ggu.subprojects');
+    Route::get('/ggu/rpab', [GGUController::class, 'showRpab'])->name('ggu.rpab');
     Route::get('/ggu/clearances', [GGUController::class, 'showClearances'])->name('ggu.clearances');
     Route::get('/ggu/view-subproject/{id}', [GGUController::class, 'view'])->name('ggu.view-subproject');
     Route::get('/ggu/edit-subproject/{id}', [GGUController::class, 'edit'])->name('ggu.edit-subproject');
     Route::post('/ggu/update-subproject/{id}', [GGUController::class, 'update'])->name('ggu.update-subproject');
     Route::get('/ggu/validate-subprojects/{id}', [GGUController::class, 'validateSubproject'])->name('ggu.validate-subprojects');
     Route::post('/ggu/store-subproject', [GGUController::class, 'store'])->name('ggu.store-subproject');
+
+    Route::get('/ggu/view-rpab-subproject', [GGURpabController::class, 'view'])->name('ggu.view-rpab-subproject');
+    Route::get('/ggu/rpab-validate-subproject/{id}', [GGURpabController::class, 'validateSubproject'])->name('ggu.rpab-validate-subproject');
 });
 
 Route::middleware(['auth', 'userType:IREAP'])->group(function () {

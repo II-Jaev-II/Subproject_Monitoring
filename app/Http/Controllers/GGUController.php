@@ -164,6 +164,11 @@ class GGUController extends Controller
         ]);
     }
 
+    public function showRpab()
+    {
+        return view('ggu.rpab');
+    }
+
     public function validateSubproject($id)
     {
         $subproject = Subproject::findOrFail($id);

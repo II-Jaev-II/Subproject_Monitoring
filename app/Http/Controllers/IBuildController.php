@@ -382,11 +382,7 @@ class IBuildController extends Controller
      */
     public function show()
     {
-        $subprojects = Subproject::all();
-
-        return view('ibuild.subprojects', [
-            'subprojects' => $subprojects,
-        ]);
+        return view('ibuild.subprojects');
     }
 
     public function showClearances()
@@ -396,6 +392,11 @@ class IBuildController extends Controller
         return view('ibuild.clearances.clearances', [
             'subprojects' => $subprojects,
         ]);
+    }
+
+    public function showRpab()
+    {
+        return view('ibuild.rpab');
     }
 
     /**
