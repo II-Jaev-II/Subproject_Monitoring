@@ -32,6 +32,7 @@ class Subproject extends Model
         'inactiveDays',
         'userId',
         'iREAP',
+        'subprojectNumber',
     ];
 
     public function scopeSearch($query, $value)

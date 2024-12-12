@@ -21,7 +21,7 @@ class WordController extends Controller
             ->join('ses_checklists', 'subprojects.id', '=', 'ses_checklists.subprojectId')
             ->join('econ_checklists', 'subprojects.id', '=', 'econ_checklists.subprojectId')
             ->join('ggu_checklists', 'subprojects.id', '=', 'ggu_checklists.subprojectId')
-            ->select('subprojects.*', 'subprojects.letterOfRequest', 'subprojects.letterOfEndorsement', 'provinces.province_name', 'municipalities.municipality_name', 'barangays.barangay_name', 'iplan_checklists.linkedVca', 'iplan_checklists.opportunity', 'iplan_checklists.specificIntervention', 'iplan_checklists.pageVca', 'iplan_checklists.pcip', 'iplan_checklists.page', 'iplan_checklists.recommendation', 'iplan_checklists.generalRecommendation', 'econ_checklists.summary', 'ggu_checklists.remarks', 'ses_checklists.reason', 'ses_checklists.requirementCompliance', 'ses_checklists.cleared', 'ses_checklists.socialAssesment', 'ses_checklists.environmentalAssesment')
+            ->select('subprojects.*', 'subprojects.subprojectNumber', 'subprojects.letterOfRequest', 'subprojects.letterOfEndorsement', 'provinces.province_name', 'municipalities.municipality_name', 'barangays.barangay_name', 'iplan_checklists.linkedVca', 'iplan_checklists.opportunity', 'iplan_checklists.specificIntervention', 'iplan_checklists.pageVca', 'iplan_checklists.pcip', 'iplan_checklists.page', 'iplan_checklists.recommendation', 'iplan_checklists.generalRecommendation', 'econ_checklists.summary', 'ggu_checklists.remarks', 'ses_checklists.reason', 'ses_checklists.requirementCompliance', 'ses_checklists.cleared', 'ses_checklists.socialAssesment', 'ses_checklists.environmentalAssesment')
             ->where('subprojects.id', $id)
             ->first();
 
@@ -200,7 +200,7 @@ class WordController extends Controller
             'bold' => true
         ]);
         $textRunSubprojectNo->addTextBreak();
-        $textRunSubprojectNo->addText('Sample Data', [
+        $textRunSubprojectNo->addText($subprojectData->subprojectNumber, [
             'name' => 'Times New Roman',
             'size' => 11
         ]);

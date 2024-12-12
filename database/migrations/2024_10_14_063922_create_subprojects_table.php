@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('subprojects', function (Blueprint $table) {
             $table->id();
+            $table->string('subprojectNumber')->nullable();
             $table->string('proponent');
             $table->string('cluster')->nullable();
             $table->string('region')->nullable();
@@ -26,6 +27,15 @@ return new class extends Migration {
             $table->string('letterOfInterest')->nullable();
             $table->string('letterofRequest')->nullable();
             $table->string('letterofEndorsement')->nullable();
+            $table->string('iPLAN')->nullable();
+            $table->string('iBUILD')->nullable();
+            $table->string('econ')->nullable();
+            $table->string('ses')->nullable();
+            $table->string('ggu')->nullable();
+            $table->string('iREAP')->nullable();
+            $table->integer('total')->default(0)->nullable();
+            $table->integer('inactiveDays')->default(0);
+            $table->integer('last_inactive_incremented')->nullable()->default(0);
             $table->timestamps();
         });
     }

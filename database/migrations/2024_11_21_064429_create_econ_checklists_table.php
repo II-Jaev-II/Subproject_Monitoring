@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('reviewDate');
             $table->text('summary');
             $table->string('status');
+            $table->string('econReport')->nullable();
             $table->timestamps();
 
             $table->foreign('subprojectId')->references('id')->on('subprojects')->onDelete('cascade');

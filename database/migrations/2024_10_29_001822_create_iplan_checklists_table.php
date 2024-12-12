@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->string('opportunity')->nullable();
             $table->string('specificIntervention')->nullable();
             $table->string('pageMatrixVca')->nullable();
+            $table->string('pageVca')->nullable();
             $table->string('pcip')->nullable();
             $table->string('page')->nullable();
             $table->string('pageMatrixPcip')->nullable();

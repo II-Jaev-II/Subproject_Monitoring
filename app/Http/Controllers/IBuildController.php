@@ -21,6 +21,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class IBuildController extends Controller
 {
@@ -204,11 +205,41 @@ class IBuildController extends Controller
             }
         }
 
+        $currentYear = date('Y');
+
+        $provinceId = $request->get('province', '');
+        $province = Province::find($provinceId)->province_name ?? $provinceId;
+
+        $provinceCodes = [
+            'La Union' => 'LU',
+            'Ilocos Sur' => 'ILS',
+            'Ilocos Norte' => 'ILN',
+            'Pangasinan' => 'PG',
+        ];
+
+        $provinceCode = $provinceCodes[$province] ?? strtoupper(substr($province, 0, 2));
+
+        $latestSubproject = Subproject::whereYear('created_at', $currentYear)
+            ->orderBy('id', 'desc')
+            ->first();
+
+        $increment = 1;
+
+        if ($latestSubproject) {
+            if (preg_match('/(\d{5})$/', $latestSubproject->subprojectNumber, $matches)) {
+                $increment = (int)$matches[1] + 1;
+            }
+        }
+
+        $incrementedNumber = str_pad($increment, 5, '0', STR_PAD_LEFT);
+
+        $subprojectNumber = "{$currentYear}-PRDP-{$provinceCode}-{$incrementedNumber}";
+
         Subproject::create([
             'proponent' => $request->get('proponent', ''),
             'cluster' => $request->get('cluster', ''),
             'region' => $request->get('region', ''),
-            'province' => $request->get('province', ''),
+            'province' => $provinceId,
             'municipality' => $request->get('municipality', ''),
             'barangay' => $request->get('barangay', ''),
             'projectName' => $request->get('projectName', ''),
@@ -219,6 +250,7 @@ class IBuildController extends Controller
             'letterOfInterest' => $paths['letterOfInterest'] ?? null,
             'letterOfRequest' => $paths['letterOfRequest'] ?? null,
             'letterOfEndorsement' => $paths['letterOfEndorsement'] ?? null,
+            'subprojectNumber' => $subprojectNumber,
             'userId' => $user->id,
         ]);
 

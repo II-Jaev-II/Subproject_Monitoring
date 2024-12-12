@@ -27,6 +27,11 @@
                 </tr>
             </thead>
             <tbody>
+                @if($subprojects->isEmpty())
+                <tr class="dark:bg-gray-900 dark:border-gray-700 bg-green-700 text-white">
+                    <td colspan="5" class="text-center px-4 py-3 dark:text-white">No Records Found.</td>
+                </tr>
+                @else
                 @foreach ($subprojects as $subproject)
                 <tr class="dark:bg-gray-900 dark:border-gray-700 bg-green-700 text-white">
                     <th scope="row" class="px-4 py-3 dark:text-white">
@@ -91,6 +96,7 @@
                     </td>
                 </tr>
                 @endforeach
+                @endif
             </tbody>
         </table>
     </div>
