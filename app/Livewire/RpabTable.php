@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\RpabStatus;
 use App\Models\Subproject;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -29,23 +30,26 @@ class RpabTable extends Component
                 $query->where(function ($q) {
                     $q->where('projectType', 'VCRI')->where('total', '>', 5);
                 })
-                ->orWhere(function ($q) {
-                    $q->where('projectType', '!=', 'VCRI')->where('total', '=', 5);
-                });
+                    ->orWhere(function ($q) {
+                        $q->where('projectType', '!=', 'VCRI')->where('total', '=', 5);
+                    });
             })
             ->paginate($this->perPage);
 
-        // Update the status flags for the subprojects
-        foreach ($subprojects as $subproject) {
-            $subproject->iBuildStatus = in_array($subproject->iBUILD, ['OK', 'Pending', 'Failed']);
-            $subproject->iPlanStatus = in_array($subproject->iPLAN, ['OK', 'Pending', 'Failed']);
-            $subproject->sesStatus = in_array($subproject->ses, ['OK', 'Pending', 'Failed']);
-            $subproject->gguStatus = in_array($subproject->ggu, ['OK', 'Pending', 'Failed']);
-            $subproject->econStatus = in_array($subproject->econ, ['OK', 'Pending', 'Failed']);
+        $rpabStatuses = RpabStatus::all();
+
+        foreach ($rpabStatuses as $rpabStatus) {
+            $rpabStatus->iBuildStatus = in_array($rpabStatus->iBUILD, ['OK', 'Pending', 'Failed']);
+            $rpabStatus->iPlanStatus = in_array($rpabStatus->iPLAN, ['OK', 'Pending', 'Failed']);
+            $rpabStatus->iReapStatus = in_array($rpabStatus->iREAP, ['OK', 'Pending', 'Failed']);
+            $rpabStatus->sesStatus = in_array($rpabStatus->SES, ['OK', 'Pending', 'Failed']);
+            $rpabStatus->gguStatus = in_array($rpabStatus->GGU, ['OK', 'Pending', 'Failed']);
+            $rpabStatus->econStatus = in_array($rpabStatus->ECON, ['OK', 'Pending', 'Failed']);
         }
 
         return view('livewire.rpab-table', [
             'subprojects' => $subprojects,
+            'rpabStatuses' => $rpabStatuses,
             'userType' => $this->userType,
         ]);
     }

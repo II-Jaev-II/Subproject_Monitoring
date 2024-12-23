@@ -91,6 +91,9 @@
                     <x-nav-link :href="route('iplan.subprojects')" :active="request()->routeIs('iplan.subprojects')">
                         {{ __('Subprojects') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('iplan.rpab')" :active="request()->routeIs('iplan.rpab')">
+                        {{ __('RPAB') }}
+                    </x-nav-link>
                     @elseif(auth()->user()->userType === 'ECON')
                     <x-nav-link :href="route('econ.dashboard')" :active="request()->routeIs('econ.dashboard')">
                         {{ __('Dashboard') }}
@@ -238,6 +241,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('iplan.subprojects')" :active="request()->routeIs('iplan.subprojects')">
                 {{ __('Subprojects') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('iplan.rpab')" :active="request()->routeIs('iplan.rpab')">
+                {{ __('RPAB') }}
             </x-responsive-nav-link>
             @elseif(auth()->user()->userType === 'ECON')
             <x-responsive-nav-link :href="route('econ.dashboard')" :active="request()->routeIs('econ.dashboard')">

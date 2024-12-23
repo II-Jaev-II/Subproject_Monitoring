@@ -1,13 +1,13 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ChecklistController;
 use App\Http\Controllers\DynamicAddressController;
 use App\Http\Controllers\EconController;
 use App\Http\Controllers\GGUController;
 use App\Http\Controllers\GGURpabController;
 use App\Http\Controllers\IBuildController;
 use App\Http\Controllers\IPlanController;
+use App\Http\Controllers\IplanRpabController;
 use App\Http\Controllers\IReapController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SESController;
@@ -50,12 +50,16 @@ Route::middleware(['auth', 'userType:IBUILD'])->group(function () {
 Route::middleware(['auth', 'userType:IPLAN'])->group(function () {
     Route::get('/iplan/dashboard', [IPlanController::class, 'index'])->name('iplan.dashboard');
     Route::get('/iplan/subprojects', [IPlanController::class, 'show'])->name('iplan.subprojects');
+    Route::get('/iplan/rpab', [IPlanController::class, 'showRpab'])->name('iplan.rpab');
     Route::get('/iplan/clearances', [IPlanController::class, 'showClearances'])->name('iplan.clearances');
     Route::get('/iplan/view-subproject/{id}', [IPlanController::class, 'view'])->name('iplan.view-subproject');
     Route::get('/iplan/edit-subproject/{id}', [IPlanController::class, 'edit'])->name('iplan.edit-subproject');
     Route::post('/iplan/update-subproject/{id}', [IPlanController::class, 'update'])->name('iplan.update-subproject');
     Route::get('/iplan/validate-subprojects/{id}', [IPlanController::class, 'validateSubproject'])->name('iplan.validate-subprojects');
     Route::post('/iplan/store-subproject', [IPlanController::class, 'store'])->name('iplan.store-subproject');
+
+    Route::get('/iplan/view-rpab-subproject', [IplanRpabController::class, 'view'])->name('iplan.view-rpab-subproject');
+    Route::get('/iplan/rpab-validate-subproject/{id}', [IplanRpabController::class, 'validateSubproject'])->name('iplan.rpab-validate-subproject');
 });
 
 Route::middleware(['auth', 'userType:ECON'])->group(function () {

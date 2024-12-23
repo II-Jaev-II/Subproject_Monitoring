@@ -512,7 +512,7 @@ class WordController extends Controller
 
         // Add "ECON" positioned to the left
         $cell->addText(
-            'ECON',
+            'ECON Validation',
             [
                 'name' => 'Times New Roman',
                 'size' => 12,
@@ -549,7 +549,7 @@ class WordController extends Controller
 
         // Add "GGU" positioned to the left
         $cell->addText(
-            'GGU',
+            'GGU Validation',
             [
                 'name' => 'Times New Roman',
                 'size' => 12,
@@ -586,7 +586,7 @@ class WordController extends Controller
 
         // Add "SES" positioned to the left
         $cell->addText(
-            'SES',
+            'SES Validation',
             [
                 'name' => 'Times New Roman',
                 'size' => 12,

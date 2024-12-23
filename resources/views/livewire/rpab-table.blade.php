@@ -45,7 +45,9 @@
                     <td class="px-2 py-2 flex items-center gap-2">
                         <!-- View Button -->
                         <div class="relative group inline-block">
-                            <a href="{{ route('ggu.view-rpab-subproject') }}"
+                            <a href="{{ $userType === 'IPLAN'
+                                                    ? route('iplan.view-rpab-subproject', $subproject->id)
+                                                            : route('ggu.view-rpab-subproject', $subproject->id) }}"
                                 class="flex items-center justify-center gap-2 border border-transparent text-sm md:text-base leading-4 font-medium rounded-md text-gray-700 dark:text-white bg-lime-300 dark:bg-lime-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-4 py-3 sm:px-3 sm:py-2 w-12 h-12 sm:w-10 sm:h-10">
                                 <img src="/images/eye.svg" alt="View" class="w-6 h-6 sm:w-5 sm:h-5">
                             </a>
@@ -56,7 +58,15 @@
                         </div>
                         <!-- Edit Button -->
                         <div class="relative group inline-block">
-                            <a href="{{ route('ggu.rpab-validate-subproject', $subproject->id) }}"
+                            <a href="{{ $userType === 'IPLAN'
+                                                    ? ($subproject->iPlanStatus
+                                                        ? route('iplan.edit-subproject', $subproject->id)
+                                                        : route('iplan.rpab-validate-subproject', $subproject->id))
+                                                            : ($userType === 'GGU'
+                                                                ? ($subproject->gguStatus
+                                                                    ? route('ggu.edit-subproject', $subproject->id)
+                                                                    : route('ggu.rpab-validate-subproject', $subproject->id))
+                                                                : '#') }}"
                                 class="flex items-center justify-center gap-2 border border-transparent text-sm md:text-base leading-4 font-medium rounded-md text-gray-700 dark:text-white bg-sky-300 dark:bg-sky-500 hover:text-gray-700 dark:hover:text-gray-300 transition ease-in-out duration-150 px-4 py-3 sm:px-3 sm:py-2 w-12 h-12 sm:w-10 sm:h-10">
                                 <img src="/images/pencil-square.svg" alt="Edit" class="w-6 h-6 sm:w-5 sm:h-5">
                             </a>

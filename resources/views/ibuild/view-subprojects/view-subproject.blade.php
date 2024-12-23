@@ -49,7 +49,7 @@
                         Validation Report</a>
                 </div>
                 @endif
-                <div class="flex md:space-x-2 absolute -top-5">
+                <div class="flex flex-col relative top-6 md:flex-row md:space-x-2 md:absolute md:-top-5">
                     <a href="#" @click.prevent="selectedComponent = 'IPLAN'"
                         :class="{
                             'dark:bg-lime-500 bg-green-500': selectedComponent === 'IPLAN',

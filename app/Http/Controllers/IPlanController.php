@@ -156,6 +156,11 @@ class IPlanController extends Controller
         ]);
     }
 
+    public function showRpab()
+    {
+        return view('iplan.rpab');
+    }
+
     public function showClearances()
     {
         $subprojects = Subproject::all();
