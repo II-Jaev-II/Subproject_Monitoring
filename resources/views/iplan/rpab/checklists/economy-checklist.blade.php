@@ -132,7 +132,7 @@
 
 <div x-data="{ selectedOptionEconomicVision: '' }" x-cloak>
     <div class="flex items-center space-x-3">
-        <label for="availableFacilities" class="dark:text-green-600 leading-tight text-sm md:text-base">
+        <label for="economicVision" class="dark:text-green-600 leading-tight text-sm md:text-base">
             Economic vision or thrusts
         </label>
     </div>
@@ -165,7 +165,7 @@
 
 <div x-data="{ selectedOptionEmploymentRate: '' }" x-cloak>
     <div class="flex items-center space-x-3">
-        <label for="availableFacilities" class="dark:text-green-600 leading-tight text-sm md:text-base">
+        <label for="employmentRate" class="dark:text-green-600 leading-tight text-sm md:text-base">
             Employment rate & disaggregation by sector
         </label>
     </div>

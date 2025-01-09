@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use App\Models\RpabStatus;
 use App\Models\Subproject;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -36,20 +35,8 @@ class RpabTable extends Component
             })
             ->paginate($this->perPage);
 
-        $rpabStatuses = RpabStatus::all();
-
-        foreach ($rpabStatuses as $rpabStatus) {
-            $rpabStatus->iBuildStatus = in_array($rpabStatus->iBUILD, ['OK', 'Pending', 'Failed']);
-            $rpabStatus->iPlanStatus = in_array($rpabStatus->iPLAN, ['OK', 'Pending', 'Failed']);
-            $rpabStatus->iReapStatus = in_array($rpabStatus->iREAP, ['OK', 'Pending', 'Failed']);
-            $rpabStatus->sesStatus = in_array($rpabStatus->SES, ['OK', 'Pending', 'Failed']);
-            $rpabStatus->gguStatus = in_array($rpabStatus->GGU, ['OK', 'Pending', 'Failed']);
-            $rpabStatus->econStatus = in_array($rpabStatus->ECON, ['OK', 'Pending', 'Failed']);
-        }
-
         return view('livewire.rpab-table', [
             'subprojects' => $subprojects,
-            'rpabStatuses' => $rpabStatuses,
             'userType' => $this->userType,
         ]);
     }

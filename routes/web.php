@@ -60,6 +60,7 @@ Route::middleware(['auth', 'userType:IPLAN'])->group(function () {
 
     Route::get('/iplan/view-rpab-subproject', [IplanRpabController::class, 'view'])->name('iplan.view-rpab-subproject');
     Route::get('/iplan/rpab-validate-subproject/{id}', [IplanRpabController::class, 'validateSubproject'])->name('iplan.rpab-validate-subproject');
+    Route::post('/iplan/rpab-store-validation/{id}', [IplanRpabController::class, 'store'])->name('iplan.rpab-store-validation');
 });
 
 Route::middleware(['auth', 'userType:ECON'])->group(function () {

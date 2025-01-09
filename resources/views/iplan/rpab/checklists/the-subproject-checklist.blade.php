@@ -252,10 +252,3 @@
             rows="2" name="livingConditions" id="livingConditions"></textarea>
     </div>
 </div>
-
-<div class="flex items-center space-x-4 mt-4 mb-6">
-    <label for="reviewDate" class="dark:text-green-600 text-black text-sm md:text-base">Date of Review <span
-            class="text-red-500">*</span></label>
-    <input type="date" name="reviewDate" id="reviewDate" value="{{ old('reviewDate') }}"
-        class="dark:bg-gray-900 rounded-md dark:[color-scheme:dark]" required>
-</div>

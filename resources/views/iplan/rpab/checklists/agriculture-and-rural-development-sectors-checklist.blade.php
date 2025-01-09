@@ -1,6 +1,6 @@
 <div x-data="{ selectedOptionPriorityCommodities: '' }" x-cloak>
     <div class="flex items-center space-x-3">
-        <label for="availableFacilities" class="dark:text-green-600 leading-tight text-sm md:text-base">
+        <label for="priorityCommodities" class="dark:text-green-600 leading-tight text-sm md:text-base">
             Priority commodities (highlight commodity industry where SP will be linked)
         </label>
     </div>
