@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DynamicAddressController;
 use App\Http\Controllers\EconController;
+use App\Http\Controllers\GenerateIplanRpabReportController;
 use App\Http\Controllers\GGUController;
 use App\Http\Controllers\GGURpabController;
 use App\Http\Controllers\IBuildController;
@@ -17,8 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('/generate-word/{id}', [WordController::class, 'generateReport'])->name('generate.word');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -45,6 +44,8 @@ Route::middleware(['auth', 'userType:IBUILD'])->group(function () {
     Route::post('/ibuild/store-validated-subproject', [IBuildController::class, 'storeValidatedSubproject'])->name('ibuild.store-validated-subproject');
     Route::get('/ibuild/create-subproject', [IBuildController::class, 'create'])->name('ibuild.create-subproject');
     Route::post('/ibuild/store-subproject', [IBuildController::class, 'store'])->name('ibuild.store-subproject');
+
+    Route::get('/generate-word/{id}', [WordController::class, 'generateReport'])->name('generate.word');
 });
 
 Route::middleware(['auth', 'userType:IPLAN'])->group(function () {
@@ -58,9 +59,11 @@ Route::middleware(['auth', 'userType:IPLAN'])->group(function () {
     Route::get('/iplan/validate-subprojects/{id}', [IPlanController::class, 'validateSubproject'])->name('iplan.validate-subprojects');
     Route::post('/iplan/store-subproject', [IPlanController::class, 'store'])->name('iplan.store-subproject');
 
-    Route::get('/iplan/view-rpab-subproject', [IplanRpabController::class, 'view'])->name('iplan.view-rpab-subproject');
+    Route::get('/iplan/view-rpab-subproject/{id}', [IplanRpabController::class, 'view'])->name('iplan.view-rpab-subproject');
     Route::get('/iplan/rpab-validate-subproject/{id}', [IplanRpabController::class, 'validateSubproject'])->name('iplan.rpab-validate-subproject');
     Route::post('/iplan/rpab-store-validation/{id}', [IplanRpabController::class, 'store'])->name('iplan.rpab-store-validation');
+
+    Route::get('/iplan-generate-report/{id}', [GenerateIplanRpabReportController::class, 'generateReport'])->name('iplan.generate-report');
 });
 
 Route::middleware(['auth', 'userType:ECON'])->group(function () {

@@ -143,6 +143,8 @@
 
                             <div class="mt-6 flex justify-between">
                                 <button
+                                    x-cloak
+                                    style="display: none !important;"
                                     type="button"
                                     x-show="step > 1"
                                     @click="prevStep()"
@@ -159,6 +161,8 @@
                                 </button>
 
                                 <button
+                                    x-cloak
+                                    style="display: none !important;"
                                     type="submit"
                                     x-show="step === 6"
                                     @click.prevent="submitForm()"

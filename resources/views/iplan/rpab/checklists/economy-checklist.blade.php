@@ -1,4 +1,6 @@
-<div x-data="{ selectedOptionAgricultureIncome: '' }" x-cloak>
+<div x-data="{
+    selectedOptionAgricultureIncome: '{{ $iPlanRpabChecklist->agricultureIncomeStatus ?? '' }}',
+    agricultureIncome: '{{ $iPlanRpabChecklist->agricultureIncomeComments ?? '' }}' }" x-cloak>
     <div class="flex items-center space-x-3">
         <label for="agricultureIncome" class="dark:text-green-600 leading-tight text-sm md:text-base">
             Percentage of agriculture income & employment or contribution of agricultural sector in the economy
@@ -19,19 +21,21 @@
     </div>
 
     <div x-cloak style="display: none !important;" x-show="selectedOptionAgricultureIncome" x-transition class="mt-3"
-        x-effect="if (!selectedOptionAgricultureIncome) { $refs.agricultureIncomeTextbox.value = '' }">
+        x-effect="if (!selectedOptionAgricultureIncome) { agricultureIncome = '' }">
         <label class="block text-sm font-medium"
             :class="selectedOptionAgricultureIncome === 'notComplied' ? 'dark:text-gray-300' : 'dark:text-gray-300'"
             x-html="selectedOptionAgricultureIncome === 'notComplied'
                                                 ? 'Comments <span class=\'italic text-red-500\'>(Required)</span>' 
                                                 : 'Comments <span class=\'italic text-gray-500\'>(Optional)</span>'">
         </label>
-        <textarea x-ref="agricultureIncomeTextbox" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 p-2"
+        <textarea x-model="agricultureIncome" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 p-2"
             rows="2" name="agricultureIncome" id="agricultureIncome"></textarea>
     </div>
 </div>
 
-<div x-data="{ selectedOptionIncomeDisaggregation: '' }" x-cloak>
+<div x-data="{
+    selectedOptionIncomeDisaggregation: '{{ $iPlanRpabChecklist->incomeDisaggregationStatus ?? '' }}',
+    incomeDisaggregation: '{{ $iPlanRpabChecklist->incomeDisaggregationComments ?? '' }}' }" x-cloak>
     <div class="flex items-center space-x-3">
         <label for="incomeDisaggregation" class="dark:text-green-600 leading-tight text-sm md:text-base">
             Income disaggregation by sector
@@ -52,19 +56,21 @@
     </div>
 
     <div x-cloak style="display: none !important;" x-show="selectedOptionIncomeDisaggregation" x-transition class="mt-3"
-        x-effect="if (!selectedOptionIncomeDisaggregation) { $refs.incomeDisaggregationTextbox.value = '' }">
+        x-effect="if (!selectedOptionIncomeDisaggregation) { incomeDisaggregation = '' }">
         <label class="block text-sm font-medium"
             :class="selectedOptionIncomeDisaggregation === 'notComplied' ? 'dark:text-gray-300' : 'dark:text-gray-300'"
             x-html="selectedOptionIncomeDisaggregation === 'notComplied'
                                                 ? 'Comments <span class=\'italic text-red-500\'>(Required)</span>' 
                                                 : 'Comments <span class=\'italic text-gray-500\'>(Optional)</span>'">
         </label>
-        <textarea x-ref="incomeDisaggregationTextbox" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 p-2"
+        <textarea x-model="incomeDisaggregation" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 p-2"
             rows="2" name="incomeDisaggregation" id="incomeDisaggregation"></textarea>
     </div>
 </div>
 
-<div x-data="{ selectedOptionPovertyIncidence: '' }" x-cloak>
+<div x-data="{
+    selectedOptionPovertyIncidence: '{{ $iPlanRpabChecklist->povertyIncidenceStatus ?? '' }}',
+    povertyIncidence: '{{ $iPlanRpabChecklist->povertyIncidenceComments ?? '' }}' }" x-cloak>
     <div class="flex items-center space-x-3">
         <label for="povertyIncidence" class="dark:text-green-600 leading-tight text-sm md:text-base">
             Poverty Incidence (2018 or 2021 PSA data)
@@ -85,19 +91,21 @@
     </div>
 
     <div x-cloak style="display: none !important;" x-show="selectedOptionPovertyIncidence" x-transition class="mt-3"
-        x-effect="if (!selectedOptionPovertyIncidence) { $refs.povertyIncidenceTextbox.value = '' }">
+        x-effect="if (!selectedOptionPovertyIncidence) { povertyIncidence = '' }">
         <label class="block text-sm font-medium"
             :class="selectedOptionPovertyIncidence === 'notComplied' ? 'dark:text-gray-300' : 'dark:text-gray-300'"
             x-html="selectedOptionPovertyIncidence === 'notComplied'
                                                 ? 'Comments <span class=\'italic text-red-500\'>(Required)</span>' 
                                                 : 'Comments <span class=\'italic text-gray-500\'>(Optional)</span>'">
         </label>
-        <textarea x-ref="povertyIncidenceTextbox" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 p-2"
+        <textarea x-model="povertyIncidence" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 p-2"
             rows="2" name="povertyIncidence" id="povertyIncidence"></textarea>
     </div>
 </div>
 
-<div x-data="{ selectedOptionAvailableFacilities: '' }" x-cloak>
+<div x-data="{
+    selectedOptionAvailableFacilities: '{{ $iPlanRpabChecklist->availableFacilitiesStatus ?? '' }}',
+    availableFacilities: '{{ $iPlanRpabChecklist->availableFacilitiesComments ?? '' }}' }" x-cloak>
     <div class="flex items-center space-x-3">
         <label for="availableFacilities" class="dark:text-green-600 leading-tight text-sm md:text-base">
             Available Facilities (post-harvest facilities, banks, agri-markets)
@@ -118,19 +126,21 @@
     </div>
 
     <div x-cloak style="display: none !important;" x-show="selectedOptionAvailableFacilities" x-transition class="mt-3"
-        x-effect="if (!selectedOptionAvailableFacilities) { $refs.availableFacilitiesTextbox.value = '' }">
+        x-effect="if (!selectedOptionAvailableFacilities) { availableFacilities = '' }">
         <label class="block text-sm font-medium"
             :class="selectedOptionAvailableFacilities === 'notComplied' ? 'dark:text-gray-300' : 'dark:text-gray-300'"
             x-html="selectedOptionAvailableFacilities === 'notComplied'
                                                 ? 'Comments <span class=\'italic text-red-500\'>(Required)</span>' 
                                                 : 'Comments <span class=\'italic text-gray-500\'>(Optional)</span>'">
         </label>
-        <textarea x-ref="availableFacilitiesTextbox" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 p-2"
+        <textarea x-model="availableFacilities" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 p-2"
             rows="2" name="availableFacilities" id="availableFacilities"></textarea>
     </div>
 </div>
 
-<div x-data="{ selectedOptionEconomicVision: '' }" x-cloak>
+<div x-data="{
+    selectedOptionEconomicVision: '{{ $iPlanRpabChecklist->economicVisionStatus ?? '' }}',
+    economicVision: '{{ $iPlanRpabChecklist->economicVisionComments ?? '' }}' }" x-cloak>
     <div class="flex items-center space-x-3">
         <label for="economicVision" class="dark:text-green-600 leading-tight text-sm md:text-base">
             Economic vision or thrusts
@@ -151,19 +161,21 @@
     </div>
 
     <div x-cloak style="display: none !important;" x-show="selectedOptionEconomicVision" x-transition class="mt-3"
-        x-effect="if (!selectedOptionEconomicVision) { $refs.economicVisionTextbox.value = '' }">
+        x-effect="if (!selectedOptionEconomicVision) { economicVision = '' }">
         <label class="block text-sm font-medium"
             :class="selectedOptionEconomicVision === 'notComplied' ? 'dark:text-gray-300' : 'dark:text-gray-300'"
             x-html="selectedOptionEconomicVision === 'notComplied'
                                                 ? 'Comments <span class=\'italic text-red-500\'>(Required)</span>' 
                                                 : 'Comments <span class=\'italic text-gray-500\'>(Optional)</span>'">
         </label>
-        <textarea x-ref="economicVisionTextbox" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 p-2"
+        <textarea x-model="economicVision" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 p-2"
             rows="2" name="economicVision" id="economicVision"></textarea>
     </div>
 </div>
 
-<div x-data="{ selectedOptionEmploymentRate: '' }" x-cloak>
+<div x-data="{
+    selectedOptionEmploymentRate: '{{ $iPlanRpabChecklist->employmentRateStatus ?? '' }}',
+    employmentRate: '{{ $iPlanRpabChecklist->employmentRateComments ?? '' }}' }" x-cloak>
     <div class="flex items-center space-x-3">
         <label for="employmentRate" class="dark:text-green-600 leading-tight text-sm md:text-base">
             Employment rate & disaggregation by sector
@@ -184,14 +196,14 @@
     </div>
 
     <div x-cloak style="display: none !important;" x-show="selectedOptionEmploymentRate" x-transition class="mt-3"
-        x-effect="if (!selectedOptionEmploymentRate) { $refs.employmentRateTextbox.value = '' }">
+        x-effect="if (!selectedOptionEmploymentRate) { employmentRate = '' }">
         <label class="block text-sm font-medium"
             :class="selectedOptionEmploymentRate === 'notComplied' ? 'dark:text-gray-300' : 'dark:text-gray-300'"
             x-html="selectedOptionEmploymentRate === 'notComplied'
                                                 ? 'Comments <span class=\'italic text-red-500\'>(Required)</span>' 
                                                 : 'Comments <span class=\'italic text-gray-500\'>(Optional)</span>'">
         </label>
-        <textarea x-ref="employmentRateTextbox" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 p-2"
+        <textarea x-model="employmentRate" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 p-2"
             rows="2" name="employmentRate" id="employmentRate"></textarea>
     </div>
 </div>

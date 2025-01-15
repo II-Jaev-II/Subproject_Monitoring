@@ -72,7 +72,7 @@
                             </a>
                             <span
                                 class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden text-xs sm:text-[10px] text-white bg-gray-800 rounded py-1 px-2 group-hover:block">
-                                Edit
+                                Validate
                             </span>
                         </div>
                     </td>

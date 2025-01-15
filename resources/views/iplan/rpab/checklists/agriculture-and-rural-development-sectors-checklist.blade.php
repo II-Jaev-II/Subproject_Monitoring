@@ -1,4 +1,6 @@
-<div x-data="{ selectedOptionPriorityCommodities: '' }" x-cloak>
+<div x-data="{
+    selectedOptionPriorityCommodities: '{{ $iPlanRpabChecklist->priorityCommoditiesStatus ?? '' }}',
+    priorityCommodities: '{{ $iPlanRpabChecklist->priorityCommoditiesComments ?? '' }}' }" x-cloak>
     <div class="flex items-center space-x-3">
         <label for="priorityCommodities" class="dark:text-green-600 leading-tight text-sm md:text-base">
             Priority commodities (highlight commodity industry where SP will be linked)
@@ -19,19 +21,21 @@
     </div>
 
     <div x-cloak style="display: none !important;" x-show="selectedOptionPriorityCommodities" x-transition class="mt-3"
-        x-effect="if (!selectedOptionPriorityCommodities) { $refs.priorityCommoditiesTextbox.value = '' }">
+        x-effect="if (!selectedOptionPriorityCommodities) { priorityCommodities = '' }">
         <label class="block text-sm font-medium"
             :class="selectedOptionPriorityCommodities === 'notComplied' ? 'dark:text-gray-300' : 'dark:text-gray-300'"
             x-html="selectedOptionPriorityCommodities === 'notComplied'
                                                 ? 'Comments <span class=\'italic text-red-500\'>(Required)</span>' 
                                                 : 'Comments <span class=\'italic text-gray-500\'>(Optional)</span>'">
         </label>
-        <textarea x-ref="priorityCommoditiesTextbox" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 p-2"
+        <textarea x-model="priorityCommodities" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 p-2"
             rows="2" name="priorityCommodities" id="priorityCommodities"></textarea>
     </div>
 </div>
 
-<div x-data="{ selectedOptionExistingMarkets: '' }" x-cloak>
+<div x-data="{
+    selectedOptionExistingMarkets: '{{ $iPlanRpabChecklist->existingMarketsStatus ?? '' }}',
+    existingMarkets: '{{ $iPlanRpabChecklist->existingMarketsComments ?? '' }}' }" x-cloak>
     <div class="flex items-center space-x-3">
         <label for="existingMarkets" class="dark:text-green-600 leading-tight text-sm md:text-base">
             Existing markets (nearby provinces, local, and other major markets even outside the region if applicable)
@@ -52,19 +56,21 @@
     </div>
 
     <div x-cloak style="display: none !important;" x-show="selectedOptionExistingMarkets" x-transition class="mt-3"
-        x-effect="if (!selectedOptionExistingMarkets) { $refs.existingMarketsTextbox.value = '' }">
+        x-effect="if (!selectedOptionExistingMarkets) { existingMarkets = '' }">
         <label class="block text-sm font-medium"
             :class="selectedOptionExistingMarkets === 'notComplied' ? 'dark:text-gray-300' : 'dark:text-gray-300'"
             x-html="selectedOptionExistingMarkets === 'notComplied'
                                                 ? 'Comments <span class=\'italic text-red-500\'>(Required)</span>' 
                                                 : 'Comments <span class=\'italic text-gray-500\'>(Optional)</span>'">
         </label>
-        <textarea x-ref="existingMarketsTextbox" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 p-2"
+        <textarea x-model="existingMarkets" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 p-2"
             rows="2" name="existingMarkets" id="existingMarkets"></textarea>
     </div>
 </div>
 
-<div x-data="{ selectedOptionSoilDescription: '' }" x-cloak>
+<div x-data="{
+    selectedOptionSoilDescription: '{{ $iPlanRpabChecklist->soilDescriptionStatus ?? '' }}',
+    soilDescription: '{{ $iPlanRpabChecklist->soilDescriptionComments ?? '' }}' }" x-cloak>
     <div class="flex items-center space-x-3">
         <label for="soilDescription" class="dark:text-green-600 leading-tight text-sm md:text-base">
             Soil description (suitability and characteristics) e.g. sandy, loam, clay, terrain
@@ -85,19 +91,21 @@
     </div>
 
     <div x-cloak style="display: none !important;" x-show="selectedOptionSoilDescription" x-transition class="mt-3"
-        x-effect="if (!selectedOptionSoilDescription) { $refs.soilDescriptionTextbox.value = '' }">
+        x-effect="if (!selectedOptionSoilDescription) { soilDescription = '' }">
         <label class="block text-sm font-medium"
             :class="selectedOptionSoilDescription === 'notComplied' ? 'dark:text-gray-300' : 'dark:text-gray-300'"
             x-html="selectedOptionSoilDescription === 'notComplied'
                                                 ? 'Comments <span class=\'italic text-red-500\'>(Required)</span>' 
                                                 : 'Comments <span class=\'italic text-gray-500\'>(Optional)</span>'">
         </label>
-        <textarea x-ref="soilDescriptionTextbox" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 p-2"
+        <textarea x-model="soilDescription" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 p-2"
             rows="2" name="soilDescription" id="soilDescription"></textarea>
     </div>
 </div>
 
-<div x-data="{ selectedOptionAgriculturalVision: '' }" x-cloak>
+<div x-data="{
+    selectedOptionAgriculturalVision: '{{ $iPlanRpabChecklist->agriculturalVisionStatus ?? '' }}',
+    agriculturalVision: '{{ $iPlanRpabChecklist->agriculturalVisionComments ?? '' }}' }" x-cloak>
     <div class="flex items-center space-x-3">
         <label for="agriculturalVision" class="dark:text-green-600 leading-tight text-sm md:text-base">
             Agricultural vision or thrusts (e.g. mechanization, cooperation and association, high-value commodities)
@@ -118,19 +126,21 @@
     </div>
 
     <div x-cloak style="display: none !important;" x-show="selectedOptionAgriculturalVision" x-transition class="mt-3"
-        x-effect="if (!selectedOptionAgriculturalVision) { $refs.agriculturalVisionTextbox.value = '' }">
+        x-effect="if (!selectedOptionAgriculturalVision) { agriculturalVision = '' }">
         <label class="block text-sm font-medium"
             :class="selectedOptionAgriculturalVision === 'notComplied' ? 'dark:text-gray-300' : 'dark:text-gray-300'"
             x-html="selectedOptionAgriculturalVision === 'notComplied'
                                                 ? 'Comments <span class=\'italic text-red-500\'>(Required)</span>' 
                                                 : 'Comments <span class=\'italic text-gray-500\'>(Optional)</span>'">
         </label>
-        <textarea x-ref="agriculturalVisionTextbox" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 p-2"
+        <textarea x-model="agriculturalVision" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 p-2"
             rows="2" name="agriculturalVision" id="agriculturalVision"></textarea>
     </div>
 </div>
 
-<div x-data="{ selectedOptionWaterResources: '' }" x-cloak>
+<div x-data="{
+    selectedOptionWaterResources: '{{ $iPlanRpabChecklist->waterResourcesStatus ?? '' }}',
+    waterResources: '{{ $iPlanRpabChecklist->waterResourcesComments ?? '' }}' }" x-cloak>
     <div class="flex items-center space-x-3">
         <label for="waterResources" class="dark:text-green-600 leading-tight text-sm md:text-base">
             Water resources (e.g. rivers, electric pumps, wells)
@@ -151,19 +161,21 @@
     </div>
 
     <div x-cloak style="display: none !important;" x-show="selectedOptionWaterResources" x-transition class="mt-3"
-        x-effect="if (!selectedOptionWaterResources) { $refs.waterResourcesTextbox.value = '' }">
+        x-effect="if (!selectedOptionWaterResources) { waterResources = '' }">
         <label class="block text-sm font-medium"
             :class="selectedOptionWaterResources === 'notComplied' ? 'dark:text-gray-300' : 'dark:text-gray-300'"
             x-html="selectedOptionWaterResources === 'notComplied'
                                                 ? 'Comments <span class=\'italic text-red-500\'>(Required)</span>' 
                                                 : 'Comments <span class=\'italic text-gray-500\'>(Optional)</span>'">
         </label>
-        <textarea x-ref="waterResourcesTextbox" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 p-2"
+        <textarea x-model="waterResources" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 p-2"
             rows="2" name="waterResources" id="waterResources"></textarea>
     </div>
 </div>
 
-<div x-data="{ selectedOptionClimateRainfall: '' }" x-cloak>
+<div x-data="{
+    selectedOptionClimateRainfall: '{{ $iPlanRpabChecklist->climateRainfallStatus ?? '' }}',
+    climateRainfall: '{{ $iPlanRpabChecklist->climateRainfallComments ?? '' }}' }" x-cloak>
     <div class="flex items-center space-x-3">
         <label for="climateRainfall" class="dark:text-green-600 leading-tight text-sm md:text-base">
             Climate & Rainfall
@@ -184,19 +196,21 @@
     </div>
 
     <div x-cloak style="display: none !important;" x-show="selectedOptionClimateRainfall" x-transition class="mt-3"
-        x-effect="if (!selectedOptionClimateRainfall) { $refs.climateRainfallTextbox.value = '' }">
+        x-effect="if (!selectedOptionClimateRainfall) { climateRainfall = '' }">
         <label class="block text-sm font-medium"
             :class="selectedOptionClimateRainfall === 'notComplied' ? 'dark:text-gray-300' : 'dark:text-gray-300'"
             x-html="selectedOptionClimateRainfall === 'notComplied'
                                                 ? 'Comments <span class=\'italic text-red-500\'>(Required)</span>' 
                                                 : 'Comments <span class=\'italic text-gray-500\'>(Optional)</span>'">
         </label>
-        <textarea x-ref="climateRainfallTextbox" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 p-2"
+        <textarea x-model="climateRainfall" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 p-2"
             rows="2" name="climateRainfall" id="climateRainfall"></textarea>
     </div>
 </div>
 
-<div x-data="{ selectedOptionEnterprisesAvailable: '' }" x-cloak>
+<div x-data="{
+    selectedOptionEnterprisesAvailable: '{{ $iPlanRpabChecklist->enterprisesAvailableStatus ?? '' }}',
+    enterprisesAvailable: '{{ $iPlanRpabChecklist->enterprisesAvailableComments ?? '' }}' }" x-cloak>
     <div class="flex items-center space-x-3">
         <label for="enterprisesAvailable" class="dark:text-green-600 leading-tight text-sm md:text-base">
             Enterprises available (e.g. small-scale processing)
@@ -217,14 +231,14 @@
     </div>
 
     <div x-cloak style="display: none !important;" x-show="selectedOptionEnterprisesAvailable" x-transition class="mt-3"
-        x-effect="if (!selectedOptionEnterprisesAvailable) { $refs.enterprisesAvailableTextbox.value = '' }">
+        x-effect="if (!selectedOptionEnterprisesAvailable) { enterprisesAvailable = '' }">
         <label class="block text-sm font-medium"
             :class="selectedOptionEnterprisesAvailable === 'notComplied' ? 'dark:text-gray-300' : 'dark:text-gray-300'"
             x-html="selectedOptionEnterprisesAvailable === 'notComplied'
                                                 ? 'Comments <span class=\'italic text-red-500\'>(Required)</span>' 
                                                 : 'Comments <span class=\'italic text-gray-500\'>(Optional)</span>'">
         </label>
-        <textarea x-ref="enterprisesAvailableTextbox" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 p-2"
+        <textarea x-model="enterprisesAvailable" class="block border-1 rounded-md dark:border-gray-700 dark:bg-gray-900 bg-gray-50 border-gray-400 w-full mt-1 p-2"
             rows="2" name="enterprisesAvailable" id="enterprisesAvailable"></textarea>
     </div>
 </div>

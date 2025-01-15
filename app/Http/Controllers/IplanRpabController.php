@@ -17,16 +17,27 @@ class IplanRpabController extends Controller
         //
     }
 
-    public function view()
+    public function view($id)
     {
-        return view('iplan.rpab.view-subproject');
+
+        $iPlanChecklists = IplanRpabChecklist::where('subprojectId', $id)
+            ->latest()
+            ->get();
+
+        $latestChecklist = $iPlanChecklists->first();
+
+        return view('iplan.rpab.view-subproject', compact('iPlanChecklists', 'latestChecklist'));
     }
 
     public function validateSubproject($id)
     {
         $subproject = Subproject::findOrFail($id);
 
-        return view('iplan.rpab.iplan-rpab-checklist', compact('subproject'));
+        $iPlanRpabChecklist = IplanRpabChecklist::where('subprojectId', $id)
+            ->latest()
+            ->first();
+
+        return view('iplan.rpab.iplan-rpab-checklist', compact('subproject', 'iPlanRpabChecklist'));
     }
 
     /**
