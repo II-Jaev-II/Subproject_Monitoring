@@ -15,6 +15,7 @@ class IplanRpabChecklist extends Model
         'subprojectId',
         'reviewDate',
         'percentageAccomplishment',
+        'counterpart',
         'geographyStatus',
         'geographyComments',
         'landAreaDescriptionStatus',

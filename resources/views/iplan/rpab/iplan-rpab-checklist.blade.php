@@ -65,18 +65,26 @@
                                             },
 
                                             submitForm() {
-                                                this.showDateError = false;
-                                                let dateInput = document.querySelector('#reviewDate');
+                                                    this.showDateError = false;
+                                                    this.showCounterpartError = false;
 
-                                                if (!dateInput.value.trim()) {
-                                                    this.showDateError = true;
-                                                    return;
-                                                }
+                                                    let dateInput = document.querySelector('#reviewDate');
+                                                    let counterpartInput = document.querySelector('#counterpart');
 
-                                                if (this.validateStep() && this.validatePercentage()) {
-                                                    this.$root.closest('form').submit();
+                                                    if (!dateInput.value.trim()) {
+                                                        this.showDateError = true;
+                                                        return;
+                                                    }
+
+                                                    if (!counterpartInput.value.trim()) {
+                                                        this.showCounterpartError = true;
+                                                        return;
+                                                    }
+
+                                                    if (this.validateStep() && this.validatePercentage()) {
+                                                        this.$root.closest('form').submit();
+                                                    }
                                                 }
-                                            }
                                     }">
 
                             <div x-show="step === 1">
@@ -133,6 +141,12 @@
                                         inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
                                     <div x-show="showPercentageError" class="text-red-600 mt-2" x-cloak style="display: none !important;">
                                         Please enter a valid percentage between 0 and 100.
+                                    </div>
+
+                                    <label for="counterpart" class="dark:text-green-600 text-black text-sm md:text-base">Counterpart <span class="text-red-500">*</span></label>
+                                    <input type="text" id="counterpart" name="counterpart" class="dark:bg-gray-900 rounded-md w-32" required>
+                                    <div x-show="showCounterpartError" class="text-red-600 mt-2" x-cloak style="display: none !important;">
+                                        Please enter the counterpart.
                                     </div>
                                 </div>
                             </div>

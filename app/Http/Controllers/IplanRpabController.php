@@ -60,6 +60,7 @@ class IplanRpabController extends Controller
             'subprojectId' => $request->get('subprojectId'),
             'reviewDate' => $request->get('reviewDate'),
             'percentageAccomplishment' => $request->get('percentageAccomplishment'),
+            'counterpart' => $request->get('counterpart'),
             'geographyStatus' => $request->get('geographyStatus', null),
             'geographyComments' => $request->get('geography', null),
             'landAreaDescriptionStatus' => $request->get('landAreaDescriptionStatus', null),
